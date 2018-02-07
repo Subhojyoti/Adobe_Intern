@@ -1,0 +1,180 @@
+%
+% This is the LaTeX template file for lecture notes for CS267,
+% Applications of Parallel Computing.  When preparing 
+% LaTeX notes for this class, please use this template.
+%
+% To familiarize yourself with this template, the body contains
+% some examples of its use.  Look them over.  Then you can
+% run LaTeX on this file.  After you have LaTeXed this file then
+% you can look over the result either by printing it out with
+% dvips or using xdvi.
+%
+
+\documentclass[twoside]{article}
+\setlength{\oddsidemargin}{0.25 in}
+\setlength{\evensidemargin}{-0.25 in}
+\setlength{\topmargin}{-0.6 in}
+\setlength{\textwidth}{6.5 in}
+\setlength{\textheight}{8.5 in}
+\setlength{\headsep}{0.75 in}
+\setlength{\parindent}{0 in}
+\setlength{\parskip}{0.1 in}
+
+%
+% ADD PACKAGES here:
+%
+
+\usepackage{amsfonts,graphicx}
+%\usepackage{amsmath}
+\usepackage{algorithm}
+%\usepackage[noend]{algpseudocode}
+\usepackage{verbatim}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+%\usepackage[margin=1in]{geometry}
+\usepackage{natbib}
+%\setcitestyle{nocompress}
+%\bibpunct{(}{)}{;}{a}{}{,}
+
+% \usepackage[nocompress]{cite}
+%\usepackage{graphicx}
+%\usepackage[cmex10]{amsmath}
+%\usepackage{authblk}
+% \usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
+\usepackage{macros}
+
+
+%
+% The following commands set up the lecnum (lecture number)
+% counter and make various numbering schemes work relative
+% to the lecture number.
+%
+\newcounter{lecnum}
+\renewcommand{\thepage}{\arabic{page}}
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\theequation}{\arabic{equation}}
+\renewcommand{\thefigure}{\arabic{figure}}
+\renewcommand{\thetable}{\arabic{table}}
+
+%
+% The following macro is used to generate the header.
+%
+\newcommand{\lecture}[4]{
+   \pagestyle{myheadings}
+   \thispagestyle{plain}
+   \newpage
+   \setcounter{lecnum}{#1}
+   \setcounter{page}{1}
+   \noindent
+   \begin{center}
+   \framebox{
+      \vbox{\vspace{2mm}
+    \hbox to 6.28in { {\bf Report on my work with Adobe
+		\hfill Spring 2018} }
+       \vspace{4mm}
+       \hbox to 6.28in { {\Large \hfill Report on my work with Adobe  \hfill} }
+       \vspace{2mm}
+       \hbox to 6.28in { {\it Adobe Advisor: Branislav Kveton \hfill Intern: Subhojyoti Mukherjee} }
+      \vspace{2mm}}
+   }
+   \end{center}
+   %\markboth{Lecture #1: #2}{Lecture #1: #2}
+
+   {\bf Disclaimer}: {\it These notes have not been subjected to the
+   usual scrutiny reserved for formal publications.  They may be distributed
+   outside this communication only with the permission of the Advisor.}
+   \vspace*{4mm}
+}
+%
+% Convention for citations is authors' initials followed by the year.
+% For example, to cite a paper by Leighton and Maggs you would type
+% \cite{LM89}, and to cite a paper by Strassen you would type \cite{S69}.
+% (To avoid bibliography problems, for now we redefine the \cite command.)
+% Also commands that create a suitable format for the reference list.
+\renewcommand{\cite}[1]{[#1]}
+\def\beginrefs{\begin{list}%
+        {[\arabic{equation}]}{\usecounter{equation}
+         \setlength{\leftmargin}{2.0truecm}\setlength{\labelsep}{0.4truecm}%
+         \setlength{\labelwidth}{1.6truecm}}}
+\def\endrefs{\end{list}}
+\def\bibentry#1{\item[\hbox{[#1]}]}
+
+%Use this command for a figure; it puts a figure in wherever you want it.
+%usage: \fig{NUMBER}{SPACE-IN-INCHES}{CAPTION}
+\newcommand{\fig}[3]{
+			\vspace{#2}
+			\begin{center}
+			Figure #1:~#3
+			\end{center}
+	}
+% Use these for theorems, lemmas, proofs, etc.
+%\newtheorem{theorem}{Theorem}
+%\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{proposition}[theorem]{Proposition}
+%\newtheorem{claim}[theorem]{Claim}
+%\newtheorem{corollary}[theorem]{Corollary}
+%\newtheorem{definition}[theorem]{Definition}
+%\newenvironment{proof}{{\bf Proof:}}{\hfill\rule{2mm}{2mm}}
+
+% **** IF YOU WANT TO DEFINE ADDITIONAL MACROS FOR YOURSELF, PUT THEM HERE:
+
+%\newcommand\E{\mathbb{E}}
+
+
+\begin{document}
+%FILL IN THE RIGHT INFO.
+%\lecture{**LECTURE-NUMBER**}{**DATE**}{**LECTURER**}{**SCRIBE**}
+\lecture{1}{A - Title}{Lecturer Name}{scribe-name}
+%\footnotetext{These notes are partially based on those of Nigel Mansell.}
+
+% **** YOUR NOTES GO HERE:
+
+% Some general latex examples and examples making use of the
+% macros follow.  
+%**** IN GENERAL, BE BRIEF. LONG SCRIBE NOTES, NO MATTER HOW WELL WRITTEN,
+%**** ARE NEVER READ BY ANYBODY.
+%This lecture's notes illustrate some uses of
+%various \LaTeX\ macros.  
+%Take a look at this and imitate.
+
+\section{Summary Of Discussion}
+
+	I have been doing literature survey on the area chosen: \textbf{Learning latent variable models through online learning}. 
+	
+\section{Problem Definition: Latent variable model}
+	
+	
+	
+	
+	
+\section{Notations}
+$T$ denotes the time horizon. $\mathcal{A}$ denotes the set of arms with individual arm is denoted by $i$ such that $i=1,\ldots, K$. The term $S_i$ and $F_i$ denotes the success and the failure respectively for the arm $i$ . The distribution associated with individual arm $i$ is denoted by $D_i$ whereas the reward drawn from that distribution for the $t$-th time instant is denoted by $x_{i,t}$. $r_i$ denotes the expected mean of the reward distribution $D_i$ and $\hat{r}_{i}(t)$ denotes the estimated mean for the arm $i$. All rewards are bounded in $[0,1]$. $n_i$ denotes the number of times arm $i$ has been pulled.
+
+	We define each expert or forecaster as $f_{j}\in \mathcal{M}_t$, where $\mathcal{M}_t$ is the set of all forecasters at time $t$. $\mathcal{M^+}_t$ is the set of new forecasters introduced at time $t$. Also, we define $\hat{L}_{f_i,t}=\sum_{s=1}^{t}\ell_{f_i ,s}$ as the true cumulative loss suffered by the expert $f_i$ till $t$-th timestep and $\hat{L}_{f_i,t}$ as the estimated cumulative loss suffered by an expert $f_i$ till $t$-th timestep such that $\hat{L}_{f_i,t}=\sum_{s=1}^{t}\hat{\ell}_{f_i ,s}$. Similarly, we define $L_{i}$ and $\hat{L}_{i}$ as the true loss and the estimated loss suffered by arm $i$. The weight of an expert $f_i$ at time $t$ is defined as $w_{f_i,t}$ and $\eta$ is defined as a parameter for exploration. Also let $i_{f_j\in \mathcal{M},t}$ be the action suggested by expert $f_j$ at time $t$.
+
+
+%\section{Algorithms}
+%\input{algo}
+%
+%
+%\section{Experiments}
+%\input{expt}
+
+
+%\section{Main Results}
+%\input{proof}
+
+\clearpage
+\newpage
+%\bibliographystyle{plainnat}
+\bibliographystyle{apalike}
+\bibliography{biblio}
+
+\end{document}
+
+
+
+
+
