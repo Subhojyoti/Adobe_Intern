@@ -142,7 +142,7 @@
 
 \section{Summary Of Discussion}
 
-	We have proposed and deliberated on a generalized latent bandit model.
+	We have proposed and deliberated on a generalized latent bandit model. 
 	
 \section{Related Works}
 
@@ -159,7 +159,7 @@
 	
 	To define more formally, let $R$ be matrix of  dimension $K\times L$ where $|A|=K$ is the number of rows and $L=|B|$ is the number of columns. Also, let us assume that this matrix  $R$ has a low rank structure of rank $d << \min\lbrace L,K\rbrace$. Let $U$ and $V$ denote the latent matrices which are not visible to the learner such that,
 \begin{align*}
-	R = UV^{T} \textbf{ \hspace*{4mm}   s.t.   \hspace*{4mm}} U\in [ 0,1 ]^{K\times d} \textbf{, } V\in  [0,1]^{L\times d} 
+	R = UV^{\intercal} \textbf{ \hspace*{4mm}   s.t.   \hspace*{4mm}} U\in [ 0,1 ]^{K\times d} \textbf{, } V\in  [0,1]^{L\times d} 
 \end{align*}	  
 	
 	Furthermore, we put a constraint on $V$ such that, $\forall j\in [L]$, $ ||V(j,:)||_1 \leq 1$. 
@@ -185,7 +185,7 @@ U = \begin{bmatrix}
     0 & 1 \\
     0.5 & 0.5
 \end{bmatrix} \\
-\therefore R = UV^{T} = \begin{bmatrix}
+\therefore R = UV^{\intercal} = \begin{bmatrix}
     1 & 0 & 0.5\\
     0 & 1 & 0.5\\
     0.5 & 0.5 & 0.5
@@ -215,15 +215,15 @@ where $a\in [0,1]^{d}$ and $ ||a||_1 \leq 1$.
 \begin{lemma}
 For any arbitrary row $i\in[K]$, 
 \begin{align*}
-\argmax_{j\in[L]} U(i,:){V(j,:)}^T \leq \argmax_{j\in[d]} U(i,:){V(j,:)}^T . 
+\argmax_{j\in[L]} U(i,:){V(j,:)}^{\intercal} \leq \argmax_{j\in[d]} U(i,:){V(j,:)}^{\intercal} . 
 \end{align*}
 \end{lemma}
 
 \begin{proof}
 Considering any arbitrary row $i\in [K]$, we can show that,
 \begin{align*}
-\argmax_{j\in[L]} U(i,:){V(j,:)}^T & \overset{(a)}{\leq} \argmax_{j\in[L]} U(i,:)(aV^*)^T \\
-& \leq \argmax_{j\in[d]}U(i,:){V(j,:)}^T ,
+\argmax_{j\in[L]} U(i,:){V(j,:)}^{\intercal}  & \overset{(a)}{\leq} \argmax_{j\in[L]} U(i,:)(aV^*)^{\intercal}  \\
+& \leq \argmax_{j\in[d]}U(i,:){V(j,:)}^{\intercal}  ,
 \end{align*}
 where $(a)$ is from Assumption \ref{assm:1}.
 \end{proof}
