@@ -148,21 +148,27 @@
 
 	In \citet{maillard2014latent} the authors propose the Latent Bandit model where there are two sets: 1) set of arms denoted by $\A$ and 2) set of types denoted by $\B$ which contains the latent information regarding the arms. The latent information for the arms are modeled such that the set $\B$ is assumed to be partitioned into $|C|$ clusters, indexed by $\B_1, \B_2, \ldots, \B_C \in \C$ such that the distribution $v_{a,b}, a\in\A, b\in\B_c$ across each cluster is same.  Note, that the identity of the cluster is unknown to the learner. At every timestep $t$, nature selects a type $b_t\in\B_c$ and then the learner selects an arm $a_t\in\A$ and observes a reward $X_{a,t}$ from the distribution $v_{a,b}$.
 	
-	Another way to look at this problem is to imagine a matrix of dimension $|A|\times |B|$ where again the rows in $\B$ can be partitioned into $|C|$ clusters, such that the distribution across each of this clusters are same. Now, at every timestep $t$ one of this row is revealed to the learner and it chooses one column such that the $v_{a,b}$ is one of the $\lbrace v_{a,c}\rbrace_{c\in\C}$ and the rest of the entries in the column are zeros.
+	Another way to look at this problem is to imagine a matrix of dimension $|A|\times |B|$ where again the rows in $\B$ can be partitioned into $|C|$ clusters, such that the distribution across each of this clusters are same. Now, at every timestep $t$ one of this row is revealed to the learner and it chooses one column such that the $v_{a,b}$ is one of the $\lbrace v_{a,c}\rbrace_{c\in\C}$ and the reward for that arm and the user is revealed to the learner.
+	
+	This is actually a much simpler approach because note that the distributions across each of the clusters $\lbrace v_{a,c}\rbrace_{c\in\C}$ are identical and estimating one cluster distribution will reveal all the information of the users in each cluster.
 
 
 \section{Problem Formulation: Generalized Latent Bandit Model}
 	
-	Extending the discussion in the previous section, we propose a Generalized Latent Bandit model where each $v_{a,b}$ can be considered as a mixture of several $\lbrace v_{a,c}\rbrace_{c\in\C}$. To define more formally, let $R$ be matrix of  dimension $K\times L$ where $|A|=K$ is the number of rows and $L=|B|$ is the number of columns. Also, let us assume that this matrix  $R$ has a low rank structure of rank $d << \min\lbrace L,K\rbrace$. Let $U$ and $V$ denote the latent matrices which are not visible to the learner such that,
+	Extending the discussion in the previous section, we propose a Generalized Latent Bandit model where each $v_{a,b}$ can be considered as a mixture of several $\lbrace v_{a,c}\rbrace_{c\in\C}$. This is a harder problem than Latent Bandit model because now the rows in each cluster are not exactly identical but the index of the optimal arm (column) is similar in each row.
+	
+	To define more formally, let $R$ be matrix of  dimension $K\times L$ where $|A|=K$ is the number of rows and $L=|B|$ is the number of columns. Also, let us assume that this matrix  $R$ has a low rank structure of rank $d << \min\lbrace L,K\rbrace$. Let $U$ and $V$ denote the latent matrices which are not visible to the learner such that,
 \begin{align*}
-	R = UV^{T} \textbf{ \hspace*{4mm}   s.t.   \hspace*{4mm}} U\in [ 0,1 ]^{K\times d} \textbf{, } V\in \lbrace\mathbb{R}^+\rbrace^{L\times d} 
+	R = UV^{T} \textbf{ \hspace*{4mm}   s.t.   \hspace*{4mm}} U\in [ 0,1 ]^{K\times d} \textbf{, } V\in  [0,1]^{L\times d} 
 \end{align*}	  
 	
-	Furthermore, we put a constraint on $U$ such that, $\forall a\in \A$, $ ||U(a,:)||_1 = 1$. Also, we assume that $R$ is a hott topics matrix such that there exist $d$-base row factors denoted by $U(\mathbb{I}^*,:)$ such that all rows in $U$ can be expressed as a convex combination of the rows of $U(\mathbb{I},:)$ and the zero vector. 
+	Furthermore, we put a constraint on $V$ such that, $\forall j\in [L]$, $ ||V(j,:)||_1 = 1$. 
 	
-	\textbf{Comment 1: The constraints on $V$ needs to be worked out as pointed out by Anup.}
+	%Also, we assume that $R$ is a hott topics matrix such that there exist $d$-base row factors denoted by $U(\mathbb{I}^*,:)$ such that all rows in $U$ can be expressed as a convex combination of the rows of $U(\mathbb{I},:)$ and the zero vector. 
 	
-	\textbf{Comment 2: Only row base factors are required. Why??}
+%	\textbf{Comment 1: The constraints on $V$ needs to be worked out as pointed out by Anup.}
+%	
+%	\textbf{Comment 2: Only row base factors are required. Why??}
 	
 	
 \section{Approach Discussed}
@@ -190,9 +196,37 @@ In this noise-free setup, we first choose the row having a column which dominate
 
 So, in the above setup, we will be having two passes giving us col{1,2}.
 
-\textbf{Comment 3: In the noisy scenario we need to find a similar algorithm}.
+%\textbf{Comment 3: In the noisy scenario we need to find a similar algorithm}.
 
 
+\section{Assumptions}
+
+\begin{assumption}
+\label{assm:1}
+We assume that there exists $d$-column base factors, denoted by $V(J^*,:)$, such that all row of $V$ can be written as a convex combination of $V(J^*,:)$ and the zero vector and $J^* = [d]$. We denote the column factors by $V^*$. Therefore, for any $v\in V$, it can be represented by
+\begin{align*}
+v = aV^* , 
+\end{align*}
+where $a\in [0,1]^{d}$ and $ ||a||_1 \leq 1$.
+\end{assumption}
+
+\section{Main Result and Proofs}
+
+\begin{lemma}
+For any arbitrary row $i\in[K]$, 
+\begin{align*}
+\argmax_{j\in[L]} U(i,:){V(j,:)}^T \leq \argmax_{j\in[d]} U(i,:){V(j,:)}^T . 
+\end{align*}
+\end{lemma}
+
+\begin{proof}
+Considering any arbitrary row $i\in [K]$, we can show that,
+\begin{align*}
+\argmax_{j\in[L]} U(i,:){V(j,:)}^T & \overset{(a)}{\leq} \argmax_{j\in[L]} U(i,:)(aV*)^T \\
+& \leq \argmax_{j\in[d]}U(i,:){V(j,:)}^T ,
+\end{align*}
+where $(a)$ is from Assumption \ref{assm:1}.
+\end{proof}
 
 
 
