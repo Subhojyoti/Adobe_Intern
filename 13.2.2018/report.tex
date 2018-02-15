@@ -192,22 +192,22 @@ U = \begin{bmatrix}
 \end{bmatrix} 
 \end{align*}
 
-In this noise-free setup, we first choose the row having a column which dominates other entries in the column (here col{1}). If there is a clash  in the rows, we choose arbitrarily among them. We then eliminate the dominating column in the row. Then we follow this process iteratively for other surviving columns till we have eliminated $d$ columns. 
+In this noise-free setup, we first choose the row having a column which dominates other entries in the column (here col$\lbrace 1\rbrace$). If there is a clash  in the rows, we choose arbitrarily among them. We then eliminate the dominating column in the row. Then we follow this process iteratively for other surviving columns till we have eliminated $d$ columns. 
 
-So, in the above setup, we will be having two passes giving us col{1,2}.
+So, in the above setup, we will be having two passes giving us col$\lbrace 1,2\rbrace$.
 
 %\textbf{Comment 3: In the noisy scenario we need to find a similar algorithm}.
 
 
-\section{Assumptions}
+\section{Notations and Assumptions}
 
 \begin{assumption}
 \label{assm:1}
-We assume that there exists $d$-column base factors, denoted by $V(J^*,:)$, such that all row of $V$ can be written as a convex combination of $V(J^*,:)$ and the zero vector and $J^* = [d]$. We denote the column factors by $V^*$. Therefore, for any $v\in V$, it can be represented by
+We assume that there exists $d$-column base factors, denoted by $V(J^*,:)$, such that all row of $V$ can be written as a convex combination of $V(J^*,:)$ and the zero vector and $J^* = [d]$. We denote the column factors by $V^* = V(J*,:)$. Therefore, for any $i\in [L]$, it can be represented by
 \begin{align*}
-v = aV^* , 
+V(i,:) = a_i V(J^*,:) , 
 \end{align*}
-where $a\in [0,1]^{d}$ and $ ||a||_1 \leq 1$.
+where $\exists a_i\in [0,1]^{d}$ and $ ||a_i||_1 \leq 1$.
 \end{assumption}
 
 \section{Main Result and Proofs}
@@ -222,8 +222,11 @@ For any arbitrary row $i\in[K]$,
 \begin{proof}
 Considering any arbitrary row $i\in [K]$, we can show that,
 \begin{align*}
-\argmax_{j\in[L]} U(i,:){V(j,:)}^{\intercal}  & \overset{(a)}{\leq} \argmax_{j\in[L]} U(i,:)(aV^*)^{\intercal}  \\
-& \leq \argmax_{j\in[d]}U(i,:){V(j,:)}^{\intercal}  ,
+\argmax_{j\in[L]} U(i,:){V(j,:)}^{\intercal}  &= U(i,:)V(j^*(i),:)^{\intercal}\\
+& \overset{(a)}{=} U(i,:)\left(a_{j^*(i)}V(J^*,:)\right)^{\intercal}\\
+& = \sum_{k=1}^{d}a_{j^*(i)}(k)U(i,:)V(j^*(i),:)^{\intercal}\\
+& \leq \argmax a_{j^*(i)}(k)U(i,:)V(k,:)^{\intercal} \\
+& \leq \argmax_{k\in[d]}U(i,:){V(k,:)}^{\intercal}   ,
 \end{align*}
 where $(a)$ is from Assumption \ref{assm:1}.
 \end{proof}
