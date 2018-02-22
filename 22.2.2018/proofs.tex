@@ -1,0 +1,11 @@
+\begin{proof}
+Considering any arbitrary row $i\in [K]$, we can show that,
+\begin{align*}
+\argmax_{j\in[L]} U(i,:){V(j,:)}^{\intercal}  &= U(i,:)V(j^*(i),:)^{\intercal}\\
+& \overset{(a)}{=} U(i,:)\left(a_{j^*(i)}V(J^*,:)\right)^{\intercal}\\
+& = \sum_{k=1}^{d}a_{j^*(i)}(k)U(i,:)V(j^*(i),:)^{\intercal}\\
+& \leq \argmax a_{j^*(i)}(k)U(i,:)V(k,:)^{\intercal} \\
+& \leq \argmax_{k\in[d]}U(i,:){V(k,:)}^{\intercal}   ,
+\end{align*}
+where $(a)$ is from Assumption \ref{assm:1}.
+\end{proof}

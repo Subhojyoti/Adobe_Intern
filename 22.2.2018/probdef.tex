@@ -1,0 +1,14 @@
+Extending the discussion in the previous section, we propose a Generalized Latent Bandit model where each $v_{a,b}$ can be considered as a mixture of several $\lbrace v_{a,c}\rbrace_{c\in\C}$. This is a harder problem than Latent Bandit model because now the rows in each cluster are not exactly identical but the index of the optimal arm (column) is similar in each row.
+	
+	To define more formally, let $R$ be matrix of  dimension $K\times L$ where $|A|=K$ is the number of rows and $L=|B|$ is the number of columns. Also, let us assume that this matrix  $R$ has a low rank structure of rank $d << \min\lbrace L,K\rbrace$. Let $U$ and $V$ denote the latent matrices which are not visible to the learner such that,
+\begin{align*}
+	R = UV^{\intercal} \textbf{ \hspace*{4mm}   s.t.   \hspace*{4mm}} U\in [ 0,1 ]^{K\times d} \textbf{, } V\in  [0,1]^{L\times d} 
+\end{align*}	  
+	
+	Furthermore, we put a constraint on $V$ such that, $\forall j\in [L]$, $ ||V(j,:)||_1 \leq 1$. 
+	
+	%Also, we assume that $R$ is a hott topics matrix such that there exist $d$-base row factors denoted by $U(\mathbb{I}^*,:)$ such that all rows in $U$ can be expressed as a convex combination of the rows of $U(\mathbb{I},:)$ and the zero vector. 
+	
+%	\textbf{Comment 1: The constraints on $V$ needs to be worked out as pointed out by Anup.}
+%	
+%	\textbf{Comment 2: Only row base factors are required. Why??}
