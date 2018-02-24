@@ -1,10 +1,10 @@
 \BOOKMARK [1][-]{section.1}{Introduction}{}% 1
-\BOOKMARK [1][-]{section.2}{Related Works}{}% 2
-\BOOKMARK [1][-]{section.3}{Contributions}{}% 3
-\BOOKMARK [1][-]{section.4}{Notations and Assumptions}{}% 4
-\BOOKMARK [1][-]{section.5}{Problem Formulation: Generalized Latent Bandit Model}{}% 5
-\BOOKMARK [1][-]{section.6}{Proposed Algorithms}{}% 6
-\BOOKMARK [1][-]{section.7}{Main Results}{}% 7
-\BOOKMARK [1][-]{section.8}{Proofs}{}% 8
-\BOOKMARK [1][-]{section.9}{Experiments}{}% 9
-\BOOKMARK [1][-]{section.10}{Conclusions and Future Direction}{}% 10
+\BOOKMARK [2][-]{subsection.1.1}{Notations, Problem Formulation and Assumptions}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{Related Works}{section.1}% 3
+\BOOKMARK [1][-]{section.2}{Contributions}{}% 4
+\BOOKMARK [1][-]{section.3}{Proposed Algorithms}{}% 5
+\BOOKMARK [2][-]{subsection.3.1}{Noise-Free Setting}{section.3}% 6
+\BOOKMARK [1][-]{section.4}{Main Results}{}% 7
+\BOOKMARK [1][-]{section.5}{Proofs}{}% 8
+\BOOKMARK [1][-]{section.6}{Experiments}{}% 9
+\BOOKMARK [1][-]{section.7}{Conclusions and Future Direction}{}% 10
