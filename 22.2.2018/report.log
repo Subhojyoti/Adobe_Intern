@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  26 FEB 2018 12:30
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  26 FEB 2018 12:36
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1390,11 +1390,6 @@ PGFPlots: reading {results/NewExpt/Expt1/comp_subsampled_CustomUCB0RR.txt}
 PGFPlots: reading {results/NewExpt/Expt1/comp_subsampled_CustomEXP30RR.txt}
 PGFPlots: reading {results/NewExpt/Expt1/comp_subsampled_CustomUCB0US.txt}
 PGFPlots: reading {results/NewExpt/Expt1/comp_subsampled_CustomEXP30US.txt}
-
-Underfull \hbox (badness 10000) in paragraph at lines 59--59
-\T1/ptm/m/n/8 distributed arms and Uni-form
- []
-
 ) (./conclusions.tex) (./report.bbl) [3]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 196.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 196.
@@ -1431,7 +1426,7 @@ ist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2017/tex
 mf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2017/texmf-dist/fo
 nts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/
 urw/times/utmri8a.pfb>
-Output written on report.pdf (3 pages, 172474 bytes).
+Output written on report.pdf (3 pages, 172424 bytes).
 PDF statistics:
  153 PDF objects out of 1000 (max. 8388607)
  129 compressed objects within 2 object streams
