@@ -1,10 +1,10 @@
 %Extending the discussion in the previous section, we propose a Generalized Latent Bandit model where each $v_{a,b}$ can be considered as a mixture of several $\lbrace v_{a,c}\rbrace_{c\in\C}$. This is a harder problem than Latent Bandit model because now the rows in each cluster are not exactly identical but the index of the optimal arm (column) is similar in each row.
 	
-	We denote 
+	We define $[n] = \lbrace 1,2,\ldots, n\rbrace$ and for any two sets $A$ and $B$, $A^B$ denotes the set of all vectors who take values from $A$ and are indexed by $B$. Let, $R\in [0,1]^{K\times L}$ denote any matrix, then $R(I,:)$ denote any submatrix of $k$ rows such that $I\in[K]^k$ and similarly $R(:,J)$ denote any submatrix of $j$ columns such that $J\in[L]^{j}$.
 	
-	To define more formally, let $R$ be matrix of  dimension $K\times L$ where $|A|=K$ is the number of rows and $L=|B|$ is the number of columns. Also, let us assume that this matrix  $R$ has a low rank structure of rank $d << \min\lbrace L,K\rbrace$. Let $U$ and $V$ denote the latent matrices which are not visible to the learner such that,
+	Let $\bar{R}$ be reward matrix of  dimension $K\times L$ where $K$ is the number of user or rows and $L$ is the number of arms or columns. Also, let us assume that this matrix  $\bar{R}$ has a low rank structure of rank $d << \min\lbrace L,K\rbrace$. Let $U$ and $V$ denote the latent matrices for the users and items, which are not visible to the learner such that,
 \begin{align*}
-	R = UV^{\intercal} \textbf{ \hspace*{4mm}   s.t.   \hspace*{4mm}} U\in [ 0,1 ]^{K\times d} \textbf{, } V\in  [0,1]^{L\times d} 
+	\bar{R} = UV^{\intercal} \textbf{ \hspace*{4mm}   s.t.   \hspace*{4mm}} U\in [ \mathbb{R}^+ ]^{K\times d} \textbf{, } V\in  [0,1]^{L\times d} 
 \end{align*}	  
 	
 	Furthermore, we put a constraint on $V$ such that, $\forall j\in [L]$, $ ||V(j,:)||_1 \leq 1$. 
@@ -15,11 +15,17 @@
 %	
 %	\textbf{Comment 2: Only row base factors are required. Why??}
 
+
 \begin{assumption}
 \label{assm:1}
-We assume that there exists $d$-column base factors, denoted by $V(J^*,:)$, such that all row of $V$ can be written as a convex combination of $V(J^*,:)$ and the zero vector and $J^* = [d]$. We denote the column factors by $V^* = V(J*,:)$. Therefore, for any $i\in [L]$, it can be represented by
+We assume that there exists $d$-column base factors, denoted by $V(J^*,:)$, such that all rows of $V$ can be written as a convex combination of $V(J^*,:)$ and the zero vector and $J^* = [d]$. We denote the column factors by $V^* = V(J*,:)$. Therefore, for any $i\in [L]$, it can be represented by
 \begin{align*}
 V(i,:) = a_i V(J^*,:) , 
 \end{align*}
 where $\exists a_i\in [0,1]^{d}$ and $ ||a_i||_1 \leq 1$.
 \end{assumption}
+
+
+%\begin{assumption}
+%
+%\end{assumption}
