@@ -4,10 +4,62 @@ In the noise-free setting, in addition to Assumption \ref{assm:1} and Assumption
 
 \begin{assumption}
 \label{assm:round-robin}
-We assume that nature is revealing the rows of $\bar{R}(i,:), \forall i\in [K]$  in a Round-Robin fashion.
+We assume that nature is revealing the $i$ of $\bar{R}(i,:), \forall i\in [K]$  in a Round-Robin fashion.
 \end{assumption}
 
 \begin{assumption}
 \label{assm:d-indep}
 We assume that any $d$ sets of rows or columns are independent in $\bar{R}$.
 \end{assumption}
+
+\algblock{ArmElim}{EndArmElim}
+\algnewcommand\algorithmicArmElim{\textbf{\em Arm Elimination}}
+ \algnewcommand\algorithmicendArmElim{}
+\algrenewtext{ArmElim}[1]{\algorithmicArmElim\ #1}
+\algrenewtext{EndArmElim}{\algorithmicendArmElim}
+
+\algblock{ResParam}{EndResParam}
+\algnewcommand\algorithmicResParam{\textbf{\em Reset Parameters}}
+ \algnewcommand\algorithmicendResParam{}
+\algrenewtext{ResParam}[1]{\algorithmicResParam\ #1}
+\algrenewtext{EndResParam}{\algorithmicendResParam}
+
+\algblock{ColRec}{EndColRec}
+\algnewcommand\algorithmicColRec{\textbf{\em Column Reconstruction}}
+ \algnewcommand\algorithmicendColRec{}
+\algrenewtext{ColRec}[1]{\algorithmicColRec\ #1}
+\algrenewtext{EndColRec}{\algorithmicendColRec}
+
+
+\begin{algorithm}[!th]
+\caption{Noise-Free GLB}
+\label{alg:NFGLB}
+\begin{algorithmic}
+\State {\bf Input:} Time horizon $T$, $Rank(\bar{R}) = d$.
+\State {\bf Initialization:} Select first $d$-columns, $J_1 \in [d]$ and for all the rows $I_1\in[K]$ observe $\bar{R}(I_1,J_1)$.  
+%Then select first $d$-rows $I_2\in [d]$ for $(d+1)$-th column and observe $\bar{R}(I_2,d+1)$.
+\State $c$ := $d+1$
+\State $r_c$ := $0$
+\For{$t=Kd,..,T$}	
+\State Nature reveals $i_t$ in Round-Robin way.
+\State \If{$c < L$} \State \textbf{Explore}
+\State \If{$r_c < d$}
+\State Select column $c$ and observe $\bar{R}(i_t,c)$
+\State $r_c = r_c + 1$
+\Else
+\ColRec
+\State Reconstruct column $c$ with $\hat{\theta} = \left(\bar{R}^{\intercal}(1:d,1:d)\bar{R}(1:d,1:d)\right)^{\inv}\bar{R}(1:d,)\bar{R}(1:d,c) $
+\State $\bar{R}(:,c) =  \bar{R}(:,1:d)\hat{\theta}$
+\State $c = c + 1$
+\State $r_c = 0$
+\EndColRec
+\State Select column $c$ and observe $\bar{R}(i_t,c)$
+\State $r_c = r_c + 1$
+\EndIf
+\Else
+\State \textbf{Exploit:} Select column $j^*$ and observe $\bar{R}(i_t,j^*)$ where $j^* = \argmax_{j\in[L]} {\bar{R}(i_t,j)}$.
+\EndIf
+\EndFor
+\end{algorithmic}
+%\vspace*{-0.42em}
+\end{algorithm}
