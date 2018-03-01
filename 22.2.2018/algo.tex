@@ -36,7 +36,7 @@ We assume that any $d$ sets of rows or columns are independent in $\bar{R}$.
 \label{alg:NFGLB}
 \begin{algorithmic}
 \State {\bf Input:} Time horizon $T$, $Rank(\bar{R}) = d$.
-\State {\bf Definition:} $\bar{R}_d = \bar{R}(:,1:d)$.
+\State {\bf Definition:} $\bar{R}_d = \bar{R}(1:d,1:d)$.
 \State {\bf Initialization:} Select first $d$-columns, $J_1 \in [d]$ and for all the rows $I_1\in[K]$ observe $\bar{R}(I_1,J_1)$.  
 %Then select first $d$-rows $I_2\in [d]$ for $(d+1)$-th column and observe $\bar{R}(I_2,d+1)$.
 \State $c$ := $d+1$
