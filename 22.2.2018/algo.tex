@@ -43,8 +43,8 @@ We assume that any $d$ sets of rows or columns are independent in $\bar{R}$.
 \State $r_c$ := $0$
 \For{$t=Kd,..,T$}	
 \State Nature reveals $i_t$ in Round-Robin way.
-\State \If{$c < L$} \State \textbf{Explore}
-\State \If{$r_c < d$}
+\State \If{$c < L$} \textbf{ (Explore Columns)}
+\State \If{$r_c < d$} \textbf{(Explore Rows)}
 \State Select column $c$ and observe $\bar{R}(i_t,c)$
 \State $r_c = r_c + 1$
 \Else
@@ -58,7 +58,7 @@ We assume that any $d$ sets of rows or columns are independent in $\bar{R}$.
 \State $r_c = r_c + 1$
 \EndIf
 \Else
-\State \textbf{Exploit:} Select column $j^*$ and observe $\bar{R}(i_t,j^*)$ where $j^* = \argmax_{j\in[L]} {\bar{R}(i_t,j)}$.
+\State \textbf{(Exploit)} Select column $j^*$ and observe $\bar{R}(i_t,j^*)$ where $j^* = \argmax_{j\in[L]} {\bar{R}(i_t,j)}$.
 \EndIf
 \EndFor
 \end{algorithmic}
