@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  27 FEB 2018 15:44
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  1 MAR 2018 12:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1384,7 +1384,7 @@ LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
 put line 35.
 LaTeX Font Info:    Font shape `T1/ptm/bx/it' in size <10> not available
-(Font)              Font shape `T1/ptm/b/it' tried instead on input line 51.
+(Font)              Font shape `T1/ptm/b/it' tried instead on input line 52.
 ) (./results.tex)
 (./proofs.tex
 Underfull \vbox (badness 1092) has occurred while \output is active []
@@ -1399,7 +1399,7 @@ PGFPlots: reading {results/NewExpt/Expt3/comp_subsampled_CustomUCB0RR.txt}
 PGFPlots: reading {results/NewExpt/Expt3/comp_subsampled_GLBUCB0RR.txt}
 PGFPlots: reading {results/NewExpt/Expt3/comp_subsampled_CustomEXP30RR.txt}
 ) (./conclusions.tex) (./report.bbl
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 5431) has occurred while \output is active []
 
  [3]
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -1416,8 +1416,8 @@ Package rerunfilecheck Info: File `report.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 196.
  ) 
 Here is how much of TeX's memory you used:
- 33707 strings out of 492995
- 792974 string characters out of 6132704
+ 33708 strings out of 492995
+ 792985 string characters out of 6132704
  1011715 words of memory out of 5000000
  36563 multiletter control sequences out of 15000+600000
  55065 words of font info for 86 fonts, out of 8000000 for 9000
@@ -1443,10 +1443,10 @@ dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2017/texmf-dist/fonts
 /type1/urw/times/utmbi8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/ur
 w/times/utmr8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/times/ut
 mri8a.pfb>
-Output written on report.pdf (5 pages, 193861 bytes).
+Output written on report.pdf (5 pages, 194203 bytes).
 PDF statistics:
- 202 PDF objects out of 1000 (max. 8388607)
- 174 compressed objects within 2 object streams
- 51 named destinations out of 1000 (max. 500000)
+ 203 PDF objects out of 1000 (max. 8388607)
+ 175 compressed objects within 2 object streams
+ 52 named destinations out of 1000 (max. 500000)
  93 words of extra memory for PDF output out of 10000 (max. 10000000)
 

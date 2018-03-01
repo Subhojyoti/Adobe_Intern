@@ -36,6 +36,7 @@ We assume that any $d$ sets of rows or columns are independent in $\bar{R}$.
 \label{alg:NFGLB}
 \begin{algorithmic}
 \State {\bf Input:} Time horizon $T$, $Rank(\bar{R}) = d$.
+\State {\bf Definition:} $\bar{R}_d = \bar{R}(:,1:d)$.
 \State {\bf Initialization:} Select first $d$-columns, $J_1 \in [d]$ and for all the rows $I_1\in[K]$ observe $\bar{R}(I_1,J_1)$.  
 %Then select first $d$-rows $I_2\in [d]$ for $(d+1)$-th column and observe $\bar{R}(I_2,d+1)$.
 \State $c$ := $d+1$
@@ -48,7 +49,7 @@ We assume that any $d$ sets of rows or columns are independent in $\bar{R}$.
 \State $r_c = r_c + 1$
 \Else
 \ColRec
-\State Reconstruct column $c$ with $\hat{\theta} = \left(\bar{R}^{\intercal}(1:d,1:d)\bar{R}(1:d,1:d)\right)^{\inv}\bar{R}(1:d,)\bar{R}(1:d,c) $
+\State Reconstruct column $c$ with $\hat{\theta} = \left(\bar{R}_d^{\intercal}\bar{R}_d\right)^{\inv}\bar{R}(1:d,c) $
 \State $\bar{R}(:,c) =  \bar{R}(:,1:d)\hat{\theta}$
 \State $c = c + 1$
 \State $r_c = 0$
