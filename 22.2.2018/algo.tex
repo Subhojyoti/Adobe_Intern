@@ -105,7 +105,7 @@ We assume that any $d$ sets of rows or columns are independent in $\bar{R}$.
 \EndColRec
 \State \If{$t < N_m$}
 \Exploit
-\State Select column $j_t^*$ and observe $\bar{R}(i_t,j_t^*)$ where $j_t^* = \argmax_{j\in[L]} {\hat{R}(i_t,j)}$.
+\State Select column $j_t^*$ and observe $\bar{R}(i_t,j_t^*)$ where $j_t^* = \argmax_{j\in[L]} \lbrace\hat{R}(i_t,j) + C_m\rbrace$.
 \EndExploit
 \EndIf
 \State \If{$t > N_m$ and $m \leq M$}
