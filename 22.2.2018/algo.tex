@@ -30,6 +30,21 @@ We assume that any $d$ sets of rows or columns are independent in $\bar{R}$.
 \algrenewtext{ColRec}[1]{\algorithmicColRec\ #1}
 \algrenewtext{EndColRec}{\algorithmicendColRec}
 
+\algblock{Explore}{EndExplore}
+\algnewcommand\algorithmicExplore{\textbf{\em Explore}}
+ \algnewcommand\algorithmicendExplore{}
+\algrenewtext{Explore}[1]{\algorithmicExplore\ #1}
+\algrenewtext{EndExplore}{\algorithmicendExplore}
+
+
+\algblock{Exploit}{EndExploit}
+\algnewcommand\algorithmicExploit{\textbf{\em Exploit}}
+ \algnewcommand\algorithmicendExploit{}
+\algrenewtext{Exploit}[1]{\algorithmicExploit\ #1}
+\algrenewtext{EndExploit}{\algorithmicendExploit}
+
+
+
 
 \begin{algorithm}[!th]
 \caption{Noise-Free GLB}
@@ -37,28 +52,70 @@ We assume that any $d$ sets of rows or columns are independent in $\bar{R}$.
 \begin{algorithmic}
 \State {\bf Input:} Time horizon $T$, $Rank(\bar{R}) = d$.
 \State {\bf Definition:} $\bar{R}_d = \bar{R}(1:d,1:d)$.
-\State {\bf Initialization:} Select first $d$-columns, $J_1 \in [d]$ and for all the rows $I_1\in[K]$ observe $\bar{R}(I_1,J_1)$.  
+\State {\bf Initialization:} $\hat{R}(i,j) = 0, \forall i\in[K], j\in[L]$.
 %Then select first $d$-rows $I_2\in [d]$ for $(d+1)$-th column and observe $\bar{R}(I_2,d+1)$.
+\State Select first $d$-columns, $J_1 \in [d]$ and for all the rows $I_1\in[K]$ observe $\bar{R}(I_1,J_1)$ and update  $\hat{R}(I_1)(J_1) = \bar{R}(I_1,J_1)$.
 \State $c$ := $d+1$
-\State $r_c$ := $0$
+\State $r_c$ := $1$
 \For{$t=Kd,..,T$}	
 \State Nature reveals $i_t$ in Round-Robin way.
-\State \If{$c < L$} \textbf{ (Explore Columns)}
-\State \If{$r_c < d$} \textbf{(Explore Rows)}
-\State Select column $c$ and observe $\bar{R}(i_t,c)$
+\State \If{$c < L$} \textbf{ (Explore $L-d$ Columns)}
+\State \If{$r_c < d$} \textbf{(Explore $d$ Rows of  $L-d$ Columns)}
+\State Select column $c$, observe $\bar{R}(i_t,c)$ and update $\hat{R}(i_t,c) = \bar{R}(i_t,c)$.
 \State $r_c = r_c + 1$
 \Else
 \ColRec
-\State Reconstruct column $c$ with $\hat{\theta} = \left(\bar{R}_d^{\intercal}\bar{R}_d\right)^{\inv}\bar{R}(1:d,c) $
-\State $\bar{R}(:,c) =  \bar{R}(:,1:d)\hat{\theta}$
+\State Reconstruct column $c$ with $\hat{\theta} = \left(\hat{R}_d^{\intercal}\hat{R}_d\right)^{\inv}\hat{R}(1:d,c) $
+\State $\hat{R}(:,c) =  \hat{R}(:,1:d)\hat{\theta}$
 \State $c = c + 1$
-\State $r_c = 0$
+\State $r_c = 1$
 \EndColRec
-\State Select column $c$ and observe $\bar{R}(i_t,c)$
+\State Select column $c$, observe $\bar{R}(i_t,c)$ and update $\hat{R}(i_t,c)=\bar{R}(i_t,c)$.
 \State $r_c = r_c + 1$
 \EndIf
 \Else
-\State \textbf{(Exploit)} Select column $j^*$ and observe $\bar{R}(i_t,j^*)$ where $j^* = \argmax_{j\in[L]} {\bar{R}(i_t,j)}$.
+\State \textbf{(Exploit)} Select column $j_t^*$ and observe $\bar{R}(i_t,j_t^*)$ where $j_t^* = \argmax_{j\in[L]} {\hat{R}(i_t,j)}$.
+\EndIf
+\EndFor
+\end{algorithmic}
+%\vspace*{-0.42em}
+\end{algorithm}
+
+
+\begin{algorithm}[!th]
+\caption{Noisy GLB-UCB}
+\label{alg:NSGLB}
+\begin{algorithmic}
+\State {\bf Input:} Time horizon $T$, $Rank(\bar{R}) = d$, $\psi >1$, $\alpha\geq\frac{1}{2}$.
+\State {\bf Definition:} $\bar{R}_d = \bar{R}(1:d,1:d)$, $C_m = \sqrt{\dfrac{\alpha\log(T\epsilon_m)}{\ell_m}}$.
+\State {\bf Initialization:} $\epsilon_0 = 1$, $\ell_0 = \dfrac{2\log(\psi T\epsilon_0)}{\epsilon_0}$, $N_0 = 2(K+L)\ell_0$, $M=\dfrac{1}{2}\log_2\left(\sqrt{\dfrac{T}{e}}\right)$, $C_0 = \infty$, $m=0$.
+\State Select $d$ different columns $J_1\in [d]$, $I_1\in [K]$ such that if $j_t\in \argmax_{j_1\in L}\lbrace \hat{R}(I_1,j_1) + C_0\rbrace$ then $j_1\in J_1$
+%\State $J = J+ 1$
+\For{$t=1,..,T$}	
+\State Nature reveals $i_t$ in Round-Robin way.
+\Explore
+\State Select all $K$ rows of $J_1$, $n_m$ times and update $\hat{R}$.
+\State Select $d$-rows of $L - J_1$ columns $n_m$ times and update $\hat{R}$.
+\EndExplore
+\ColRec
+\State Reconstruct column $c\in[L]$ with $\hat{\theta} = \left(\hat{R}_d^{\intercal}\hat{R}_d\right)^{\inv}\hat{R}(1:d,c) $
+\State $\hat{R}(:,c) =  \hat{R}(:,1:d)\hat{\theta}$
+%\State $c = c + 1$
+%\State $r_c = 1$
+\EndColRec
+\State \If{$t < N_m$}
+\Exploit
+\State Select column $j_t^*$ and observe $\bar{R}(i_t,j_t^*)$ where $j_t^* = \argmax_{j\in[L]} {\hat{R}(i_t,j)}$.
+\EndExploit
+\EndIf
+\State \If{$t > N_m$ and $m \leq M$}
+\ResParam
+\State $\epsilon_{m+1} = \dfrac{\epsilon_m}{2}$
+\State $\ell_m = \dfrac{2\log(\psi T\epsilon_m)}{\epsilon_m}$
+\State $N_m = t +  2(K+L)\ell_m$
+\State $m = m + 1$
+\State Select $d$ different columns $J_1\in [d]$, $I_1\in [K]$ such that if $j_t\in \argmax_{j_1\in L}\lbrace \hat{R}(I_1,j_1) + C_m\rbrace$ then $j_1\in J_1$
+\EndResParam
 \EndIf
 \EndFor
 \end{algorithmic}
