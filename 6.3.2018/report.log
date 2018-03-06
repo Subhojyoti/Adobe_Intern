@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  6 MAR 2018 13:56
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  6 MAR 2018 14:14
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1399,7 +1399,7 @@ PGFPlots: reading {results/NewExpt/Expt3/comp_subsampled_CustomUCB0RR.txt}
 PGFPlots: reading {results/NewExpt/Expt3/comp_subsampled_GLBUCB0RR.txt}
 PGFPlots: reading {results/NewExpt/Expt3/comp_subsampled_CustomEXP30RR.txt}
 ) (./conclusions.tex) (./report.bbl
-Underfull \vbox (badness 3058) has occurred while \output is active []
+Underfull \vbox (badness 3049) has occurred while \output is active []
 
  [3]
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -1418,7 +1418,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 196.
 Here is how much of TeX's memory you used:
  33762 strings out of 492995
  793971 string characters out of 6132704
- 1014715 words of memory out of 5000000
+ 1013715 words of memory out of 5000000
  36618 multiletter control sequences out of 15000+600000
  53987 words of font info for 85 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1442,7 +1442,7 @@ mf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2017/texmf-dist/fo
 nts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1
 /urw/times/utmr8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/times
 /utmri8a.pfb>
-Output written on report.pdf (5 pages, 189370 bytes).
+Output written on report.pdf (5 pages, 190123 bytes).
 PDF statistics:
  199 PDF objects out of 1000 (max. 8388607)
  172 compressed objects within 2 object streams
