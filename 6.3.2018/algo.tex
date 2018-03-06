@@ -61,26 +61,30 @@ We assume that any $d$ sets of rows or columns are independent in $\bar{R}$.
 \State {\bf Initialization:} Randomly select $d$ columns with uniform probability and $J\leftarrow \lbrace d \rbrace$ , $\B \leftarrow \emptyset$ and $\forall I\in [K], J_0\in [L], \hat{R}(I,J_0) \leftarrow 0$.
 %$\forall j\in J$, and 
 \State Then, for all the rows $I\in[K]$ observe $\bar{R}(I,J)$ and update  $\hat{R}(I,J) \leftarrow \bar{R}(I,J)$.
-\State \textbf{Explore: } Randomly select test column $c \in \A - (\B + J)$ and set $r_c \leftarrow 0$.
+\State \textbf{Explore: } Randomly select test column $c \in \A \setminus (\B + J)$ with uniform probability and set $r_c \leftarrow 0$.
 %\State $r_c$ := $1$
 \For{$t=Kd+1,..,T$}	
 \State Nature reveals $i_t$ such that $i_t \leftarrow (t \mod K) + 1$ (Round-Robin).
-\If{$\B < L - d$ and $r_c > d$} \textbf{Explore}
+\If{$|\B| < L - d$} \textbf{Explore}
+\If{$r_c < d$}
 \State Choose $c$, observe $\bar{R}(i_t,c)$ and $\hat{R}(i_t,c)\leftarrow \bar{R}(i_t,c)$.
 \State $r_c \leftarrow r_c + 1$
+\Else
 \ColElim
 \State \If{$\forall i\in [K]: \max_{j\in J} \hat{R}(i,j)  \geq  \hat{R}(i,c)$} 
-\State  $\B \leftarrow c$ (Eliminate $c$ )
-\State Randomly select another test column $c \in \A - (\B + J)$
+\State  $\B \leftarrow \B \cup c$ (Eliminate $c$ )
+\State Randomly select another test column $c \in \A \setminus (\B + J)$ with uniform probability.
+\State $r_c \leftarrow 0$
 \Else
-\State $\exists j'\in J: \forall i\in [K]: \max_{j\in J - (j' + c)} \hat{R}(i,j) \geq \hat{R}(i,c)$
-\State $B \leftarrow j' $ (Eliminate $j'$)
-\State $J\leftarrow c$ (Add $c$ as best candidate)
-\State $r_c \leftarrow d - K $ (Fully explore new best candidate)
+\State $\exists j'\in J: \forall i\in [K]: \max_{j\in J \setminus{ j'} \cup c} \hat{R}(i,j) \geq \hat{R}(i,j')$
+\State $\B \leftarrow \B \cup j' $ (Eliminate $j'$)
+\State $J\leftarrow J \setminus{ j'} \cup c$ (Add $c$ as best candidate column)
+\State $r_c \leftarrow d - K $ (Fully explore new best candidate column)
 \EndIf
 \EndColElim
-\ElsIf{$\B = L - d$} \textbf{Exploit}
-\State  Select column $j_t^*$ and observe $\bar{R}(i_t,j_t^*)$ where $j_t^* = \argmax_{j\in[L]} {\hat{R}(i_t,j)}$.
+\EndIf
+\ElsIf{$|\B| = L - d$} \textbf{Exploit}
+\State  Select column $j_t^*$ and observe $\bar{R}(i_t,j_t^*)$ where $j_t^* = \argmax_{j\in[J]} {\hat{R}(i_t,j)}$.
 \EndIf
 \EndFor
 \end{algorithmic}
