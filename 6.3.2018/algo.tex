@@ -58,10 +58,10 @@ We assume that any $d$ sets of rows or columns are independent in $\bar{R}$.
 \begin{algorithmic}
 \State {\bf Input:} Time horizon $T$, $Rank(\bar{R}) = d$.
 %\State {\bf Definition:} Select .
-\State {\bf Initialization:} Randomly select $d$ columns with uniform probability and $J\leftarrow \lbrace d \rbrace$ , $\B \leftarrow \emptyset$ and $\forall I\in [K], J_0\in [L], \hat{R}(I,J_0) \leftarrow 0$.
+\State {\bf Initialization:} Randomly select $d$ columns with uniform probability and $J\leftarrow \lbrace d \rbrace$ , $\B \leftarrow \lbrace\emptyset\rbrace$ and $\forall I\in [K], J_0\in [L], \hat{R}(I,J_0) \leftarrow 0$.
 %$\forall j\in J$, and 
 \State Then, for all the rows $I\in[K]$ observe $\bar{R}(I,J)$ and update  $\hat{R}(I,J) \leftarrow \bar{R}(I,J)$.
-\State \textbf{Explore: } Randomly select test column $c \in \A \setminus (\B + J)$ with uniform probability and set $r_c \leftarrow 0$.
+\State \textbf{Explore: } Randomly select test column $c \in \A \setminus \lbrace\B \cup J\rbrace$ with uniform probability and set $r_c \leftarrow 0$.
 %\State $r_c$ := $1$
 \For{$t=Kd+1,..,T$}	
 \State Nature reveals $i_t$ such that $i_t \leftarrow (t \mod K) + 1$ (Round-Robin).
@@ -73,7 +73,7 @@ We assume that any $d$ sets of rows or columns are independent in $\bar{R}$.
 \ColElim
 \State \If{$\forall i\in [K]: \max_{j\in J} \hat{R}(i,j)  \geq  \hat{R}(i,c)$} 
 \State  $\B \leftarrow \B \cup c$ (Eliminate $c$ )
-\State Randomly select another test column $c \in \A \setminus (\B + J)$ with uniform probability.
+\State Randomly select another test column $c \in \A \setminus \lbrace\B \cup J\rbrace$ with uniform probability.
 \State $r_c \leftarrow 0$
 \Else
 \State $\exists j'\in J: \forall i\in [K]: \max_{j\in J \setminus{ j'} \cup c} \hat{R}(i,j) \geq \hat{R}(i,j')$
@@ -84,7 +84,7 @@ We assume that any $d$ sets of rows or columns are independent in $\bar{R}$.
 \EndColElim
 \EndIf
 \ElsIf{$|\B| = L - d$} \textbf{Exploit}
-\State  Select column $j_t^*$ and observe $\bar{R}(i_t,j_t^*)$ where $j_t^* = \argmax_{j\in[J]} {\hat{R}(i_t,j)}$.
+\State  Select column $j_t^*$, observe $\bar{R}(i_t,j_t^*)$ where $j_t^* \leftarrow \argmax_{j\in[J]} {\hat{R}(i_t,j)}$ and $\hat{R}(i_t,,j_t^*)\leftarrow \bar{R}(i_t,,j_t^*)$.
 \EndIf
 \EndFor
 \end{algorithmic}
