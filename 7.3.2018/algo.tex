@@ -1,0 +1,94 @@
+\subsection{Noise-Free Setting}
+
+In the noise-free setting, in addition to Assumption \ref{assm:1} and Assumption \ref{assm:1} we assume two further assumptions.
+
+\begin{assumption}
+\label{assm:round-robin}
+We assume that nature is revealing the $i$ of $\bar{R}(i,:), \forall i\in [K]$  in a Round-Robin fashion.
+\end{assumption}
+
+\begin{assumption}
+\label{assm:d-indep}
+We assume that any $d$ sets of rows or columns are independent in $\bar{R}$.
+\end{assumption}
+
+\algblock{ArmElim}{EndArmElim}
+\algnewcommand\algorithmicArmElim{\textbf{\em Arm Elimination}}
+ \algnewcommand\algorithmicendArmElim{}
+\algrenewtext{ArmElim}[1]{\algorithmicArmElim\ #1}
+\algrenewtext{EndArmElim}{\algorithmicendArmElim}
+
+\algblock{ResParam}{EndResParam}
+\algnewcommand\algorithmicResParam{\textbf{\em Reset Parameters}}
+ \algnewcommand\algorithmicendResParam{}
+\algrenewtext{ResParam}[1]{\algorithmicResParam\ #1}
+\algrenewtext{EndResParam}{\algorithmicendResParam}
+
+\algblock{ColRec}{EndColRec}
+\algnewcommand\algorithmicColRec{\textbf{\em Column Reconstruction}}
+ \algnewcommand\algorithmicendColRec{}
+\algrenewtext{ColRec}[1]{\algorithmicColRec\ #1}
+\algrenewtext{EndColRec}{\algorithmicendColRec}
+
+\algblock{ColElim}{EndColElim}
+\algnewcommand\algorithmicColElim{\textbf{\em Column Elimination}}
+ \algnewcommand\algorithmicendColElim{}
+\algrenewtext{ColElim}[1]{\algorithmicColElim\ #1}
+\algrenewtext{EndColElim}{\algorithmicendColElim}
+
+\algblock{Explore}{EndExplore}
+\algnewcommand\algorithmicExplore{\textbf{\em Explore}}
+ \algnewcommand\algorithmicendExplore{}
+\algrenewtext{Explore}[1]{\algorithmicExplore\ #1}
+\algrenewtext{EndExplore}{\algorithmicendExplore}
+
+
+\algblock{Exploit}{EndExploit}
+\algnewcommand\algorithmicExploit{\textbf{\em Exploit}}
+ \algnewcommand\algorithmicendExploit{}
+\algrenewtext{Exploit}[1]{\algorithmicExploit\ #1}
+\algrenewtext{EndExploit}{\algorithmicendExploit}
+
+
+
+
+\begin{algorithm}[!th]
+\caption{Noise-Free GLB}
+\label{alg:NFGLB}
+\begin{algorithmic}[1]
+\State {\bf Input:} Time horizon $T$, $Rank(\bar{R}) = d$.
+%\State {\bf Definition:} Select .
+\State {\bf Initialization:} Randomly select $d$ columns with uniform probability and $J\leftarrow \lbrace d \rbrace$ , $\B \leftarrow \lbrace\emptyset\rbrace$ and $\forall I\in [K], J_0\in [L], \hat{R}(I,J_0) \leftarrow 0$.
+%$\forall j\in J$, and 
+\State Then, for all the rows $I\in[K]$ observe $\bar{R}(I,J)$ and update  $\hat{R}(I,J) \leftarrow \bar{R}(I,J)$.
+\State \textbf{Explore: } Randomly select test column $c \in \A \setminus \lbrace\B \cup J\rbrace$ with uniform probability and set $r_c \leftarrow 0$.
+%\State $r_c$ := $1$
+\For{$t=Kd+1,..,T$}	
+\State Nature reveals $i_t$ such that $i_t \leftarrow (t \mod K) + 1$ (Round-Robin).
+\If{$|\B| < L - d$} \textbf{Explore}
+\If{$r_c < d$}
+\State Choose $c$, observe $\bar{R}(i_t,c)$ and $\hat{R}(i_t,c)\leftarrow \bar{R}(i_t,c)$.
+\State $r_c \leftarrow r_c + 1$
+\Else
+\ColElim
+\State \If{$\forall i\in [K]: \max_{j\in J} \hat{R}(i,j)  \geq  \hat{R}(i,c)$} 
+\State  $\B \leftarrow \B \cup c$ (Eliminate $c$ )
+\State Randomly select another test column $c \in \A \setminus \lbrace\B \cup J\rbrace$ with uniform probability.
+\State $r_c \leftarrow 0$
+\Else
+\State $\exists j'\in J: \forall i\in [K]: \max_{j\in J \setminus{ j'} \cup c} \hat{R}(i,j) \geq \hat{R}(i,j')$
+\State $\B \leftarrow \B \cup j' $ (Eliminate $j'$)
+\State $J\leftarrow J \setminus{ j'} \cup c$ (Add $c$ as best candidate column)
+\State $r_c \leftarrow d - K $ (Fully explore new best candidate column)
+\EndIf
+\EndColElim
+\EndIf
+\ElsIf{$|\B| = L - d$} \textbf{Exploit}
+\State  Select column $j_t^*$, observe $\bar{R}(i_t,j_t^*)$ where $j_t^* \leftarrow \argmax_{j\in[J]} {\hat{R}(i_t,j)}$ and $\hat{R}(i_t,,j_t^*)\leftarrow \bar{R}(i_t,,j_t^*)$.
+\EndIf
+\EndFor
+\end{algorithmic}
+%\vspace*{-0.42em}
+\end{algorithm}
+
+

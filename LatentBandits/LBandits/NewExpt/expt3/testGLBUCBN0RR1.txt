@@ -1,0 +1,9 @@
+arms: 3	bArms: 0	timestep: 15000	regret: 467	cumulativeReward: 11239.00	bestCumulativeReward: 11706.00
+arms: 3	bArms: 2	timestep: 29001	regret: 8130	cumulativeReward: 14557.00	bestCumulativeReward: 22687.00
+arms: 3	bArms: 0	timestep: 15000	regret: 463	cumulativeReward: 11253.00	bestCumulativeReward: 11716.00
+arms: 3	bArms: 0	timestep: 15000	regret: 4221	cumulativeReward: 7477.00	bestCumulativeReward: 11698.00
+arms: 3	bArms: 0	timestep: 15000	regret: 4171	cumulativeReward: 7513.00	bestCumulativeReward: 11684.00
+arms: 3	bArms: 0	timestep: 15000	regret: 4216	cumulativeReward: 7499.00	bestCumulativeReward: 11715.00
+arms: 3	bArms: 0	timestep: 15000	regret: 363	cumulativeReward: 11325.00	bestCumulativeReward: 11688.00
+arms: 3	bArms: 1	timestep: 15000	regret: 2741	cumulativeReward: 8991.00	bestCumulativeReward: 11732.00
+arms: 3	bArms: 1	timestep: 15000	regret: 2709	cumulativeReward: 8941.00	bestCumulativeReward: 11650.00
