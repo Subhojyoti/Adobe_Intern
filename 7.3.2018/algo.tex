@@ -59,7 +59,7 @@ We assume that nature is revealing $i$ in $\bar{R}(i,:), \forall i\in [K]$  in a
 \begin{algorithmic}[1]
 \State {\bf Input:} Time horizon $T$, $Rank(\bar{R}) = d$.
 \State {\bf Explore Parameter:} $\gamma = \lceil\sqrt{K} \rceil$.
-\State {\bf Initialization:} $\forall I\in [K], J\in [L], \hat{R}(I,J \leftarrow 0$, $m=0$, $\B_0 \leftarrow \A$, $\Z_0 \leftarrow \emptyset$, $c=0$ , $n_0 = 1 $ and $N_0 = \gamma |\B_0|n_0$.
+\State {\bf Initialization:} $\forall I\in [K], J\in [L], \hat{R}(I,J) \leftarrow 0$, $m=0$, $\B_0 \leftarrow \A$, $\Z_0 \leftarrow \emptyset$, $c=0$ , $n_0 = 1 $ and $N_0 = \gamma |\B_0|n_0$.
 \State Create set $\C$ of equivalence classes such that 
 \ForEach{$b\in \left[0,\frac{K}{\gamma}-1\right]$}
 \State  $e_{b+1}\in C \leftarrow \left\lbrace i\in \left[\frac{bK}{\gamma}+1,\frac{(b+1)K}{\gamma}\right]\right\rbrace$.
@@ -79,7 +79,7 @@ We assume that nature is revealing $i$ in $\bar{R}(i,:), \forall i\in [K]$  in a
 \ColElim
 \State \ForEach{$e_b\in\C$}
 \State \If{$\exists j\in \B_m: \forall i\in e_b, \forall j'\in \B_m\setminus \lbrace j\rbrace,  \hat{R}(i,j) < \max_{i\in e_b}\lbrace \hat{R}(i,j') \rbrace$}
-\State $\B_m \leftarrow \B_m \cup \lbrace j \rbrace$. 
+\State $\B_m \leftarrow \B_m \setminus \lbrace j \rbrace$. 
 \EndIf
 \EndFor
 \EndColElim
@@ -104,7 +104,7 @@ We assume that nature is revealing $i$ in $\bar{R}(i,:), \forall i\in [K]$  in a
 \State {\bf Input:} Time horizon $T$, $Rank(\bar{R}) = d$.
 \State {\bf Definition:} $U_m(\epsilon_m, n_m) = \sqrt{\dfrac{2\log(T\epsilon_m^2)}{n_m} }$
 \State {\bf Explore Parameter:} $\gamma = \lceil\sqrt{K} \rceil$.
-\State {\bf Initialization:} $\forall I\in [K], J\in [L], \hat{R}(I,J \leftarrow 0$, $m=0$, $\B_0 \leftarrow \A$, $\Z_0 \leftarrow \emptyset$, $c=0$ , $n_0 = 1 $ and $N_0 = \gamma |\B_0|n_0$.
+\State {\bf Initialization:} $\forall I\in [K], J\in [L], \hat{R}(I,J) \leftarrow 0$, $m=0$, $\B_0 \leftarrow \A$, $\Z_0 \leftarrow \emptyset$, $c=0$ , $n_0 = 1 $ and $N_0 = \gamma |\B_0|n_0$.
 \State Create set $\C$ of equivalence classes such that 
 \ForEach{$b\in \left[0,\frac{K}{\gamma}-1\right]$}
 \State  $e_{b+1}\in C \leftarrow \left\lbrace i\in \left[\frac{bK}{\gamma}+1,\frac{(b+1)K}{\gamma}\right]\right\rbrace$.
@@ -124,12 +124,12 @@ We assume that nature is revealing $i$ in $\bar{R}(i,:), \forall i\in [K]$  in a
 \ColElim
 \State \ForEach{$e_b\in\C$}
 \State \If{$\exists j\in \B_m: \forall i\in e_b, \forall j'\in \B_m\setminus \lbrace j\rbrace, \hat{R}(i,j)  + U_m(\epsilon_m, n_m) < \max_{i\in e_b}\lbrace \hat{R}(i,j') - U_m(\epsilon_m, n_m)\rbrace$}
-\State $\B_m \leftarrow \B_m \cup \lbrace j \rbrace$. 
+\State $\B_m \leftarrow \B_m \setminus \lbrace j \rbrace$. 
 \EndIf
 \EndFor
 \EndColElim
 \ResParam
-\State $\epsilon_{m+1} \leftarrow {\epsilon_m}{2}$ and $n_{m+1} \leftarrow \dfrac{2\log(T\epsilon_{m+1}^2)}{\epsilon_{m+1}^2} $
+\State $\epsilon_{m+1} \leftarrow \frac{\epsilon_m}{2}$ and $n_{m+1} \leftarrow \dfrac{2\log(T\epsilon_{m+1}^2)}{\epsilon_{m+1}^2} $
 \State $N_{m+1} \leftarrow t + \gamma |\B_m|n_{m+1}$ and $m \leftarrow m + 1$.
 \EndResParam
 \EndIf
