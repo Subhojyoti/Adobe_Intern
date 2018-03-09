@@ -4,13 +4,13 @@ In the noise-free setting, in addition to Assumption \ref{assm:1} and Assumption
 
 \begin{assumption}
 \label{assm:round-robin}
-We assume that nature is revealing the $i$ of $\bar{R}(i,:), \forall i\in [K]$  in a Round-Robin fashion.
+We assume that nature is revealing $i$ in $\bar{R}(i,:), \forall i\in [K]$  in a Round-Robin fashion.
 \end{assumption}
 
-\begin{assumption}
-\label{assm:d-indep}
-We assume that any $d$ sets of rows or columns are independent in $\bar{R}$.
-\end{assumption}
+%\begin{assumption}
+%\label{assm:d-indep}
+%We assume that any $d$ sets of rows or columns are independent in $\bar{R}$.
+%\end{assumption}
 
 \algblock{ArmElim}{EndArmElim}
 \algnewcommand\algorithmicArmElim{\textbf{\em Arm Elimination}}
@@ -49,7 +49,8 @@ We assume that any $d$ sets of rows or columns are independent in $\bar{R}$.
 \algrenewtext{Exploit}[1]{\algorithmicExploit\ #1}
 \algrenewtext{EndExploit}{\algorithmicendExploit}
 
-
+\algnewcommand\algorithmicforeach{\textbf{for each}}
+\algdef{S}[FOR]{ForEach}[1]{\algorithmicforeach\ #1\ \algorithmicdo}
 
 
 \begin{algorithm}[!th]
@@ -57,34 +58,83 @@ We assume that any $d$ sets of rows or columns are independent in $\bar{R}$.
 \label{alg:NFGLB}
 \begin{algorithmic}[1]
 \State {\bf Input:} Time horizon $T$, $Rank(\bar{R}) = d$.
-%\State {\bf Definition:} Select .
-\State {\bf Initialization:} Randomly select $d$ columns with uniform probability and $J\leftarrow \lbrace d \rbrace$ , $\B \leftarrow \lbrace\emptyset\rbrace$ and $\forall I\in [K], J_0\in [L], \hat{R}(I,J_0) \leftarrow 0$.
-%$\forall j\in J$, and 
-\State Then, for all the rows $I\in[K]$ observe $\bar{R}(I,J)$ and update  $\hat{R}(I,J) \leftarrow \bar{R}(I,J)$.
-\State \textbf{Explore: } Randomly select test column $c \in \A \setminus \lbrace\B \cup J\rbrace$ with uniform probability and set $r_c \leftarrow 0$.
-%\State $r_c$ := $1$
-\For{$t=Kd+1,..,T$}	
+\State {\bf Explore Parameter:} $\gamma = \lceil\sqrt{K} \rceil$.
+\State {\bf Initialization:} $\forall I\in [K], J\in [L], \hat{R}(I,J \leftarrow 0$, $m=0$, $\B_0 \leftarrow \A$, $\Z_0 \leftarrow \emptyset$, $c=0$ , $n_0 = 1 $ and $N_0 = \gamma |\B_0|n_0$.
+\State Create set $\C$ of equivalence classes such that 
+\ForEach{$b\in \left[0,\frac{K}{\gamma}-1\right]$}
+\State  $e_{b+1}\in C \leftarrow \left\lbrace i\in \left[\frac{bK}{\gamma}+1,\frac{(b+1)K}{\gamma}\right]\right\rbrace$.
+\EndFor
+\For{$t=1,..,T$}	
 \State Nature reveals $i_t$ such that $i_t \leftarrow (t \mod K) + 1$ (Round-Robin).
-\If{$|\B| < L - d$} \textbf{Explore}
-\If{$r_c < d$}
-\State Choose $c$, observe $\bar{R}(i_t,c)$ and $\hat{R}(i_t,c)\leftarrow \bar{R}(i_t,c)$.
-\State $r_c \leftarrow r_c + 1$
+\If{$|\B_m| > d$} \textbf{ (Explore) }
+\If{$t \geq N_m$}
+\If{$r_c \leq \gamma $}
+\State Choose $c$, observe $\bar{R}(r_c,c)$ and $\hat{R}(r_c,c)\leftarrow \bar{R}(r_c,c)$.
+\State $r_c \leftarrow r_c + 1$.
+\Else
+\State $\Z_m \leftarrow \Z_m \cup \lbrace c\rbrace$
+\State Choose $c\in\B_m\setminus \Z_m$ uniform randomly and $r_c \leftarrow 1$.
+\EndIf
 \Else
 \ColElim
-\State \If{$\forall i\in [K]: \max_{j\in J} \hat{R}(i,j)  \geq  \hat{R}(i,c)$} 
-\State  $\B \leftarrow \B \cup c$ (Eliminate $c$ )
-\State Randomly select another test column $c \in \A \setminus \lbrace\B \cup J\rbrace$ with uniform probability.
-\State $r_c \leftarrow 0$
-\Else
-\State $\exists j'\in J: \forall i\in [K]: \max_{j\in J \setminus{ j'} \cup c} \hat{R}(i,j) \geq \hat{R}(i,j')$
-\State $\B \leftarrow \B \cup j' $ (Eliminate $j'$)
-\State $J\leftarrow J \setminus{ j'} \cup c$ (Add $c$ as best candidate column)
-\State $r_c \leftarrow d - K $ (Fully explore new best candidate column)
+\State \ForEach{$e_b\in\C$}
+\State \If{$\exists j\in \B_m: \forall i\in e_b, \forall j'\in \B_m\setminus \lbrace j\rbrace,  \hat{R}(i,j) < \max_{i\in e_b}\lbrace \hat{R}(i,j') \rbrace$}
+\State $\B_m \leftarrow \B_m \cup \lbrace j \rbrace$. 
 \EndIf
+\EndFor
 \EndColElim
+\ResParam
+\State $N_{m+1} \leftarrow t + \gamma |\B_m|n_0$ and $m \leftarrow m + 1$.
+\EndResParam
 \EndIf
-\ElsIf{$|\B| = L - d$} \textbf{Exploit}
-\State  Select column $j_t^*$, observe $\bar{R}(i_t,j_t^*)$ where $j_t^* \leftarrow \argmax_{j\in[J]} {\hat{R}(i_t,j)}$ and $\hat{R}(i_t,,j_t^*)\leftarrow \bar{R}(i_t,,j_t^*)$.
+\Else \textbf{  (Exploit) }
+\State  Select column $j_t^*$, observe $\bar{R}(i_t,j_t^*)$ where $j_t^* \leftarrow \argmax_{j\in[\B_m]} {\hat{R}(i_t,j)}$ and $\hat{R}(i_t,,j_t^*)\leftarrow \bar{R}(i_t,,j_t^*)$.
+\EndIf
+\EndFor
+\end{algorithmic}
+%\vspace*{-0.42em}
+\end{algorithm}
+
+
+
+\begin{algorithm}[!th]
+\caption{Noisy GLB-UCB}
+\label{alg:NGLB}
+\begin{algorithmic}[1]
+\State {\bf Input:} Time horizon $T$, $Rank(\bar{R}) = d$.
+\State {\bf Definition:} $U_m(\epsilon_m, n_m) = \sqrt{\dfrac{2\log(T\epsilon_m^2)}{n_m} }$
+\State {\bf Explore Parameter:} $\gamma = \lceil\sqrt{K} \rceil$.
+\State {\bf Initialization:} $\forall I\in [K], J\in [L], \hat{R}(I,J \leftarrow 0$, $m=0$, $\B_0 \leftarrow \A$, $\Z_0 \leftarrow \emptyset$, $c=0$ , $n_0 = 1 $ and $N_0 = \gamma |\B_0|n_0$.
+\State Create set $\C$ of equivalence classes such that 
+\ForEach{$b\in \left[0,\frac{K}{\gamma}-1\right]$}
+\State  $e_{b+1}\in C \leftarrow \left\lbrace i\in \left[\frac{bK}{\gamma}+1,\frac{(b+1)K}{\gamma}\right]\right\rbrace$.
+\EndFor
+\For{$t=1,..,T$}	
+\State Nature reveals $i_t$ such that $i_t \leftarrow (t \mod K) + 1$ (Round-Robin).
+\If{$|\B_m| > d$} \textbf{ (Explore) }
+\If{$t \geq N_m$}
+\If{$r_c \leq \gamma $}
+\State Choose $c$, observe $\bar{R}(r_c,c)$ and $\hat{R}(r_c,c)\leftarrow \bar{R}(r_c,c)$.
+\State $r_c \leftarrow r_c + 1$.
+\Else
+\State $\Z_m \leftarrow \Z_m \cup \lbrace c\rbrace$
+\State Choose $c\in\B_m\setminus \Z_m$ uniform randomly and $r_c \leftarrow 1$.
+\EndIf
+\Else
+\ColElim
+\State \ForEach{$e_b\in\C$}
+\State \If{$\exists j\in \B_m: \forall i\in e_b, \forall j'\in \B_m\setminus \lbrace j\rbrace, \hat{R}(i,j)  + U_m(\epsilon_m, n_m) < \max_{i\in e_b}\lbrace \hat{R}(i,j') - U_m(\epsilon_m, n_m)\rbrace$}
+\State $\B_m \leftarrow \B_m \cup \lbrace j \rbrace$. 
+\EndIf
+\EndFor
+\EndColElim
+\ResParam
+\State $\epsilon_{m+1} \leftarrow {\epsilon_m}{2}$ and $n_{m+1} \leftarrow \dfrac{2\log(T\epsilon_{m+1}^2)}{\epsilon_{m+1}^2} $
+\State $N_{m+1} \leftarrow t + \gamma |\B_m|n_{m+1}$ and $m \leftarrow m + 1$.
+\EndResParam
+\EndIf
+\Else \textbf{  (Exploit) }
+\State  Select column $j_t^*$, observe $\bar{R}(i_t,j_t^*)$ where $j_t^* \leftarrow \argmax_{j\in[\B_m]} {\hat{R}(i_t,j)}$ and $\hat{R}(i_t,,j_t^*)\leftarrow \bar{R}(i_t,,j_t^*)$.
 \EndIf
 \EndFor
 \end{algorithmic}
