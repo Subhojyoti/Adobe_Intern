@@ -51,7 +51,7 @@ class CustomUCB(object):
         count=0
         for i in range(0,self.users):
             if self.expl[colTake]!=-1:
-                if self.estR[i][colTake] == 0.0:
+                if self.estR[i][colTake] == self.MIN:
                     count=count+1
                     break
         return count
@@ -63,7 +63,7 @@ class CustomUCB(object):
             for j in range(0,self.numActions):
                 
                 if self.expl[j]!=-1:
-                    if self.estR[i][j] == 0.0:
+                    if self.estR[i][j] == self.MIN:
                         count=count+1
                         break
         return count
@@ -158,12 +158,13 @@ class CustomUCB(object):
         # Set the environment
 
         self.MAX = 99999.0
+        self.MIN = -99999.0
         self.numActions = numActions
         self.users = users
 
         self.payoffSums = [[0.0 for i in range(0, self.numActions)] for j in range (0,self.users)]
         self.numPlays = [[0.0 for i in range(0, self.numActions)] for j in range (0,self.users)]
-        self.estR = [[0.0 for i in range(0, self.numActions)] for j in range (0,self.users)]
+        self.estR = [[self.MIN for i in range(0, self.numActions)] for j in range (0,self.users)]
 
         #self.upbs = [0] * self.numActions
         # self.numRounds = 3000000
@@ -253,7 +254,7 @@ class CustomUCB(object):
         for user in range(0,self.users):
             self.bestSet[user] = max(range(0,self.numActions), key=lambda i: self.numPlays[user][i])
 
-        f = open('NewExpt/expt4/testRegretCustomUCB0RR1.txt', 'a')
+        f = open('NewExpt/expt5/testRegretCustomUCB0RR1.txt', 'a')
         for r in range(len(self.actionRegret)):
             f.write(str(self.actionRegret[r]) + "\n")
         f.close()
@@ -276,7 +277,7 @@ if __name__ == "__main__":
             # print bestSet
             wrong = wrong + 1
         print "turn: " + str(turn + 1) + "\t wrong: " + str(wrong) + "\t arms: " + str(actions) + "\t barm: " + str(arm) + "\t Reward: " + str(cumulativeReward) + "\t bestCumReward: " + str(bestActionCumulativeReward) + "\t regret: " + str(regret)
-        f = open('NewExpt/expt4/testCustomUCB0RR1.txt', 'a')
+        f = open('NewExpt/expt5/testCustomUCB0RR1.txt', 'a')
         f.writelines("arms: %d \t bArms: %d \t timestep: %d\t regret: %d \t cumulativeReward: %.2f \t bestCumulativeReward: %.2f \n" % (actions, arm, timestep, regret, cumulativeReward, bestActionCumulativeReward))
         f.close()
 

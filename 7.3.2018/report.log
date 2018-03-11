@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  9 MAR 2018 15:48
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  11 MAR 2018 10:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1377,32 +1377,32 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ))
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
 (Font)              Font shape `T1/ptm/b/n' tried instead on input line 152.
- (./probdef.tex [1
+ (./probdef.tex) (./related.tex [1
 
-{/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}])
-(./related.tex) (./contributions.tex) (./algo.tex
+{/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]) (./con
+tributions.tex) (./algo.tex
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
 put line 57.
 LaTeX Font Info:    Font shape `T1/ptm/bx/it' in size <10> not available
 (Font)              Font shape `T1/ptm/b/it' tried instead on input line 80.
 
-Overfull \hbox (28.3299pt too wide) in paragraph at lines 129--132
+Overfull \hbox (28.3299pt too wide) in paragraph at lines 130--133
 [] \T1/ptm/b/n/10 while $\OMS/cmsy/m/n/10 9\OML/cmm/m/it/10 j \OMS/cmsy/m/n/10 
 2 B[][][]$
  []
 
 ) (./results.tex) (./proofs.tex
-Underfull \vbox (badness 2443) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [2]
 Underfull \vbox (badness 1092) has occurred while \output is active []
 
  [3])
 (./expt.tex
-PGFPlots: reading {results/NewExpt/Expt4/comp_subsampled_CustomUCB0RR1.txt}
-PGFPlots: reading {results/NewExpt/Expt4/comp_subsampled_GLBUCB0RR1.txt}
 PGFPlots: reading {results/NewExpt/Expt5/comp_subsampled_CustomUCB0RR1.txt}
 PGFPlots: reading {results/NewExpt/Expt5/comp_subsampled_GLBUCB0RR1.txt}
+PGFPlots: reading {results/NewExpt/Expt6/comp_subsampled_CustomUCB0RR1.txt}
+PGFPlots: reading {results/NewExpt/Expt6/comp_subsampled_GLBUCB0RR1.txt}
 ) (./conclusions.tex) (./report.bbl [4pdfTeX warning (ext4): destination with t
 he same identifier (name{ALG@line.1}) has been already used, duplicate ignored
 
@@ -1588,7 +1588,7 @@ Here is how much of TeX's memory you used:
  36607 multiletter control sequences out of 15000+600000
  53987 words of font info for 85 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 69i,27n,107p,1203b,2482s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 69i,27n,107p,1204b,2482s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
 exlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/te
 xlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/tex
@@ -1608,7 +1608,7 @@ mf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2017/texmf-dist/fo
 nts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1
 /urw/times/utmr8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/times
 /utmri8a.pfb>
-Output written on report.pdf (5 pages, 194446 bytes).
+Output written on report.pdf (5 pages, 194760 bytes).
 PDF statistics:
  204 PDF objects out of 1000 (max. 8388607)
  177 compressed objects within 2 object streams

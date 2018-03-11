@@ -90,7 +90,8 @@ We assume that nature is revealing $i$ in $\bar{R}(i,:), \forall i\in [K]$  in a
 \State $N_{m+1} \leftarrow t + \gamma |\B_m|n_0$ and $m \leftarrow m + 1$.
 \EndResParam
 \EndIf
-\Else \textbf{  (Exploit) }
+\Else \textbf{ (Exploit) }
+%\State  Explore all $j\inB_{m}$ fully
 \State  Select column $j_t^*$, observe $\bar{R}(i_t,j_t^*)$ where $j_t^* \leftarrow \argmax_{j\in[\B_m]} {\hat{R}(i_t,j)}$ and $\hat{R}(i_t,,j_t^*)\leftarrow \bar{R}(i_t,,j_t^*)$.
 \EndIf
 \EndFor
@@ -139,7 +140,8 @@ We assume that nature is revealing $i$ in $\bar{R}(i,:), \forall i\in [K]$  in a
 \State $N_{m+1} \leftarrow t + \gamma |\B_m|n_{m+1}$ and $m \leftarrow m + 1$.
 \EndResParam
 \EndIf
-\Else \textbf{  (Exploit) }
+\Else \textbf{ (Exploit) }
+%\Select Explore all $j\inB_{m}$ fully.
 \State  Select column $j_t^*$, observe $\bar{R}(i_t,j_t^*)$ where $j_t^* \leftarrow \argmax_{j\in[\B_m]} {\hat{R}(i_t,j)}$ and $\hat{R}(i_t,,j_t^*)\leftarrow \bar{R}(i_t,,j_t^*)$.
 \EndIf
 \EndFor

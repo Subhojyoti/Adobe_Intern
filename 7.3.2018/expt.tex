@@ -22,16 +22,16 @@
         %clip mode=individual,grid,grid style={gray!30},
   		legend style={at={(0.5,1.1)},anchor=north, legend columns=3} ]
       	% UCB
-		\addplot table{results/NewExpt/Expt4/comp_subsampled_CustomUCB0RR1.txt};
-		\addplot table{results/NewExpt/Expt4/comp_subsampled_GLBUCB0RR1.txt};
+		\addplot table{results/NewExpt/Expt5/comp_subsampled_CustomUCB0RR1.txt};
+		\addplot table{results/NewExpt/Expt5/comp_subsampled_GLBUCB0RR1.txt};
 		%\addplot table{results/NewExpt/Expt3/comp_subsampled_CustomEXP30RR.txt};
-      	\legend{UCB1-RR,GLBUCB-RR}      	
+      	\legend{UCB1,GLBUCB}      	
       	\end{axis}
       	\end{tikzpicture}
   		\label{fig:1}
     }
     &
-    \subfigure[0.25\textwidth][Expt-$2$: $64$ Users, $10$ Bernoulli-distributed arms, Round-Robin, Noise-Free Setting, Deformed Environment ]
+    \subfigure[0.25\textwidth][Expt-$2$: $64$ Users, $64$ Bernoulli-distributed arms, Round-Robin, Noise-Free Setting, Deformed Environment ]
     %with $r_{i_{{i}\neq {*}}}=0.07$ and $r^{*}=0.1$
     {
     		\pgfplotsset{
@@ -51,10 +51,10 @@
         %clip mode=individual,grid,grid style={gray!30},
   		legend style={at={(0.5,1.1)},anchor=north, legend columns=3} ]
       	% UCB
-		\addplot table{results/NewExpt/Expt5/comp_subsampled_CustomUCB0RR1.txt};
-		\addplot table{results/NewExpt/Expt5/comp_subsampled_GLBUCB0RR1.txt};
+		\addplot table{results/NewExpt/Expt6/comp_subsampled_CustomUCB0RR1.txt};
+		\addplot table{results/NewExpt/Expt6/comp_subsampled_GLBUCB0RR1.txt};
 		%\addplot table{results/NewExpt/Expt3/comp_subsampled_CustomEXP30RR.txt};
-      	\legend{UCB1-RR,GLBUCB-RR}      	
+      	\legend{UCB1,GLBUCB}      	
       	\end{axis}
       	\end{tikzpicture}
   		\label{fig:2}

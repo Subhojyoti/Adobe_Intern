@@ -15,17 +15,17 @@ class CreateEnvironment(object):
     '''
 
 
-    def __init__(self):
+    def __init__(self,filename):
         '''
         Constructor
         '''
-    
+        self.filename = filename
 
 
     def readenv(self):
         data=[]
-        filename="env/env1/AP4.txt"
-        for line in fileinput.input([filename]):
+        #filename="env/env1/AP8.txt"
+        for line in fileinput.input([self.filename]):
 
             try:
                 line1 = [line.split(", ") or line.split("\n") ]
@@ -59,12 +59,14 @@ class CreateEnvironment(object):
 
         self.means =[[0.0 for i in range(self.numActions)] for j in range(0,self.users)]
         self.variance=[[0.0 for i in range(self.numActions)] for j in range(0,self.users)]
-
+        
+        '''
         for i in range(0,self.rank):
             self.means[i][self.numActions - i -1] = 1.0
+        '''
         
-        
-        for i in range(self.rank,self.users):
+        #for i in range(self.rank,self.users):
+        for i in range(0,self.users):
             
             take=[0.0 for r in range(0,self.numActions)]
             pick_max = random.randint(self.numActions - self.rank, self.numActions -1)
@@ -99,7 +101,7 @@ class CreateEnvironment(object):
             self.means[i][max_item] = temp
             '''
                 
-        f = open('env/env1/AP4.txt', 'w')
+        f = open(self.filename, 'w')
         for j in range(0,self.users):
             print sum(self.means[j])
             f.writelines("%s\n" % (', '.join(["%.3f" % i for i in self.means[j]])))
@@ -113,12 +115,13 @@ class CreateEnvironment(object):
 
 if __name__ == "__main__":
 
-        numActions = 10
-        users = 20
+        numActions = 64
+        users = 64
         rank = 2
         gap = 0.5
+        filename = 'env/env1/AP8.txt'
         
-        obj=CreateEnvironment()
+        obj=CreateEnvironment(filename)
         obj.create(rank, users, numActions, gap)
 
                 
