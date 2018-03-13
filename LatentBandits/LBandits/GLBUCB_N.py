@@ -1,5 +1,5 @@
 '''
-Created on Mar 7, 2018
+Created on Mar 9, 2018
 
 @author: subhomuk
 '''
@@ -51,7 +51,7 @@ class GLBUCB(object):
             for j in range(0,self.numActions):
                 
                 if self.expl[j]!=-1:
-                    if self.estR[i][j] == 0.0:
+                    if self.estR[i][j] == self.MIN:
                         count=count+1
                         break
         return count
@@ -60,11 +60,11 @@ class GLBUCB(object):
     #Generate Rewards
     def rewards(self, user, choice):
         # Noise Free
-        return self.means[user][choice]
+        #return self.means[user][choice]
 
         # Noisy
-        # return random.gauss(self.means[user][choice],0.25)
-        # return sum(numpy.random.binomial(1, self.means[user][choice], 1)) / 1.0
+        #return random.gauss(self.means[user][choice],0.25)
+        return sum(numpy.random.binomial(1, self.means[user][choice], 1)) / 1.0
     
     
     #Read Environment
@@ -95,10 +95,14 @@ class GLBUCB(object):
         # print self.variance
     
     #Calculate Upper Bound
-    def upperBound(self, numPlays):
+    def upperBound(self):
         
-        return 0.0
-        #return math.sqrt(2.0 * math.log(self.numRounds) / (numPlays))
+        # Noise Free
+        #return 0.0
+        
+        # Noisy
+        return math.ceil(math.log((self.psi*self.numRounds*self.epsilon*self.epsilon)/(2.0*self.nm)))
+                    
     
     #Choose Column in Round Robin Fashion
     def choose_Col_RR(self,user):
@@ -162,20 +166,25 @@ class GLBUCB(object):
         
         #self.write_file(self.t, self.estR, '_estR_')
         
-        for col in range(0,self.numActions):
+        
+        for c in range(0,len(self.equiValence)-1):   
             
-            for c in range(0,len(self.equiValence)-1):
-                
-                max_val = self.MIN
-                for row in range(self.equiValence[c],self.equiValence[c+1]):
+               
+            for row in range(self.equiValence[c],self.equiValence[c+1]):
                     
-                    if self.estR[row][col]!= 0 and self.estR[row][col]!= -1 and self.estR[row][col] > max_val:
-                        
+                max_val = self.MIN
+                for col in range(0,self.numActions):
+                    
+                    #print self.estR[row][col], row, col, max_val
+                    if self.estR[row][col]!= self.MIN and self.estR[row][col]!= -1 and self.estR[row][col]  > max_val:
+                        #print max_val
                         max_val = self.estR[row][col]
                     
                 
-                for row in range(self.equiValence[c],self.equiValence[c+1]):
-                    #print row
+                #for row in range(self.equiValence[c],self.equiValence[c+1]):
+                #print row
+                for col in range(0,self.numActions):
+                    
                     self.max_take[row][col] = max_val
                     
         
@@ -186,112 +195,56 @@ class GLBUCB(object):
     def colElim(self):
         
         
-        print self.expl      
+        #print self.expl      
         #self.write_file(self.t, self.max_take, '_MAX_')
         #self.write_file(self.t, self.estR, '_estR_')
         #self.write_file(self.t, self.estR, '_estR_')
+        #compare_col = 8
         self.calc_max()
         for c in range(0,len(self.equiValence)-1):
             
-            
-            self.Col = [0 for i in range(0,self.numActions)]
-            for col in range(0,self.numActions):
+            count_colrow = 0
+            while True:
+                #self.Col = [0 for i in range(0,self.numActions)]
+                #print count_col
                 
-                #Calculate the number of columns you need to compare with
-                compare_col = 0
-                for col2 in range(0,self.numActions):
-                    if col!= col2 and self.max_take[self.equiValence[c]][col2]!=self.MIN:
-                        compare_col = compare_col + 1
                 
+                for col in range(0,self.numActions):
                 #Compare against other column max row by row in the same equivalence class
-                coladd = []
-                for col1 in range(0,self.numActions):
+                    #coladd = []
+                    
                     count = 0
-                    
-                    for row in range(self.equiValence[c],self.equiValence[c+1]):
+                    for row in range(self.equiValence[c],self.equiValence[c+1]):  
                         
-                        
-                        if col!= col1 and self.max_take[row][col1]!=self.MIN:
+                        count_colrow = count_colrow + 1
+                        if self.B[col]!=-1 and self.estR[row][col]!= self.MIN and self.estR[row][col] + self.upperBound() < self.max_take[row][col] - self.upperBound():
                             
-                            if self.B[col]!=-1 and self.B[col1]!=-1 and self.estR[row][col]!= 0  and self.estR[row][col]!= -1 and self.estR[row][col] < self.max_take[row][col1]:
-                            
-                                #print self.estR[row][col], self.max_take[row][col1], count, row, col, col1
-                                #print self.estR[row][col], self.max_take[row][col1], count
+                            #print self.estR[row][col], self.max_take[row][col], row, col, count
+                            #print self.estR[row][col], self.max_take[row][col1], count
                                 
-                                count = count + 1
+                            count = count + 1
             
             
                     
-                    if count >= self.explore - 1:        
-                        self.Col[col] = self.Col[col] - 1
-                        coladd.append(col1)
+                    if count >= self.explore - 1:      
                         
-                    
-                if self.remArms() > self.rank and compare_col > 0 and self.Col[col] <= -1.0*compare_col and self.B[col]!=-1:
-                    
-                    print "remove: "+str(col), " by comparing against " + str(compare_col) , "column(s): " +str(coladd)
-                    self.B[col] = -1
-                            
-                    for u in range(0,self.users):
-                        self.estR[u][col] = -1.0
+                        self.B[col] = -1
+                        print "remove: "+str(col)+ ". Remaining columns: " + str(self.B)
                         
-                    self.calc_max()
-    
-    
-    def colElim1(self):
-        
-        
-        print self.expl      
-        #self.write_file(self.t, self.max_take, '_MAX_')
-        #self.write_file(self.t, self.estR, '_estR_')
-        #self.write_file(self.t, self.estR, '_estR_')
-        self.calc_max()
-        for c in range(0,len(self.equiValence)-1):
-            
-            
-            self.Col = [0 for i in range(0,self.numActions)]
-            for col in range(0,self.numActions):
-                
-                #Calculate the number of columns you need to compare with
-                compare_col = 0
-                for col2 in range(0,self.numActions):
-                    if col!= col2 and self.max_take[self.equiValence[c]][col2]!=self.MIN:
-                        compare_col = compare_col + 1
-                
-                #Compare against other column max row by row in the same equivalence class
-                coladd = []
-                for col1 in range(0,self.numActions):
-                    count = 0
-                    
-                    for row in range(self.equiValence[c],self.equiValence[c+1]):
-                        
-                        
-                        if col!= col1 and self.max_take[row][col1]!=self.MIN:
-                            
-                            if self.B[col]!=-1 and self.B[col1]!=-1 and self.estR[row][col]!= 0  and self.estR[row][col]!= -1 and self.estR[row][col] < self.max_take[row][col1]:
-                            
-                                #print self.estR[row][col], self.max_take[row][col1], count, row, col, col1
-                                #print self.estR[row][col], self.max_take[row][col1], count
                                 
-                                count = count + 1
-            
-            
-                    
-                    if count >= self.explore - 1:        
-                        self.Col[col] = self.Col[col] - 1
-                        coladd.append(col1)
+                        for u in range(0,self.users):
+                            self.estR[u][col] = -1.0
                         
-                    
-                if self.remArms() > self.rank and compare_col > 0 and self.Col[col] <= -1.0*compare_col and self.B[col]!=-1:
-                    
-                    print "remove: "+str(col), " by comparing against " + str(compare_col) , "column(s): " +str(coladd)
-                    self.B[col] = -1
-                            
-                    for u in range(0,self.users):
-                        self.estR[u][col] = -1.0
+                        count = 0   
+                        self.calc_max()
+                        count_colrow = 0
+                
+                if count_colrow >= self.numActions*self.explore :
+                    break        
+                    #self.Col[col] = self.Col[col] - 1
+                    #coladd.append(col)
                         
-                    self.calc_max()
-                        
+                
     
     
     def GLBUCB(self, users, numActions, rank):
@@ -309,11 +262,11 @@ class GLBUCB(object):
         self.numPlays = [[1 for i in range(0, self.numActions)] for j in range (0,self.users)]
         #self.ucbs = [[self.MAX for i in range(0, self.numActions)] for j in range (0,self.users)]
 
-        self.estR = [[0.0 for i in range(0, self.numActions)] for j in range (0,self.users)]
+        self.estR = [[self.MIN for i in range(0, self.numActions)] for j in range (0,self.users)]
         self.B = [0 for i in range(0,self.numActions)]
-        self.max_take = [[0 for i in range(0, self.numActions)] for j in range (0,self.users)]
+        self.max_take = [[self.MIN for i in range(0, self.numActions)] for j in range (0,self.users)]
         
-        self.numRounds = 2000
+        self.numRounds = 100000
         
         self.arm_reward = [[0.0 for i in range(0, self.numActions)] for j in range (0,self.users)]
         self.bestAction = [0 for i in range(0,self.users)]
@@ -360,15 +313,28 @@ class GLBUCB(object):
         
         
         self.countCol = 0
-        self.countRow = 0
+        
         
         #print self.estR
         #self.write_file(self.t)
         
-        self.action = self.choose_Col_RR(0)
+        
         
         #initialize phase
-        m = 0
+        self.m = 0
+        self.epsilon = 1.0
+        
+        #self.psi = self.numRounds * self.explore * self.explore
+        self.psi = self.numRounds
+        
+        self.nm = int(math.ceil((1.0*math.log(self.psi*self.numRounds*self.epsilon*self.epsilon)/(self.epsilon))))
+        self.Nm = self.explore*self.nm*self.remArms()
+        self.M = int(math.ceil(0.5 * (math.log((self.numRounds/math.e)/math.log((1+0.5))))))
+        
+        print self.Nm, self.M
+        self.action = 0
+        self.countRow = 0
+        
         while True:
 
             #User gives row
@@ -376,17 +342,17 @@ class GLBUCB(object):
             
             if self.remArms() > self.rank:
                 #Explore
-                
+                if self.t <= self.Nm:
                 #Explore the column if not explored
-                if self.remExplore() > 0:
-                    
-                    #print self.expl, self.countRow
-                    if self.countRow < self.explore:
+                    #if self.remExplore() > 0:
                         
+                        #print self.expl, self.countRow
+                    if self.countRow < self.explore:
+                            
                         self.countRow = self.countRow + 1
-    
+        
                     else:
-    
+        
                         
                         self.expl[self.action] = -1 
                         self.action = self.choose_Col_RR(user)
@@ -395,14 +361,23 @@ class GLBUCB(object):
                     
                 else:
                     #self.write_file(self.t,self.estR,'_R_')
-                    print "Phase: " + str(m) + " explored " + str(self.remArms()) + " columns " + str(self.explore) + " times"
-                    self.colElim1()    
+                    
+                    print "\n\nPhase: " + str(self.m) + " explored " + str(self.remArms()) + " columns " + str(self.explore*self.nm) + " times"
+                    
+
+                    #Arm Elimination
+                    self.colElim()    
                     self.expl = [0 for i in range(0,self.numActions)]
                     for i in range(0,self.numActions):
                         if self.B[i] == -1:
                             self.expl[i] = -1
                     
-                    m = m + 1
+                    #Parameter Reset
+                    self.epsilon = self.epsilon / (1 + 0.5)
+                    self.nm = int(math.ceil(1.0*math.log((self.psi*self.numRounds*self.epsilon*self.epsilon)/(self.epsilon))))
+                    self.Nm = self.t + self.explore*self.nm*self.remArms()
+                    print self.Nm, self.nm
+                    self.m = self.m + 1
             else:
                 
                 #Explore best d columns fully
@@ -418,7 +393,7 @@ class GLBUCB(object):
                 if self.remExplore() > 0:
                     
                     for col in range(0,self.numActions):
-                        if self.expl[col] != -1 and self.estR[user][col]== 0.0:
+                        if self.expl[col] != -1 and self.estR[user][col]== self.MIN:
                             self.action = col
                     
                 else:
@@ -452,7 +427,7 @@ class GLBUCB(object):
                 break
 
         #write regret to file
-        f = open('NewExpt/expt4/testRegretGLBUCB0RR1.txt', 'a')
+        f = open('NewExpt/expt7/testRegretGLBUCB0RR1.txt', 'a')
         for r in range(len(self.actionRegret)):
             f.write(str(self.actionRegret[r]) + "\n")
         f.close()
@@ -467,7 +442,7 @@ if __name__ == "__main__":
     action = 10
     rank = 2
 
-    for turn in range(0,100):
+    for turn in range(0,1):
         obj = GLBUCB()
         random.seed(turn + action)
         cumulativeReward, bestActionCumulativeReward, regret, arm, timestep = obj.GLBUCB(user, action, rank)
@@ -475,7 +450,7 @@ if __name__ == "__main__":
             # print bestSet
         #    wrong = wrong + 1
         print "turn: " + str(turn + 1) + "\t wrong: " + str(wrong) + "\t arms: " + str(action) + "\t barm: " + str(arm) + "\t Reward: " + str(cumulativeReward) + "\t bestCumReward: " + str(bestActionCumulativeReward) + "\t regret: " + str(regret)
-        f = open('NewExpt/expt4/testGLBUCB0RR1.txt', 'a')
+        f = open('NewExpt/expt7/testGLBUCB0RR1.txt', 'a')
         f.writelines("arms: %d\t bArms: %d\t timestep: %d\t regret: %d \t cumulativeReward: %.2f \t bestCumulativeReward: %.2f \n" % (action, arm, timestep, regret, cumulativeReward, bestActionCumulativeReward))
         f.close()
 

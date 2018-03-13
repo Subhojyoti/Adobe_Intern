@@ -1,11 +1,5 @@
-\subsection{Noise-Free Setting}
+%\subsection{Noise-Free Setting}
 
-In the noise-free setting, in addition to Assumption \ref{assm:1} and Assumption \ref{assm:1} we assume two further assumptions.
-
-\begin{assumption}
-\label{assm:round-robin}
-We assume that nature is revealing $i$ in $\bar{R}(i,:), \forall i\in [K]$  in a Round-Robin fashion.
-\end{assumption}
 
 %\begin{assumption}
 %\label{assm:d-indep}
@@ -52,6 +46,14 @@ We assume that nature is revealing $i$ in $\bar{R}(i,:), \forall i\in [K]$  in a
 \algnewcommand\algorithmicforeach{\textbf{for each}}
 \algdef{S}[FOR]{ForEach}[1]{\algorithmicforeach\ #1\ \algorithmicdo}
 
+We propose two algorithms, one each for noise less and noisy setting. These algorithms are based on UCB-Improved, which is an arm elimination algorithm from \citet{auer2010ucb} and is suitable for the stochastic bandit setting. Both these algorithms are phase based column (arm) elimination algorithms where in each phase we select all the surviving columns equal number of times  and then  eliminate some sub-optimal columns based on some elimination criteria. 
+
+The algorithms are initialized with the estimate $\hat{R}_{i,j}, \forall i\in[K], j\in[]L$ set to zero. In the $m$-th phase, we denote the set of surviving columns as $\B_m$, the set of explored columns as $\Z_m$. We denote each equivalence class as $\G_b$, where $b$ is indexed from $1,2,\ldots , \frac{K}{\gamma}$ and these class are contained in $\C$.  $N_m$ denotes the phase length for the $m$-th phase and each phase length consist of $\gamma |B_m| n_m $, where $ \gamma = \lceil\sqrt{K} \rceil $ is the exploration parameter and $ n_m $ is the number of times we select each surviving columns. In the column elimination sub-module we eliminate a sub-optimal column by making sure that it is not one of the $d$-best columns. In the reset parameters sub-module, we increase the exploration bonus for the next phase so that more exploration is conducted for the surviving arms. Note, that for these two sub-modules, the noise free and noisy setting has two different approaches which will be explained in subsection \ref{alg:noisefree} and \ref{alg:noisy} respectively. Finally, if the algorithm has eliminated $L-d$ columns, it fully explores the $d$ best columns and for all the users it always selects the column $j^*t$, where $j_t^* \leftarrow \argmax_{j\in[\B_m]} {\hat{R}(i_t,j)}$.
+
+\subsection{Noise Free Setting}
+\label{alg:noisefree}
+
+In the noise free setting, since at every pull of a column $j$ for a user $i$, the algorithm observes the expected reward $\hat{R}_{i,j} = \bar{R}_{i,j}$, so $n_0 =  n_m = 1, \forall m$. Furthermore, we do not require any confidence interval in the noise free setting for column elimination sub-module. The pseudo-code of this is shown in Algorithm \ref{alg:NFGLB}.
 
 \begin{algorithm}[!th]
 \caption{Noise-Free GLB}
@@ -99,6 +101,11 @@ We assume that nature is revealing $i$ in $\bar{R}(i,:), \forall i\in [K]$  in a
 %\vspace*{-0.42em}
 \end{algorithm}
 
+
+\subsection{Noisy setting}
+\label{alg:noisy}
+
+In the noisy setting, at every pull the algorithm observes a random reward which is drawn from the distribution $\N(\bar{R}_{i,j}, \sigma^2)$, so the algorithm samples each column more number of times ($n_m$) in each phase and increases the exploration from phase to phase. Moreover, in the column elimination sub-module, the confidence interval $U_m(\epsilon_m, n_m)$  helps in eliminating a sub-optimal column with high probability in the noisy setting. The pseudo-code of this is shown in Algorithm \ref{alg:NGLB}.
 
 
 \begin{algorithm}[!th]
