@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  14 MAR 2018 11:51
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  14 MAR 2018 16:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1376,14 +1376,11 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 3.
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ))
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 152.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 153.
  (./probdef.tex [1
 
 {/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}])
-(./related.tex) (./contributions.tex) (./algo.tex
-Underfull \vbox (badness 1783) has occurred while \output is active []
-
- [2]
+(./related.tex) (./contributions.tex) (./algo.tex [2]
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
 put line 59.
 LaTeX Font Info:    Font shape `T1/ptm/bx/it' in size <10> not available
@@ -1394,7 +1391,216 @@ Overfull \hbox (28.3299pt too wide) in paragraph at lines 142--143
 2 B[][][]$
  []
 
-[3]) (./results.tex) (./proofs.tex) (./expt.tex
+
+Underfull \hbox (badness 10000) in paragraph at lines 156--157
+[] \T1/ptm/m/n/10 Se-lect col-umn $\OML/cmm/m/it/10 j[]$\T1/ptm/m/n/10 , ob-ser
+ve $\OML/cmm/m/it/10 r[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 i[]; j[]\OT1/cmr/m/n/
+10 ) \OMS/cmsy/m/n/10 ^^X N\OT1/cmr/m/n/10 ([](\OML/cmm/m/it/10 i[]; j[]\OT1/cm
+r/m/n/10 )\OML/cmm/m/it/10 ; ^^[[]\OT1/cmr/m/n/10 )$ \T1/ptm/m/n/10 where $\OML
+/cmm/m/it/10 j[] \OMS/cmsy/m/n/10  
+ []
+
+) (./results.tex) (./proofs.tex
+Underfull \vbox (badness 5893) has occurred while \output is active []
+
+ [3]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [4]
+
+LaTeX Warning: Text page 5 contains only floats.
+
+
+Overfull \vbox (5.07846pt too high) has occurred while \output is active []
+
+
+[5pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.1}
+) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.9 \end{align*}
+                pdfTeX warning (ext4): destination with the same identifier (na
+me{ALG@line.2}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.9 \end{align*}
+                pdfTeX warning (ext4): destination with the same identifier (na
+me{ALG@line.3}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.9 \end{align*}
+                pdfTeX warning (ext4): destination with the same identifier (na
+me{ALG@line.4}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.9 \end{align*}
+                pdfTeX warning (ext4): destination with the same identifier (na
+me{ALG@line.5}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.9 \end{align*}
+                pdfTeX warning (ext4): destination with the same identifier (na
+me{ALG@line.6}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.9 \end{align*}
+                pdfTeX warning (ext4): destination with the same identifier (na
+me{ALG@line.7}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.9 \end{align*}
+                pdfTeX warning (ext4): destination with the same identifier (na
+me{ALG@line.8}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.9 \end{align*}
+                pdfTeX warning (ext4): destination with the same identifier (na
+me{ALG@line.9}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.9 \end{align*}
+                pdfTeX warning (ext4): destination with the same identifier (na
+me{ALG@line.10}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.9 \end{align*}
+                pdfTeX warning (ext4): destination with the same identifier (na
+me{ALG@line.11}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.9 \end{align*}
+                pdfTeX warning (ext4): destination with the same identifier (na
+me{ALG@line.12}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.9 \end{align*}
+                pdfTeX warning (ext4): destination with the same identifier (na
+me{ALG@line.13}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.9 \end{align*}
+                pdfTeX warning (ext4): destination with the same identifier (na
+me{ALG@line.14}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.9 \end{align*}
+                pdfTeX warning (ext4): destination with the same identifier (na
+me{ALG@line.15}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.9 \end{align*}
+                pdfTeX warning (ext4): destination with the same identifier (na
+me{ALG@line.16}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.9 \end{align*}
+                pdfTeX warning (ext4): destination with the same identifier (na
+me{ALG@line.17}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.9 \end{align*}
+                pdfTeX warning (ext4): destination with the same identifier (na
+me{ALG@line.18}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.9 \end{align*}
+                pdfTeX warning (ext4): destination with the same identifier (na
+me{ALG@line.19}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.9 \end{align*}
+                pdfTeX warning (ext4): destination with the same identifier (na
+me{ALG@line.20}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.9 \end{align*}
+                pdfTeX warning (ext4): destination with the same identifier (na
+me{ALG@line.21}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.9 \end{align*}
+                pdfTeX warning (ext4): destination with the same identifier (na
+me{ALG@line.22}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.9 \end{align*}
+                pdfTeX warning (ext4): destination with the same identifier (na
+me{ALG@line.23}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.9 \end{align*}
+                pdfTeX warning (ext4): destination with the same identifier (na
+me{ALG@line.24}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.9 \end{align*}
+                pdfTeX warning (ext4): destination with the same identifier (na
+me{ALG@line.25}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.9 \end{align*}
+                pdfTeX warning (ext4): destination with the same identifier (na
+me{ALG@line.26}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.9 \end{align*}
+                pdfTeX warning (ext4): destination with the same identifier (na
+me{ALG@line.27}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.9 \end{align*}
+                pdfTeX warning (ext4): destination with the same identifier (na
+me{ALG@line.28}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.9 \end{align*}
+                pdfTeX warning (ext4): destination with the same identifier (na
+me{ALG@line.29}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.9 \end{align*}
+                pdfTeX warning (ext4): destination with the same identifier (na
+me{ALG@line.30}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.9 \end{align*}
+                pdfTeX warning (ext4): destination with the same identifier (na
+me{ALG@line.31}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.9 \end{align*}
+                ]) (./expt.tex
 PGFPlots: reading {results/NewExpt/Expt5/comp_subsampled_CustomUCB0RR1.txt}
 PGFPlots: reading {results/NewExpt/Expt5/comp_subsampled_GLBUCB0RR2.txt}
 PGFPlots: reading {results/NewExpt/Expt5/comp_subsampled_GLBUCB0RR1.txt}
@@ -1406,208 +1612,23 @@ Overfull \hbox (35.67168pt too wide) in paragraph at lines 3--65
  [][] 
  []
 
-) (./conclusions.tex) (./report.bbl) [4]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 196.
- [5] [6pdfTeX warning (ext4): destination with the same identifier (name{ALG@li
-ne.1}) has been already used, duplicate ignored
+) (./conclusions.tex) [6] (./report.bbl) [7
 
-\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
-                                                  
-l.196 \end{document}
-                    pdfTeX warning (ext4): destination with the same identifier
- (name{ALG@line.2}) has been already used, duplicate ignored
-
-\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
-                                                  
-l.196 \end{document}
-                    pdfTeX warning (ext4): destination with the same identifier
- (name{ALG@line.3}) has been already used, duplicate ignored
-
-\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
-                                                  
-l.196 \end{document}
-                    pdfTeX warning (ext4): destination with the same identifier
- (name{ALG@line.4}) has been already used, duplicate ignored
-
-\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
-                                                  
-l.196 \end{document}
-                    pdfTeX warning (ext4): destination with the same identifier
- (name{ALG@line.5}) has been already used, duplicate ignored
-
-\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
-                                                  
-l.196 \end{document}
-                    pdfTeX warning (ext4): destination with the same identifier
- (name{ALG@line.6}) has been already used, duplicate ignored
-
-\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
-                                                  
-l.196 \end{document}
-                    pdfTeX warning (ext4): destination with the same identifier
- (name{ALG@line.7}) has been already used, duplicate ignored
-
-\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
-                                                  
-l.196 \end{document}
-                    pdfTeX warning (ext4): destination with the same identifier
- (name{ALG@line.8}) has been already used, duplicate ignored
-
-\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
-                                                  
-l.196 \end{document}
-                    pdfTeX warning (ext4): destination with the same identifier
- (name{ALG@line.9}) has been already used, duplicate ignored
-
-\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
-                                                  
-l.196 \end{document}
-                    pdfTeX warning (ext4): destination with the same identifier
- (name{ALG@line.10}) has been already used, duplicate ignored
-
-\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
-                                                  
-l.196 \end{document}
-                    pdfTeX warning (ext4): destination with the same identifier
- (name{ALG@line.11}) has been already used, duplicate ignored
-
-\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
-                                                  
-l.196 \end{document}
-                    pdfTeX warning (ext4): destination with the same identifier
- (name{ALG@line.12}) has been already used, duplicate ignored
-
-\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
-                                                  
-l.196 \end{document}
-                    pdfTeX warning (ext4): destination with the same identifier
- (name{ALG@line.13}) has been already used, duplicate ignored
-
-\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
-                                                  
-l.196 \end{document}
-                    pdfTeX warning (ext4): destination with the same identifier
- (name{ALG@line.14}) has been already used, duplicate ignored
-
-\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
-                                                  
-l.196 \end{document}
-                    pdfTeX warning (ext4): destination with the same identifier
- (name{ALG@line.15}) has been already used, duplicate ignored
-
-\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
-                                                  
-l.196 \end{document}
-                    pdfTeX warning (ext4): destination with the same identifier
- (name{ALG@line.16}) has been already used, duplicate ignored
-
-\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
-                                                  
-l.196 \end{document}
-                    pdfTeX warning (ext4): destination with the same identifier
- (name{ALG@line.17}) has been already used, duplicate ignored
-
-\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
-                                                  
-l.196 \end{document}
-                    pdfTeX warning (ext4): destination with the same identifier
- (name{ALG@line.18}) has been already used, duplicate ignored
-
-\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
-                                                  
-l.196 \end{document}
-                    pdfTeX warning (ext4): destination with the same identifier
- (name{ALG@line.19}) has been already used, duplicate ignored
-
-\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
-                                                  
-l.196 \end{document}
-                    pdfTeX warning (ext4): destination with the same identifier
- (name{ALG@line.20}) has been already used, duplicate ignored
-
-\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
-                                                  
-l.196 \end{document}
-                    pdfTeX warning (ext4): destination with the same identifier
- (name{ALG@line.21}) has been already used, duplicate ignored
-
-\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
-                                                  
-l.196 \end{document}
-                    pdfTeX warning (ext4): destination with the same identifier
- (name{ALG@line.22}) has been already used, duplicate ignored
-
-\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
-                                                  
-l.196 \end{document}
-                    pdfTeX warning (ext4): destination with the same identifier
- (name{ALG@line.23}) has been already used, duplicate ignored
-
-\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
-                                                  
-l.196 \end{document}
-                    pdfTeX warning (ext4): destination with the same identifier
- (name{ALG@line.24}) has been already used, duplicate ignored
-
-\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
-                                                  
-l.196 \end{document}
-                    pdfTeX warning (ext4): destination with the same identifier
- (name{ALG@line.25}) has been already used, duplicate ignored
-
-\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
-                                                  
-l.196 \end{document}
-                    pdfTeX warning (ext4): destination with the same identifier
- (name{ALG@line.26}) has been already used, duplicate ignored
-
-\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
-                                                  
-l.196 \end{document}
-                    pdfTeX warning (ext4): destination with the same identifier
- (name{ALG@line.27}) has been already used, duplicate ignored
-
-\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
-                                                  
-l.196 \end{document}
-                    pdfTeX warning (ext4): destination with the same identifier
- (name{ALG@line.28}) has been already used, duplicate ignored
-
-\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
-                                                  
-l.196 \end{document}
-                    pdfTeX warning (ext4): destination with the same identifier
- (name{ALG@line.29}) has been already used, duplicate ignored
-
-\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
-                                                  
-l.196 \end{document}
-                    pdfTeX warning (ext4): destination with the same identifier
- (name{ALG@line.30}) has been already used, duplicate ignored
-
-\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
-                                                  
-l.196 \end{document}
-                    pdfTeX warning (ext4): destination with the same identifier
- (name{ALG@line.31}) has been already used, duplicate ignored
-
-\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
-                                                  
-l.196 \end{document}
-                    ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 196.
+]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 198.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 198.
  (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 196.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 196.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 198.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 198.
 Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: 6E974475C43FDCBBF95937EC94C1ACD4;638.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 196.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 198.
  ) 
 Here is how much of TeX's memory you used:
- 33782 strings out of 492995
- 794130 string characters out of 6132704
- 1017715 words of memory out of 5000000
- 36634 multiletter control sequences out of 15000+600000
+ 33785 strings out of 492995
+ 794155 string characters out of 6132704
+ 1018715 words of memory out of 5000000
+ 36636 multiletter control sequences out of 15000+600000
  53987 words of font info for 85 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  69i,27n,107p,1539b,2505s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1631,10 +1652,10 @@ dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2017/texmf-dist/fonts
 /type1/urw/times/utmbi8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/ur
 w/times/utmr8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/times/ut
 mri8a.pfb>
-Output written on report.pdf (6 pages, 212305 bytes).
+Output written on report.pdf (7 pages, 215308 bytes).
 PDF statistics:
- 225 PDF objects out of 1000 (max. 8388607)
- 196 compressed objects within 2 object streams
- 62 named destinations out of 1000 (max. 500000)
+ 233 PDF objects out of 1000 (max. 8388607)
+ 202 compressed objects within 3 object streams
+ 63 named destinations out of 1000 (max. 500000)
  101 words of extra memory for PDF output out of 10000 (max. 10000000)
 
