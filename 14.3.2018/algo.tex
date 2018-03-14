@@ -127,10 +127,10 @@ In the noisy setting, at every pull the algorithm observes a random reward which
 \State Nature reveals $i_t$ such that $i_t \leftarrow (t \mod K) + 1$ (Round-Robin).
 \If{$|\B_m| > d$} 
 \If{$t \leq N_m$ and $t \leq Nx_m$} \textbf{ (Phase Exploit) }
-\State Choose $j_0\leftarrow \argmax_{j\in_{B_m}}\left\lbrace \hat{R}(i_t,j_0)\right\rbrace $, observe $r(i_t,j_0)\sim \bar{R}(i_t,j_0)$ and $\hat{R}(i_t,j_0)\leftarrow \dfrac{r(i_t,j_0)}{n_{i_t,j_0}}$.
-\ElsIf{$t \leq N_m$ and $t > Nx_m$} \textbf{ (Phase Exploit) }
+\State Choose $j_0\leftarrow \argmax_{j\in_{B_m}}\left\lbrace \hat{R}(i_t,j)  + \sqrt{\dfrac{2\log T}{n_{i_t,j}}}\right\rbrace $, observe $r(i_t,j_0)\sim \bar{R}(i_t,j_0)$ and $\hat{R}(i_t,j_0)\leftarrow \dfrac{\sum_{s=1}^{t}r_s(i_t,j_0)[\mathbb{I}_{s,i_t} = j_0]}{n_{i_t,j_0}}$.
+\ElsIf{$t \leq N_m$ and $t > Nx_m$} \textbf{ (Phase Explore) }
 \If{$i_0 \leq \gamma $}
-\State Choose $j_0$, observe $r(i_0,j_0)\sim\bar{R}(i_0,j_0) $ and $\hat{R}(i_0,j_0)\leftarrow \dfrac{r(i_0,j_0)}{n_{i_0,j_0}}$.
+\State Choose $j_0$, observe $r(i_0,j_0)\sim\bar{R}(i_0,j_0) $ and $\hat{R}(i_0,j_0)\leftarrow \dfrac{\sum_{s=1}^{t}r_s(i_0,j_0)[\mathbb{I}_{s,i_0} = j_0]}{n_{i_0,j_0}}$.
 \State $i_0 \leftarrow i_0 + 1$.
 \Else
 \State $\Z_m \leftarrow \Z_m \cup \lbrace j_0\rbrace$
@@ -153,7 +153,7 @@ In the noisy setting, at every pull the algorithm observes a random reward which
 \EndIf
 \Else \textbf{ (Full Exploit) }
 %\Select Explore all $j\inB_{m}$ fully.
-\State  Select column $j_t^*$, observe $r(i_t,j_t^*)\sim \bar{R}(i_t,,j_t^*)$ where $j_t^* \leftarrow \argmax_{j\in[\B_m]} \left\lbrace \hat{R}(i_t,j) + \sqrt{\dfrac{2\log T}{n_{i_t,j}}}\right\rbrace$ and $\hat{R}(i_t,,j_t^*)\leftarrow \dfrac{r_{i_t,j_t^*}}{n_{i_t,j^*_t}}$.
+\State  Select column $j_t^*$, observe $r(i_t,j_t^*)\sim \bar{R}(i_t,,j_t^*)$ where $j_t^* \leftarrow \argmax_{j\in[\B_m]} \left\lbrace \hat{R}(i_t,j) + \sqrt{\dfrac{2\log T}{n_{i_t,j}}}\right\rbrace$ and $\hat{R}(i_t,,j_t^*)\leftarrow \dfrac{\sum_{s=1}^{t}r_s(i_t,j_t^*)[\mathbb{I}_{s,i_t} = j_t^*]}{n_{i_tj_t^*}}$.
 \EndIf
 \EndFor
 \end{algorithmic}
