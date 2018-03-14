@@ -46,9 +46,9 @@
 \algnewcommand\algorithmicforeach{\textbf{for each}}
 \algdef{S}[FOR]{ForEach}[1]{\algorithmicforeach\ #1\ \algorithmicdo}
 
-We propose two algorithms, one each for noise less and noisy setting. These algorithms are based on UCB-Improved, which is an arm elimination algorithm from \citet{auer2010ucb} and is suitable for the stochastic bandit setting. Both these algorithms are phase based column (arm) elimination algorithms where in each phase we select all the surviving columns equal number of times  and then  eliminate some sub-optimal columns based on some elimination criteria. 
+We propose two algorithms, one each for noise free and noisy setting. These algorithms are based on UCB-Improved, which is an arm elimination algorithm from \citet{auer2010ucb} and is suitable for the stochastic bandit setting. Both these algorithms are phase based column (arm) elimination algorithms where in each phase we select all the surviving columns equal number of times  and then  eliminate some sub-optimal columns based on some elimination criteria. 
 
-The algorithms are initialized with the estimate $\hat{R}_{i,j}, \forall i\in[K], j\in[L]$ set to zero. In the $m$-th phase, we denote the set of surviving columns as $\B_m$, the set of explored columns as $\Z_m$. We denote each equivalence class as $\G_b$, where $b$ is indexed from $1,2,\ldots , \frac{K}{\gamma}$ and these class are contained in $\C$.  $N_m$ denotes the phase length for the $m$-th phase and each phase length consist of $\gamma |B_m| n_m $, where $ \gamma = \lceil\sqrt{K} \rceil $ is the exploration parameter and $ n_m $ is the number of times we select each surviving columns. In the column elimination sub-module we eliminate a sub-optimal column by making sure that it is not one of the $d$-best columns. In the reset parameters sub-module, we increase the exploration bonus for the next phase so that more exploration is conducted for the surviving arms. Note, that for these two sub-modules, the noise free and noisy setting has two different approaches which will be explained in subsection \ref{alg:noisefree} and \ref{alg:noisy} respectively. Finally, if the algorithm has eliminated $L-d$ columns, it fully explores the $d$ best columns and for all the users it always selects the column $j^*t$, where $j_t^* \leftarrow \argmax_{j\in[\B_m]} {\hat{R}(i_t,j)}$.
+The algorithms are initialized with the estimate $\hat{R}_{i,j}=0, \forall i\in[K], j\in[L]$. In the $m$-th phase, we denote the set of surviving columns as $\B_m$, the set of explored columns as $\Z_m$. The rows (users) are divided into equivalence classes which are contained in $\C$. We denote each equivalence class as $\G_b$, where $b$ is indexed from $1,2,\ldots , \frac{K}{\gamma}$ and these class are contained in $\C$.  $N_m$ denotes the phase length for the $m$-th phase and each phase length consist of $\gamma |B_m| n_m $, where $ \gamma = \lceil\sqrt{K} \rceil $ is the exploration parameter and $ n_m $ is the number of times we select each surviving columns. In the column elimination sub-module we eliminate a sub-optimal column by making sure that it is not one of the $d$-best columns. In the reset parameters sub-module, we increase the exploration bonus for the next phase so that more exploration is conducted for the surviving columns. Note, that for these two sub-modules, the noise free and noisy setting has two different approaches which will be explained in subsection \ref{alg:noisefree} and \ref{alg:noisy} respectively. Finally, if the algorithm has eliminated $L-d$ columns, it fully explores the $d$ best columns (in the noise free setting) and for all the users it always selects the column $j^*_t$, where $j_t^* \leftarrow \argmax_{j\in[\B_m]} {\hat{R}(i_t,j)}$. Whereas, in the noisy setting, the GLB-UCB runs the UCB1 algorithm for the remaining $d$ columns.
 
 \subsection{Noise Free Setting}
 \label{alg:noisefree}
@@ -113,9 +113,9 @@ In the noisy setting, at every pull the algorithm observes a random reward which
 \label{alg:NGLB}
 \begin{algorithmic}[1]
 \State {\bf Input:} Time horizon $T$, $Rank(\bar{R}) = d$.
-\State {\bf Definition:} $U_m(\epsilon_m, n_m) = \sqrt{\dfrac{2\log(T\epsilon_m^2)}{n_m} }$
-\State {\bf Explore Parameter:} $\gamma = \lceil\sqrt{K} \rceil$.
-\State {\bf Initialization:} $\forall i\in [K], j\in [L], \hat{R}(i,j) \leftarrow 0$, $m=0$, $\B_0 \leftarrow \A$, $\Z_0 \leftarrow \emptyset$, $\C \leftarrow \emptyset$,  $i_0=1$, $j_0=1$ , $\epsilon_0 = 1$, $n_0 = \dfrac{2\log(T\epsilon_{0}^2)}{\epsilon_{0}^2} $ and $N_0 = \gamma |\B_0|n_0$.
+\State {\bf Explore Parameter:} $\gamma = \lceil\sqrt{K} \rceil$, $\psi = T$.
+\State {\bf Definition:} $U_m(\epsilon_m, n_m) = \sqrt{\dfrac{\psi\log(T\epsilon_m^2)}{2n_m} }$
+\State {\bf Initialization:} $\forall i\in [K], j\in [L], \hat{R}(i,j) \leftarrow 0$, $m=0$, $\B_0 \leftarrow \A$, $\Z_0 \leftarrow \emptyset$, $\C \leftarrow \emptyset$,  $i_0=1$, $j_0=1$ , $\epsilon_0 = 1$, $M=\dfrac{1}{2}\log_2\left( \frac{T}{e}\right)$, $n_0 = \dfrac{2\log(\psi T\epsilon_{0}^2)}{\epsilon_{0}} $ and $N_0 = \gamma |\B_0|n_0$.
 %\State Create set $\C$ of equivalence classes such that 
 \ForEach{$b\in \left[0,\frac{K}{\gamma}-1\right]$} (Create equivalence class $\C$)
 \State  $\G_{b+1}\leftarrow \left\lbrace i\in \left[\frac{bK}{\gamma}+1,\frac{(b+1)K}{\gamma}\right]\right\rbrace$ and $\C\leftarrow \C\cup \G_{b+1}$.
@@ -135,21 +135,19 @@ In the noisy setting, at every pull the algorithm observes a random reward which
 \ColElim
 \State \ForEach{$\G_b\in\C$}
 \State \While{$\exists j\in\B_m \textbf{ such that } {\forall i\in \G_b: \hat{R}(i,j) + U_m(\epsilon_m, n_m) < \max_{j'\in\B_{m}\setminus j}\lbrace\hat{R}(i,j') - U_m(\epsilon_m, n_m)\rbrace}$}
-%\State Let $j^* \in\B_m\setminus \lbrace j\rbrace$ such that $j^* \leftarrow \max_{i\in \G_b , j'\in \B_{m}\setminus \lbrace j\rbrace}\lbrace \hat{R}(i,j')\rbrace$
-%\State \If{$\forall i\in \G_b: \hat{R}(i,j) + U_m(\epsilon_m, n_m) < \max_{j'\in\B_{m}\setminus j}\lbrace \hat{R}(i,j') - U_m(\epsilon_m, n_m \rbrace $}
 \State $\B_m \leftarrow \B_m \setminus \lbrace j \rbrace$. 
 %\EndIf
 \EndWhile
 \EndFor
 \EndColElim
 \ResParam
-\State $\epsilon_{m+1} \leftarrow \dfrac{\epsilon_m}{2}$ and $n_{m+1} \leftarrow \dfrac{2\log(T\epsilon_{m+1}^2)}{\epsilon_{m+1}^2}$
+\State $\epsilon_{m+1} \leftarrow \dfrac{\epsilon_m}{2}$ and $n_{m+1} \leftarrow \dfrac{2\log(\psi T\epsilon_{m+1}^2)}{\epsilon_{m+1}}$
 \State $N_{m+1} \leftarrow t + \gamma |\B_m|n_{m+1}$ and $m \leftarrow m + 1$.
 \EndResParam
 \EndIf
 \Else \textbf{ (Exploit) }
 %\Select Explore all $j\inB_{m}$ fully.
-\State  Select column $j_t^*$, observe $\bar{R}(i_t,j_t^*)$ where $j_t^* \leftarrow \argmax_{j\in[\B_m]} {\hat{R}(i_t,j)}$ and $\hat{R}(i_t,,j_t^*)\leftarrow \bar{R}(i_t,,j_t^*)$.
+\State  Select column $j_t^*$, observe $\bar{R}(i_t,j_t^*)$ where $j_t^* \leftarrow \argmax_{j\in[\B_m]} \left\lbrace \hat{R}(i_t,j) + \sqrt{\dfrac{2\log t}{n_j}}\right\rbrace$ and $\hat{R}(i_t,,j_t^*)\leftarrow \bar{R}(i_t,,j_t^*)$.
 \EndIf
 \EndFor
 \end{algorithmic}
