@@ -1,0 +1,13 @@
+\begin{thebibliography}{}
+
+\bibitem[Auer and Ortner, 2010]{auer2010ucb}
+Auer, P. and Ortner, R. (2010).
+\newblock Ucb revisited: Improved regret bounds for the stochastic multi-armed
+  bandit problem.
+\newblock {\em Periodica Mathematica Hungarica}, 61(1-2):55--65.
+
+\bibitem[Maillard and Mannor, 2014]{maillard2014latent}
+Maillard, O.-A. and Mannor, S. (2014).
+\newblock Latent bandits.
+
+\end{thebibliography}

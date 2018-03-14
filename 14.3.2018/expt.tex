@@ -1,0 +1,68 @@
+\begin{figure}[!th]
+    \centering
+    \begin{tabular}{cc}
+    \setlength{\tabcolsep}{0.1pt}
+    \subfigure[0.25\textwidth][Expt-$1$: $64$ Users, $10$ Bernoulli-distributed arms, Round-Robin, Noise-Free Setting, Well-Structured Environment ]
+    %with $r_{i_{{i}\neq {*}}}=0.07$ and $r^{*}=0.1$
+    {
+    		\pgfplotsset{
+		tick label style={font=\Large},
+		label style={font=\Large},
+		legend style={font=\Large},
+		ylabel style={yshift=5pt},
+		%legend style={legendshift=32pt},
+		}
+        \begin{tikzpicture}[scale=0.8]
+      	\begin{axis}[
+		xlabel={timestep},
+		ylabel={Cumulative Regret},
+		grid=major,
+        %clip mode=individual,grid,grid style={gray!30},
+        clip=true,
+        %clip mode=individual,grid,grid style={gray!30},
+  		legend style={at={(0.5,1.1)},anchor=north, legend columns=3} ]
+      	% UCB
+		\addplot table{results/NewExpt/Expt5/comp_subsampled_CustomUCB0RR1.txt};
+		\addplot table{results/NewExpt/Expt5/comp_subsampled_GLBUCB0RR2.txt};
+		\addplot table{results/NewExpt/Expt5/comp_subsampled_GLBUCB0RR1.txt};
+		
+      	\legend{UCB1,GLBUCB(new),GLBUCB(old)}      	
+      	\end{axis}
+      	\end{tikzpicture}
+  		\label{fig:1}
+    }
+    &
+    \subfigure[0.25\textwidth][Expt-$2$: $64$ Users, $64$ Bernoulli-distributed arms, Round-Robin, Noise-Free Setting, Deformed Environment ]
+    %with $r_{i_{{i}\neq {*}}}=0.07$ and $r^{*}=0.1$
+    {
+    		\pgfplotsset{
+		tick label style={font=\Large},
+		label style={font=\Large},
+		legend style={font=\Large},
+		ylabel style={yshift=5pt},
+		%legend style={legendshift=32pt},
+		}
+        \begin{tikzpicture}[scale=0.8]
+      	\begin{axis}[
+		xlabel={timestep},
+		ylabel={Cumulative Regret},
+		grid=major,
+        %clip mode=individual,grid,grid style={gray!30},
+        clip=true,
+        %clip mode=individual,grid,grid style={gray!30},
+  		legend style={at={(0.5,1.1)},anchor=north, legend columns=3} ]
+      	% UCB
+		\addplot table{results/NewExpt/Expt6/comp_subsampled_CustomUCB0RR1.txt};
+		\addplot table{results/NewExpt/Expt6/comp_subsampled_GLBUCB0RR3.txt};
+		\addplot table{results/NewExpt/Expt6/comp_subsampled_GLBUCB0RR1.txt};
+		
+      	\legend{UCB1,GLBUCB(new),GLBUCB(old)}      	
+      	\end{axis}
+      	\end{tikzpicture}
+  		\label{fig:2}
+    }
+    \end{tabular}
+    \caption{A comparison of the cumulative regret incurred by the various bandit algorithms. }
+    \label{fig:karmed}
+    \vspace*{-1em}
+\end{figure}

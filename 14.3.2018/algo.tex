@@ -1,0 +1,163 @@
+%\subsection{Noise-Free Setting}
+
+
+%\begin{assumption}
+%\label{assm:d-indep}
+%We assume that any $d$ sets of rows or columns are independent in $\bar{R}$.
+%\end{assumption}
+
+\algblock{ArmElim}{EndArmElim}
+\algnewcommand\algorithmicArmElim{\textbf{\em Arm Elimination}}
+ \algnewcommand\algorithmicendArmElim{}
+\algrenewtext{ArmElim}[1]{\algorithmicArmElim\ #1}
+\algrenewtext{EndArmElim}{\algorithmicendArmElim}
+
+\algblock{ResParam}{EndResParam}
+\algnewcommand\algorithmicResParam{\textbf{\em Reset Parameters}}
+ \algnewcommand\algorithmicendResParam{}
+\algrenewtext{ResParam}[1]{\algorithmicResParam\ #1}
+\algrenewtext{EndResParam}{\algorithmicendResParam}
+
+\algblock{ColRec}{EndColRec}
+\algnewcommand\algorithmicColRec{\textbf{\em Column Reconstruction}}
+ \algnewcommand\algorithmicendColRec{}
+\algrenewtext{ColRec}[1]{\algorithmicColRec\ #1}
+\algrenewtext{EndColRec}{\algorithmicendColRec}
+
+\algblock{ColElim}{EndColElim}
+\algnewcommand\algorithmicColElim{\textbf{\em Column Elimination}}
+ \algnewcommand\algorithmicendColElim{}
+\algrenewtext{ColElim}[1]{\algorithmicColElim\ #1}
+\algrenewtext{EndColElim}{\algorithmicendColElim}
+
+\algblock{Explore}{EndExplore}
+\algnewcommand\algorithmicExplore{\textbf{\em Explore}}
+ \algnewcommand\algorithmicendExplore{}
+\algrenewtext{Explore}[1]{\algorithmicExplore\ #1}
+\algrenewtext{EndExplore}{\algorithmicendExplore}
+
+
+\algblock{Exploit}{EndExploit}
+\algnewcommand\algorithmicExploit{\textbf{\em Exploit}}
+ \algnewcommand\algorithmicendExploit{}
+\algrenewtext{Exploit}[1]{\algorithmicExploit\ #1}
+\algrenewtext{EndExploit}{\algorithmicendExploit}
+
+\algnewcommand\algorithmicforeach{\textbf{for each}}
+\algdef{S}[FOR]{ForEach}[1]{\algorithmicforeach\ #1\ \algorithmicdo}
+
+We propose two algorithms, one each for noise free and noisy setting. These algorithms are based on UCB-Improved, which is an arm elimination algorithm from \citet{auer2010ucb} and is suitable for the stochastic bandit setting. Both these algorithms are phase based column (arm) elimination algorithms where in each phase we select all the surviving columns equal number of times  and then  eliminate some sub-optimal columns based on some elimination criteria. 
+
+The algorithms are initialized with the estimate $\hat{R}_{i,j}=0, \forall i\in[K], j\in[L]$. In the $m$-th phase, we denote the set of surviving columns as $\B_m$, the set of explored columns as $\Z_m$. The rows (users) are divided into equivalence classes which are contained in $\C$. We denote each equivalence class as $\G_b$, where $b$ is indexed from $1,2,\ldots , \frac{K}{\gamma}$ and these class are contained in $\C$.  $N_m$ denotes the phase length for the $m$-th phase and each phase length consist of $\gamma |B_m| n_m $, where $ \gamma = \lceil\sqrt{K} \rceil $ is the exploration parameter and $ n_m $ is the number of times we select each surviving columns. In the column elimination sub-module we eliminate a sub-optimal column by making sure that it is not one of the $d$-best columns. In the reset parameters sub-module, we increase the exploration bonus for the next phase so that more exploration is conducted for the surviving columns. Note, that for these two sub-modules, the noise free and noisy setting has two different approaches which will be explained in subsection \ref{alg:noisefree} and \ref{alg:noisy} respectively. Finally, if the algorithm has eliminated $L-d$ columns, it fully explores the $d$ best columns (in the noise free setting) and for all the users it always selects the column $j^*_t$, where $j_t^* \leftarrow \argmax_{j\in[\B_m]} {\hat{R}(i_t,j)}$. Whereas, in the noisy setting, the GLB-UCB runs the UCB1 algorithm for the remaining $d$ columns.
+
+\subsection{Noise Free Setting}
+\label{alg:noisefree}
+
+In the noise free setting, since at every pull of a column $j$ for a user $i$, the algorithm observes the expected reward $\hat{R}_{i,j} = \bar{R}_{i,j}$, so $n_0 =  n_m = 1, \forall m$. Furthermore, we do not require any confidence interval in the noise free setting for column elimination sub-module. The pseudo-code of this is shown in Algorithm \ref{alg:NFGLB}.
+
+\begin{algorithm}[!th]
+\caption{Noise-Free GLB}
+\label{alg:NFGLB}
+\begin{algorithmic}[1]
+\State {\bf Input:} Time horizon $T$, $Rank(\bar{R}) = d$.
+\State {\bf Explore Parameter:} $\gamma = \lceil\sqrt{K} \rceil$.
+\State {\bf Initialization:} $\hat{R}(i,j) \leftarrow 0, \forall i\in [K], j\in [L]$, $m=0$, $\B_0 \leftarrow \A$, $\Z_0 \leftarrow \emptyset$, $\C \leftarrow \emptyset$,  $i_0=1$, $j_0=1$ , $n_0 = 1 $, $Nx_0 = K n_0 d$ and $N_0 = Nx_0+ \gamma |\B_0|n_0$.
+%\State Create set $\C$ of equivalence classes such that 
+\ForEach{$b\in \left[0,\frac{K}{\gamma}-1\right]$} (Create equivalence class $\C$)
+\State  $\G_{b+1}\leftarrow \left\lbrace i\in \left[\frac{bK}{\gamma}+1,\frac{(b+1)K}{\gamma}\right]\right\rbrace$ and $\C\leftarrow \C\cup \G_{b+1}$.
+\EndFor
+\For{$t=1,..,T$}	
+\State Nature reveals $i_t$ such that $i_t \leftarrow (t \mod K) + 1$ (Round-Robin).
+\If{$|\B_m| > d$}
+\If{$t \leq N_m$ and $t \leq Nx_{m}$}  \textbf{ (Phase Exploit) }
+\State Choose $j_0\leftarrow \argmax_{j\in_{B_m}}\left\lbrace \hat{R}(i_t,j_0)\right\rbrace $, observe $\bar{R}(i_t,j_0)$ and $\hat{R}(i_t,j_0)\leftarrow \bar{R}(i_t,j_0)$.
+\ElsIf{$t \leq N_m$ and $t > Nx_{m}$}  \textbf{ (Phase Explore) }
+\If{$i_0 \leq \gamma $}
+\State Choose $j_0$, observe $\bar{R}(i_0,j_0)$ and $\hat{R}(i_0,j_0)\leftarrow \bar{R}(i_0,j_0)$.
+\State $i_0 \leftarrow i_0 + 1$.
+\Else
+\State $\Z_m \leftarrow \Z_m \cup \lbrace j_0\rbrace$
+\State Choose $j_0\in\B_m\setminus \Z_m$ uniform randomly and $i_0 \leftarrow 1$.
+\EndIf
+\Else
+\ColElim
+\State \ForEach{$\G_b\in\C$}
+\State \While{$\exists j\in\B_m \textbf{ such that } {\forall i\in \G_b: \hat{R}(i,j) < \max_{j'\in\B_{m}\setminus j}\lbrace\hat{R}(i,j') \rbrace}$}
+%\State Let $j^* \in\B_m\setminus \lbrace j\rbrace$ such that $j^* \leftarrow \max_{i\in \G_b , j'\in \B_{m}\setminus \lbrace j\rbrace}\lbrace \hat{R}(i,j')\rbrace$
+%\State 
+\State $\B_m \leftarrow \B_m \setminus \lbrace j \rbrace$. 
+%\EndIf
+\EndWhile
+\EndFor
+\EndColElim
+\ResParam
+\State $Nx_{m + 1}  \leftarrow t + K n_0 d$
+\State $N_{m+1} \leftarrow Nx_{m + 1} + \gamma |\B_m|n_0$ and $m \leftarrow m + 1$.
+\EndResParam
+\EndIf
+\Else \textbf{ (Full Exploit) }
+%\State  Explore all $j\inB_{m}$ fully
+\State  Select column $j_t^*$, observe $\bar{R}(i_t,j_t^*)$ where $j_t^* \leftarrow \argmax_{j\in[\B_m]} {\hat{R}(i_t,j)}$ and $\hat{R}(i_t,,j_t^*)\leftarrow \bar{R}(i_t,,j_t^*)$.
+\EndIf
+\EndFor
+\end{algorithmic}
+%\vspace*{-0.42em}
+\end{algorithm}
+
+
+\subsection{Noisy setting}
+\label{alg:noisy}
+
+In the noisy setting, at every pull the algorithm observes a random reward which is drawn from the distribution $\N(\bar{R}_{i,j}, \sigma^2)$, so the algorithm samples each column more number of times ($n_m$) in each phase and increases the exploration from phase to phase. Moreover, in the column elimination sub-module, the confidence interval $U_m(\epsilon_m, n_m)$  helps in eliminating a sub-optimal column with high probability in the noisy setting. The pseudo-code of this is shown in Algorithm \ref{alg:NGLB}.
+
+
+\begin{algorithm}[!th]
+\caption{Noisy GLB-UCB}
+\label{alg:NGLB}
+\begin{algorithmic}[1]
+\State {\bf Input:} Time horizon $T$, $Rank(\bar{R}) = d$.
+\State {\bf Explore Parameter:} $\gamma = \lceil\sqrt{K} \rceil$, $\psi = T$.
+\State {\bf Definition:} $U_m(\epsilon_m, n_m) = \sqrt{\dfrac{\psi\log(T\epsilon_m^2)}{2n_m} }$
+\State {\bf Initialization:} $\forall i\in [K], j\in [L], \hat{R}(i,j) \leftarrow 0$, $m=0$, $\B_0 \leftarrow \A$, $\Z_0 \leftarrow \emptyset$, $\C \leftarrow \emptyset$,  $i_0=1$, $j_0=1$ , $\epsilon_0 = 1$, $M=\dfrac{1}{2}\log_2\left( \frac{T}{e}\right)$, $n_0 = \dfrac{2\log(\psi T\epsilon_{0}^2)}{\epsilon_{0}} $, $Nx_0 = K n_0 d$ and $N_0 = Nx_0 + \gamma |\B_0|n_0$.
+%\State Create set $\C$ of equivalence classes such that 
+\ForEach{$b\in \left[0,\frac{K}{\gamma}-1\right]$} (Create equivalence class $\C$)
+\State  $\G_{b+1}\leftarrow \left\lbrace i\in \left[\frac{bK}{\gamma}+1,\frac{(b+1)K}{\gamma}\right]\right\rbrace$ and $\C\leftarrow \C\cup \G_{b+1}$.
+\EndFor
+\For{$t=1,..,T$}	
+\State Nature reveals $i_t$ such that $i_t \leftarrow (t \mod K) + 1$ (Round-Robin).
+\If{$|\B_m| > d$} 
+\If{$t \leq N_m$ and $t \leq Nx_m$} \textbf{ (Phase Exploit) }
+\State Choose $j_0\leftarrow \argmax_{j\in_{B_m}}\left\lbrace \hat{R}(i_t,j_0)\right\rbrace $, observe $r(i_t,j_0)\sim \bar{R}(i_t,j_0)$ and $\hat{R}(i_t,j_0)\leftarrow \dfrac{r(i_t,j_0)}{n_{i_t,j_0}}$.
+\ElsIf{$t \leq N_m$ and $t > Nx_m$} \textbf{ (Phase Exploit) }
+\If{$i_0 \leq \gamma $}
+\State Choose $j_0$, observe $r(i_0,j_0)\sim\bar{R}(i_0,j_0) $ and $\hat{R}(i_0,j_0)\leftarrow \dfrac{r(i_0,j_0)}{n_{i_0,j_0}}$.
+\State $i_0 \leftarrow i_0 + 1$.
+\Else
+\State $\Z_m \leftarrow \Z_m \cup \lbrace j_0\rbrace$
+\State Choose $j_0\in\B_m\setminus \Z_m$ uniform randomly and $i_0 \leftarrow 1$.
+\EndIf
+\Else
+\ColElim
+\State \ForEach{$\G_b\in\C$}
+\State \While{$\exists j\in\B_m \textbf{ such that } {\forall i\in \G_b: \hat{R}(i,j) + U_m(\epsilon_m, n_m) < \max_{j'\in\B_{m}\setminus j}\lbrace\hat{R}(i,j') - U_m(\epsilon_m, n_m)\rbrace}$}
+\State $\B_m \leftarrow \B_m \setminus \lbrace j \rbrace$. 
+%\EndIf
+\EndWhile
+\EndFor
+\EndColElim
+\ResParam
+\State $\epsilon_{m+1} \leftarrow \dfrac{\epsilon_m}{2}$ and $n_{m+1} \leftarrow \dfrac{2\log(\psi T\epsilon_{m+1}^2)}{\epsilon_{m+1}}$
+\State $Nx_{m+1}\leftarrow t + K n_{m+1} d$
+\State $N_{m+1} \leftarrow Nx_{m+1} + \gamma |\B_m|n_{m+1}$ and $m \leftarrow m + 1$.
+\EndResParam
+\EndIf
+\Else \textbf{ (Full Exploit) }
+%\Select Explore all $j\inB_{m}$ fully.
+\State  Select column $j_t^*$, observe $r(i_t,j_t^*)\sim \bar{R}(i_t,,j_t^*)$ where $j_t^* \leftarrow \argmax_{j\in[\B_m]} \left\lbrace \hat{R}(i_t,j) + \sqrt{\dfrac{2\log T}{n_{i_t,j}}}\right\rbrace$ and $\hat{R}(i_t,,j_t^*)\leftarrow \dfrac{r_{i_t,j_t^*}}{n_{i_t,j^*_t}}$.
+\EndIf
+\EndFor
+\end{algorithmic}
+%\vspace*{-0.42em}
+\end{algorithm}
+
+
