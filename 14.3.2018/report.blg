@@ -4,45 +4,45 @@ The top-level auxiliary file: report.aux
 The style file: apalike.bst
 Database file #1: biblio.bib
 Warning--empty journal in maillard2014latent
-You've used 2 entries,
+You've used 1 entry,
             1935 wiz_defined-function locations,
-            484 strings with 3926 characters,
-and the built_in function-call counts, 708 in all, are:
-= -- 68
-> -- 26
-< -- 2
-+ -- 8
-- -- 8
-* -- 59
-:= -- 129
-add.period$ -- 5
-call.type$ -- 2
-change.case$ -- 14
-chr.to.int$ -- 2
-cite$ -- 3
-duplicate$ -- 27
-empty$ -- 49
-format.name$ -- 14
-if$ -- 133
+            475 strings with 3748 characters,
+and the built_in function-call counts, 322 in all, are:
+= -- 28
+> -- 13
+< -- 1
++ -- 4
+- -- 4
+* -- 24
+:= -- 63
+add.period$ -- 2
+call.type$ -- 1
+change.case$ -- 7
+chr.to.int$ -- 1
+cite$ -- 2
+duplicate$ -- 13
+empty$ -- 21
+format.name$ -- 7
+if$ -- 58
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 2
-newline$ -- 12
-num.names$ -- 6
-pop$ -- 12
+missing$ -- 1
+newline$ -- 7
+num.names$ -- 3
+pop$ -- 8
 preamble$ -- 1
-purify$ -- 14
+purify$ -- 7
 quote$ -- 0
-skip$ -- 23
+skip$ -- 12
 stack$ -- 0
-substring$ -- 43
-swap$ -- 1
+substring$ -- 12
+swap$ -- 0
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 12
+type$ -- 6
 warning$ -- 1
-while$ -- 6
+while$ -- 2
 width$ -- 0
-write$ -- 25
+write$ -- 12
 (There was 1 warning)

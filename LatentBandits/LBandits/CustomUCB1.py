@@ -76,7 +76,7 @@ class CustomUCB(object):
 
         # Noisy
         # return random.gauss(self.means[user][choice],0.25)
-        # return sum(numpy.random.binomial(1, self.means[user][choice], 1)) / 1.0
+        #return sum(numpy.random.binomial(1, self.means[user][choice], 1)) / 1.0
     
     
     #Read Environment
@@ -153,7 +153,7 @@ class CustomUCB(object):
         f.close()
     
     
-    def CustomUCB(self, users, numActions):
+    def CustomUCB(self, users, numActions, readfile):
 
         # Set the environment
 
@@ -168,7 +168,7 @@ class CustomUCB(object):
 
         #self.upbs = [0] * self.numActions
         # self.numRounds = 3000000
-        self.numRounds = 2000
+        self.numRounds = 20000
         # numRounds = 250000
 
         self.arm_reward = [[0.0 for i in range(0, self.numActions)] for j in range (0,self.users)]
@@ -177,7 +177,7 @@ class CustomUCB(object):
 
         self.means = [[0.0 for i in range(0, self.numActions)] for j in range (0,self.users)]
 
-        self.readenv(6)
+        self.readenv(9)
         print self.means
         print self.bestAction
 
@@ -254,7 +254,7 @@ class CustomUCB(object):
         for user in range(0,self.users):
             self.bestSet[user] = max(range(0,self.numActions), key=lambda i: self.numPlays[user][i])
 
-        f = open('NewExpt/expt5/testRegretCustomUCB0RR1.txt', 'a')
+        f = open('NewExpt/expt8/testRegretCustomUCB0RR2.txt', 'a')
         for r in range(len(self.actionRegret)):
             f.write(str(self.actionRegret[r]) + "\n")
         f.close()
@@ -266,18 +266,18 @@ if __name__ == "__main__":
 
     wrong = 0
     users = 64
-    actions = 10
-
+    actions = 64
+    readfile = "env/env1/AP13.txt"
     
     for turn in range(0,100):
         obj = CustomUCB()
         random.seed(turn + actions)
-        cumulativeReward, bestActionCumulativeReward, regret, arm, timestep, bestSet = obj.CustomUCB(users,actions)
+        cumulativeReward, bestActionCumulativeReward, regret, arm, timestep, bestSet = obj.CustomUCB(users,actions,readfile)
         if obj.check(bestSet) == False:
             # print bestSet
             wrong = wrong + 1
         print "turn: " + str(turn + 1) + "\t wrong: " + str(wrong) + "\t arms: " + str(actions) + "\t barm: " + str(arm) + "\t Reward: " + str(cumulativeReward) + "\t bestCumReward: " + str(bestActionCumulativeReward) + "\t regret: " + str(regret)
-        f = open('NewExpt/expt5/testCustomUCB0RR1.txt', 'a')
+        f = open('NewExpt/expt8/testCustomUCB0RR2.txt', 'a')
         f.writelines("arms: %d \t bArms: %d \t timestep: %d\t regret: %d \t cumulativeReward: %.2f \t bestCumulativeReward: %.2f \n" % (actions, arm, timestep, regret, cumulativeReward, bestActionCumulativeReward))
         f.close()
 

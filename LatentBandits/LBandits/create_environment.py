@@ -119,7 +119,7 @@ if __name__ == "__main__":
         users = 64
         rank = 2
         gap = 0.5
-        filename = 'env/env1/AP8.txt'
+        filename = 'env/env1/AP9.txt'
         
         obj=CreateEnvironment(filename)
         obj.create(rank, users, numActions, gap)

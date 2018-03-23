@@ -61,7 +61,7 @@ In the noise free setting, since at every pull of a column $j$ for a user $i$, t
 \begin{algorithmic}[1]
 \State {\bf Input:} Time horizon $T$, $Rank(\bar{R}) = d$.
 \State {\bf Explore Parameter:} $\gamma = \lceil\sqrt{K} \rceil$.
-\State {\bf Initialization:} $\hat{R}(i,j) \leftarrow 0, \forall i\in [K], j\in [L]$, $m=0$, $\B_0 \leftarrow \A$, $\Z_0 \leftarrow \emptyset$, $\C \leftarrow \emptyset$,  $i_0=1$, $j_0=1$ , $n_0 = 1 $, $Nx_0 = K n_0 d$ and $N_0 = Nx_0+ \gamma |\B_0|n_0$.
+\State {\bf Initialization:} $\hat{R}(i,j) \leftarrow 0, \forall i\in [K], j\in [L]$, $m=0$, $\B_0 \leftarrow \A$, $\Z_0 \leftarrow \emptyset$, $\C \leftarrow \emptyset$, $T[j]\leftarrow 0, \forall j\in [L]$, $i_0=1$, $j_0=1$ , $n_0 = 1 $, $N'_0 =  \gamma |\B_0|n_0 $ and $N_0 = N'_0 + K n_0 d$.
 %\State Create set $\C$ of equivalence classes such that 
 \ForEach{$b\in \left[0,\frac{K}{\gamma}-1\right]$} (Create equivalence class $\C$)
 \State  $\G_{b+1}\leftarrow \left\lbrace i\in \left[\frac{bK}{\gamma}+1,\frac{(b+1)K}{\gamma}\right]\right\rbrace$ and $\C\leftarrow \C\cup \G_{b+1}$.
@@ -69,9 +69,7 @@ In the noise free setting, since at every pull of a column $j$ for a user $i$, t
 \For{$t=1,..,T$}	
 \State Nature reveals $i_t$ such that $i_t \leftarrow (t \mod K) + 1$ (Round-Robin).
 \If{$|\B_m| > d$}
-\If{$t \leq N_m$ and $t \leq Nx_{m}$}  \textbf{ (Phase Exploit) }
-\State Choose $j_0\leftarrow \argmax_{j\in_{B_m}}\left\lbrace \hat{R}(i_t,j_0)\right\rbrace $, observe $\bar{R}(i_t,j_0)$ and $\hat{R}(i_t,j_0)\leftarrow \bar{R}(i_t,j_0)$.
-\ElsIf{$t \leq N_m$ and $t > Nx_{m}$}  \textbf{ (Phase Explore) }
+\If{$t \leq N_m$ and $t \leq N'_{m}$}  \textbf{ (Chequerboard Explore) }
 \If{$i_0 \leq \gamma $}
 \State Choose $j_0$, observe $\bar{R}(i_0,j_0)$ and $\hat{R}(i_0,j_0)\leftarrow \bar{R}(i_0,j_0)$.
 \State $i_0 \leftarrow i_0 + 1$.
@@ -79,20 +77,32 @@ In the noise free setting, since at every pull of a column $j$ for a user $i$, t
 \State $\Z_m \leftarrow \Z_m \cup \lbrace j_0\rbrace$
 \State Choose $j_0\in\B_m\setminus \Z_m$ uniform randomly and $i_0 \leftarrow 1$.
 \EndIf
+\ElsIf{$t \leq N_m$ and $t > N'_{m}$}  \textbf{ (Best-d Explore) }
+%\State Choose $j_0\leftarrow \argmax_{j\in_{B_m}}\left\lbrace \hat{R}(i_t,j_0)\right\rbrace $, observe $\bar{R}(i_t,j_0)$ and $\hat{R}(i_t,j_0)\leftarrow \bar{R}(i_t,j_0)$.
+\State \ForEach{$ j\in\B_m$}
+\State $s \leftarrow 0$
+\State \ForEach{$i\in [K]$}
+\State \If{$\hat{R}(i,j) >  \hat{R}(i,j'), \forall j'\in\B_{m}\setminus j $}
+\State $s \leftarrow s + 1$
+\EndIf
+\EndFor
+\State $T[j] \leftarrow T[j] + s$
+\EndFor
+\State $\S_m \leftarrow j \in \max_{d}\lbrace T\rbrace$, set $T[j]\leftarrow 0, \forall j\in [L]$.
+\State \ForEach{$j \in\S_m$}
+\State Choose $j, \forall i \in  [K]$, observe $\bar{R}(i,j)$ and Update $\hat{R}(i,j)\leftarrow \bar{R}(i_t,,j)$
+\EndFor
 \Else
 \ColElim
 \State \ForEach{$\G_b\in\C$}
 \State \While{$\exists j\in\B_m \textbf{ such that } {\forall i\in \G_b: \hat{R}(i,j) < \max_{j'\in\B_{m}\setminus j}\lbrace\hat{R}(i,j') \rbrace}$}
-%\State Let $j^* \in\B_m\setminus \lbrace j\rbrace$ such that $j^* \leftarrow \max_{i\in \G_b , j'\in \B_{m}\setminus \lbrace j\rbrace}\lbrace \hat{R}(i,j')\rbrace$
-%\State 
 \State $\B_m \leftarrow \B_m \setminus \lbrace j \rbrace$. 
-%\EndIf
 \EndWhile
 \EndFor
 \EndColElim
 \ResParam
-\State $Nx_{m + 1}  \leftarrow t + K n_0 d$
-\State $N_{m+1} \leftarrow Nx_{m + 1} + \gamma |\B_m|n_0$ and $m \leftarrow m + 1$.
+\State $N'_{m + 1}  \leftarrow t +  \gamma |\B_m| n_0 $
+\State $N_{m+1} \leftarrow N'_{m + 1} + K n_0 d$ and $m \leftarrow m + 1$.
 \EndResParam
 \EndIf
 \Else \textbf{ (Full Exploit) }
@@ -118,7 +128,7 @@ In the noisy setting, at every pull the algorithm observes a random reward which
 \State {\bf Input:} Time horizon $T$, $Rank(\bar{R}) = d$.
 \State {\bf Explore Parameter:} $\gamma = \lceil\sqrt{K} \rceil$, $\psi = T$.
 \State {\bf Definition:} $U_m(\epsilon_m, n_m) = \sqrt{\dfrac{\psi\log(T\epsilon_m^2)}{2n_m} }$
-\State {\bf Initialization:} $\forall i\in [K], j\in [L], \hat{R}(i,j) \leftarrow 0$, $m=0$, $\B_0 \leftarrow \A$, $\Z_0 \leftarrow \emptyset$, $\C \leftarrow \emptyset$,  $i_0=1$, $j_0=1$ , $\epsilon_0 = 1$, $M=\dfrac{1}{2}\log_2\left( \frac{T}{e}\right)$, $n_0 = \dfrac{2\log(\psi T\epsilon_{0}^2)}{\epsilon_{0}} $, $Nx_0 = K n_0 d$ and $N_0 = Nx_0 + \gamma |\B_0|n_0$.
+\State {\bf Initialization:} $\forall i\in [K], j\in [L], \hat{R}(i,j) \leftarrow 0$, $m=0$, $\B_0 \leftarrow \A$, $\Z_0 \leftarrow \emptyset$, $\C \leftarrow \emptyset$,  $i_0=1$, $j_0=1$ , $\epsilon_0 = 1$, $M=\dfrac{1}{2}\log_2\left( \frac{T}{e}\right)$, $n_0 = \dfrac{2\log(\psi T\epsilon_{0}^2)}{\epsilon_{0}} $, $N'_0 = K n_0 d$ and $N_0 = N'_0 + \gamma |\B_0|n_0$.
 %\State Create set $\C$ of equivalence classes such that 
 \ForEach{$b\in \left[0,\frac{K}{\gamma}-1\right]$} (Create equivalence class $\C$)
 \State  $\G_{b+1}\leftarrow \left\lbrace i\in \left[\frac{bK}{\gamma}+1,\frac{(b+1)K}{\gamma}\right]\right\rbrace$ and $\C\leftarrow \C\cup \G_{b+1}$.
@@ -126,7 +136,7 @@ In the noisy setting, at every pull the algorithm observes a random reward which
 \For{$t=1,..,T$}	
 \State Nature reveals $i_t$ such that $i_t \leftarrow (t \mod K) + 1$ (Round-Robin).
 \If{$|\B_m| > d$} 
-\If{$t \leq N_m$ and $t \leq Nx_m$} \textbf{ (Phase Exploit) }
+\If{$t \leq N_m$ and $t \leq N'_m$} \textbf{ (Phase Exploit) }
 \State Choose $j_0\leftarrow \argmax_{j\in_{B_m}}\left\lbrace \hat{R}(i_t,j)  + \sqrt{\dfrac{2\log T}{n_{i_t,j}}}\right\rbrace $, observe $r_t(i_t,j_0)\sim \mathcal{N}(\bar{R}(i_t,j_0),\sigma^2)$ and $\hat{R}(i_t,j_0)\leftarrow \dfrac{\sum_{s=1}^{t}r_s(i_t,j_0)[\mathbb{I}_{s,i_t} = j_0]}{n_{i_t,j_0}}$.
 \ElsIf{$t \leq N_m$ and $t > Nx_m$} \textbf{ (Phase Explore) }
 \If{$i_0 \leq \gamma $}
@@ -147,8 +157,8 @@ In the noisy setting, at every pull the algorithm observes a random reward which
 \EndColElim
 \ResParam
 \State $\epsilon_{m+1} \leftarrow \dfrac{\epsilon_m}{2}$ and $n_{m+1} \leftarrow \dfrac{2\log(\psi T\epsilon_{m+1}^2)}{\epsilon_{m+1}}$
-\State $Nx_{m+1}\leftarrow t + K n_{m+1} d$
-\State $N_{m+1} \leftarrow Nx_{m+1} + \gamma |\B_m|n_{m+1}$ and $m \leftarrow m + 1$.
+\State $N'_{m+1}\leftarrow t + K n_{m+1} d$
+\State $N_{m+1} \leftarrow N'_{m+1} + \gamma |\B_m|n_{m+1}$ and $m \leftarrow m + 1$.
 \EndResParam
 \EndIf
 \Else \textbf{ (Full Exploit) }

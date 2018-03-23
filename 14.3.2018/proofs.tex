@@ -1,15 +1,36 @@
-\begin{proof}
-Considering any arbitrary row $i\in [K]$, we can show that,
-\begin{align*}
-\argmax_{j\in[L]} U(i,:){V(j,:)}^{\intercal}  &= U(i,:)V(j^*(i),:)^{\intercal}\\
-& \overset{(a)}{=} U(i,:)\left(a_{j^*(i)}V(J^*,:)\right)^{\intercal}\\
-& = \sum_{k=1}^{d}a_{j^*(i)}(k)U(i,:)V(j^*(i),:)^{\intercal}\\
-& \leq \argmax a_{j^*(i)}(k)U(i,:)V(k,:)^{\intercal} \\
-& \leq \argmax_{k\in[d]}U(i,:){V(k,:)}^{\intercal}   ,
-\end{align*}
-where $(a)$ is from Assumption \ref{assm:1}.
-\end{proof}
+%\begin{proof}
+%Considering any arbitrary row $i\in [K]$, we can show that,
+%\begin{align*}
+%\argmax_{j\in[L]} U(i,:){V(j,:)}^{\intercal}  &= U(i,:)V(j^*(i),:)^{\intercal}\\
+%& \overset{(a)}{=} U(i,:)\left(a_{j^*(i)}V(J^*,:)\right)^{\intercal}\\
+%& = \sum_{k=1}^{d}a_{j^*(i)}(k)U(i,:)V(j^*(i),:)^{\intercal}\\
+%& \leq \argmax a_{j^*(i)}(k)U(i,:)V(k,:)^{\intercal} \\
+%& \leq \argmax_{k\in[d]}U(i,:){V(k,:)}^{\intercal}   ,
+%\end{align*}
+%where $(a)$ is from Assumption \ref{assm:1}.
+%\end{proof}
+
+\subsection{Proof of Regret Bound for Noise Free case}
 
 \begin{proof}
-\textbf{Step 1:} We denote the number of times 
+\textbf{Step 1. (Some notations):} We denote the number of times we observe $r_t\left( i ,j \right) \in \bar{R}\left( i  ,j \right)$ till $t$-th timestep as $z_t\left( i,j\right)$. Let, $\J^*$ be the set of $d$ best columns.
+
+\textbf{Step 2. (Assumptions): } We assume that $\bar{R}(i,j)$ is a square matrix of dimension $K\times K$, where $K \geq 4$ and $\lceil\sqrt{K} \rceil \in \mathbb{Z}^+$.
+
+\textbf{Step 3. (Total pulls in phase $0$)}: The total number of pulls in phase $0$ is accrued due to \textbf{Chequerboard exploration} and \textbf{Best-d exploration}, which gives,
+\begin{align*}
+Kd n_0 + \gamma Kn_0 & \overset{(a)}{=} Kd + K\lceil\sqrt{K} \rceil\\
+&= Kd + K^{\frac{3}{2}},
+\end{align*}
+
+where $(a)$ is obtained because $n_0 = 1$ and $\gamma = \lceil\sqrt{K} \rceil$.
+
+\textbf{Step 4. (Probability of $j\in B_m$ and $j\notin \J^*$ after column-equivalence domination):} In the worst case the chequerboard exploration only observes $j\in J^*$ over the same equivalence class $E_1\in \C$ (say). Hence, the number of arms $j'\in \B_m$ surviving after the $m$-th phase cannot be more than,
+
+\begin{align*}
+K - \dfrac{\sqrt{K}}{d} = \sqrt{K}\left(\sqrt{K} - \dfrac{1}{d}\right).
+\end{align*} 
+
+\textbf{Step 5. (Probability of  $j\in \S_m$ and $j\notin \J^*$):} 
+
 \end{proof}

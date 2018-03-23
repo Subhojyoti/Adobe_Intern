@@ -26,16 +26,16 @@ In this paper, in addition to the noisy setting explained in section \ref{intro}
 We assume that nature is revealing the user $i$ in $\bar{R}(i,:), \forall i\in [K]$  in a Round-Robin fashion such that at timestep $t$, nature reveals $i_t = (t \mod K) + 1$.
 \end{assumption}
 
-The main goal of the learning agent is to minimize the cumulative regret until the end of horizon $T$, denoted by $\mathcal{R}_T$. We define the cumulative regret as 
+The main goal of the learning agent is to minimize the cumulative regret until the end of horizon $T$. We define the cumulative regret, denoted by $\mathcal{R}_T$ as,
 
 \begin{align*}
-\mathcal{R}_T = \sum_{t=1}^{T}\left\lbrace r_{t}\left(i_t, j^*_t \right) - r_{t}\left( i_t, j_{t}\right)\right\rbrace
+\mathcal{R}_T = \sum_{t=1}^{T}\bigg\lbrace r_{t}\left(i_t, j^*_t \right) - r_{t}\left( i_t, j_{t}\right)\bigg\rbrace
 \end{align*}
 
-where, $j^*_t = \argmax_{j\in [L]}\lbrace \bar{R}(i_t,j)\rbrace$ and $j_t$ be the suggestion of the learner for the $i_t$ -th user. Taking expectation over both sides, we can show that,
+where, $j^*_t = \argmax_{j\in [L]}\lbrace \bar{R}(i_t,j)\rbrace$ and $j_t$ be the suggestion of the learner for the $i_t$ -th user. Note that $r_{t}\left(i_t, j^*_t \right)\sim \mathcal{N}(\bar{R}\left(i_t, j^*_t \right),\sigma^2)$ and $r_{t}\left(i_t, j_t \right)\sim \mathcal{N}(\bar{R}\left(i_t, j_t \right), \sigma^2)$. Taking expectation over both sides, we can show that,
 
 \begin{align*}
-\E[\mathcal{R}_T] = \E\left [ \sum_{t=1}^{T}\left\lbrace r_{t}\left(i_t, j^*_t \right) - r_{t}\left( i_t, j_{t}\right)\right\rbrace\right] = \E\left [ \sum_{t=1}^{T}  n_{i_t,j_t} \right ]\Delta_{i_t,j_t}
+\E[\mathcal{R}_T] = \E\left [ \sum_{t=1}^{T}\bigg\lbrace r_{t}\left(i_t, j^*_t \right) - r_{t}\left( i_t, j_{t}\right)\bigg\rbrace\right] = \E\left [ \sum_{t=1}^{T}  n_{i_t,j_t} \right ]\Delta_{i_t,j_t}
 \end{align*}
 
 where, $\Delta_{i_t,j_t} = \bar{R}(i_t,j^*_t) - \bar{R}(i_t,j_t)$ and $n_{i_t,j_t}$ is the number of times the learner has observed the $j_t$-th item for the $i_t$-th user. Let, $\Delta = \min_{i\in[K],j\in[L]}\lbrace \Delta_{i,j}\rbrace$ be the minimum gap over all the user, item pair in $\bar{R}$.

@@ -93,6 +93,7 @@ class GLBUCB(object):
         #self.variance = (data[1])
         # print self.means
         # print self.variance
+        #print self.bestAction
     
     #Calculate Upper Bound
     def upperBound(self):
@@ -101,8 +102,13 @@ class GLBUCB(object):
         #return 0.0
         
         # Noisy
-        return math.ceil(math.log((self.psi*self.numRounds*self.epsilon*self.epsilon)/(2.0*self.nm)))
+        return (math.log((self.psi*self.numRounds*self.epsilon*self.epsilon)/(2.0*self.nm)))
                     
+    def upperBound1(self, numPlays):
+        
+        #return 0.0
+        return math.sqrt(2.0 * math.log(self.numRounds) / (numPlays))
+    
     
     #Choose Column in Round Robin Fashion
     def choose_Col_RR(self,user):
@@ -233,7 +239,7 @@ class GLBUCB(object):
                         
                                 
                         for u in range(0,self.users):
-                            self.estR[u][col] = -1.0
+                            self.estR[u][col] = self.MIN
                         
                         count = 0   
                         self.calc_max()
@@ -263,6 +269,8 @@ class GLBUCB(object):
         #self.ucbs = [[self.MAX for i in range(0, self.numActions)] for j in range (0,self.users)]
 
         self.estR = [[self.MIN for i in range(0, self.numActions)] for j in range (0,self.users)]
+        self.ucbs = [[self.MIN for i in range(0, self.numActions)] for j in range (0,self.users)]
+        
         self.B = [0 for i in range(0,self.numActions)]
         self.max_take = [[self.MIN for i in range(0, self.numActions)] for j in range (0,self.users)]
         
@@ -327,9 +335,9 @@ class GLBUCB(object):
         #self.psi = self.numRounds * self.explore * self.explore
         self.psi = self.numRounds
         
-        self.nm = int(math.ceil((1.0*math.log(self.psi*self.numRounds*self.epsilon*self.epsilon)/(self.epsilon))))
-        self.Nm = self.explore*self.nm*self.remArms()
-        self.M = int(math.ceil(0.5 * (math.log((self.numRounds/math.e)/math.log((1+0.5))))))
+        self.nm = int(math.ceil((2.0*self.explore*math.log(self.psi*self.numRounds*self.epsilon*self.epsilon)/(self.epsilon))))
+        self.Nm = self.nm*self.remArms()
+        self.M = int(math.floor(0.5 * (math.log((self.numRounds/math.e))/math.log(1+1.0))))
         
         print self.Nm, self.M
         self.action = 0
@@ -363,7 +371,7 @@ class GLBUCB(object):
                     #self.write_file(self.t,self.estR,'_R_')
                     
                     print "\n\nPhase: " + str(self.m) + " explored " + str(self.remArms()) + " columns " + str(self.explore*self.nm) + " times"
-                    
+                    print "U : " + str(self.upperBound())
 
                     #Arm Elimination
                     self.colElim()    
@@ -373,9 +381,9 @@ class GLBUCB(object):
                             self.expl[i] = -1
                     
                     #Parameter Reset
-                    self.epsilon = self.epsilon / (1 + 0.5)
-                    self.nm = int(math.ceil(1.0*math.log((self.psi*self.numRounds*self.epsilon*self.epsilon)/(self.epsilon))))
-                    self.Nm = self.t + self.explore*self.nm*self.remArms()
+                    self.epsilon = self.epsilon / (1 + 1.0)
+                    self.nm = int(math.ceil(2.0*self.explore*math.log((self.psi*self.numRounds*self.epsilon*self.epsilon)/(self.epsilon))))
+                    self.Nm = self.t + self.nm*self.remArms()
                     print self.Nm, self.nm
                     self.m = self.m + 1
             else:
@@ -399,7 +407,18 @@ class GLBUCB(object):
                 else:
                     #print "Fully explored " + str(self.remArms()) + " best columns " + str(self.bestCol)
                     #Exploit
-                    self.action = max(range(0,self.numActions), key=lambda col: self.estR[user][col])
+                    if self.t == 71600:
+                        self.write_file(self.t, self.estR, '_R_')
+                    
+                    for i in range(0,self.numActions):
+                    #if self.estR[user][i] != self.MAX:
+                        self.ucbs[user][i] = (self.estR[user][i]) + self.upperBound1(self.numPlays[user][i])
+
+                
+                    self.action = max(range(0,self.numActions), key=lambda j: self.ucbs[user][j])
+
+                    
+                    #self.action = max(range(0,self.numActions), key=lambda col: (self.estR[user][col]+self.upperBound()))
                     
             
             #Calculate Regret
@@ -408,7 +427,7 @@ class GLBUCB(object):
             self.numPlays[user][self.action] += 1
             self.payoffSums[user][self.action] += theReward
 
-            self.estR[user][self.action] = theReward
+            self.estR[user][self.action] = self.payoffSums[user][self.action]/self.numPlays[user][self.action]
 
             cumulativeReward += theReward
             bestActionCumulativeReward += theReward if self.action == self.bestAction[user] else self.rewards(user,self.bestAction[user])
@@ -442,7 +461,7 @@ if __name__ == "__main__":
     action = 10
     rank = 2
 
-    for turn in range(0,1):
+    for turn in range(0,10):
         obj = GLBUCB()
         random.seed(turn + action)
         cumulativeReward, bestActionCumulativeReward, regret, arm, timestep = obj.GLBUCB(user, action, rank)

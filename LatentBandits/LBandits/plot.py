@@ -23,7 +23,7 @@ class plot4(object):
         Constructor
         '''
 
-    out_file='NewExpt/expt5/'
+    out_file='NewExpt/expt11/'
 
     def column(self,A, j):
         return [A[i][j] for i in range(len(A))]
@@ -162,14 +162,14 @@ class plot4(object):
     #def regretWeightsGraph(self,filename,filename1,filename2,filename3,filename4,filename5):
     def regretWeightsGraph(self,filename):
 
-        self.limit=100
-        self.timestep=2000
+        self.limit=1
+        self.timestep=3000000
         #self.timestep=300000
 
         #print self.actionRegret1
         #print self.actionRegret
 
-        takeName="GLBUCB0RR1"
+        takeName="CustomEXP30RR1"
 
         self.actionRegret=[0.0 for i in range(self.timestep)]
         '''
@@ -238,7 +238,7 @@ class plot4(object):
         ax1.plot(scale, self.actionRegret4,'y-',label="ClusUCB(Clustering,p=15)")
         ax1.plot(scale, self.actionRegret5,'m',label="ClusUCB(Clustering,p=25)")
         '''
-
+        
 
         plt.legend(bbox_to_anchor=(0., 1.02, 1., .102), loc=2,
                ncol=2, mode="expand", borderaxespad=0.)
@@ -252,27 +252,4 @@ class plot4(object):
 if __name__ == "__main__":
 
     obj=plot4()
-
-    #regretWeightsGraph('ucbTest1/testRN110UCB_2m_0.47.txt','ucbTest1/testR1_2m_0.47.txt','ucbTest/testRNUCB1_new.txt', "Regret of UCB\n10 actions, 1 million rounds")
-    #regretWeightsGraph('ucbTest1/testRNUCB_new.txt','ucbTest1/testR_new.txt','ucbTest1/testRNUCB1_new.txt', "Regret of UCB\n10 actions, 1 million rounds")
-    #regretWeightsGraph('testExp/testCLUCB1000_final.txt','testExp/testR_new7.txt','testExp/testUCB.txt','testExp/testR_new6.txt', "Regret of UCB\n10 actions, 1 million rounds")
-
-    #obj.regretWeightsGraph('testFinal3/clUCB6.txt','testFinal3/testMOSS1.txt', 'testFinal3/testUCB11.txt' ,'testFinal3/testEps1.txt','testFinal3/testEpsn1.txt','testFinal3/testEXP1.txt','testFinal3/testUCBD1.txt','testFinal3/testUCB21.txt','testFinal3/testTS1.txt','testFinal3/testUCBT1.txt','testFinal3/testUCBV1.txt','testFinal3/testKLUCB1.txt', "Regret of UCB\n10 actions, 1 million rounds")
-
-    #obj.regretWeightsGraph('expt5/testRegretDMED01.txt','expt5/testRegret02.txt','expt5/testRegretMOSS01.txt','expt5/testRegretUCB01.txt','expt5/testRegretUCBV01.txt','expt5/testRegretUCBV01.txt')
-    #print obj.a[0.0 for i in range(timestep)]ctionRegret
-
-    #obj.regretWeightsGraph('expt6/testRegret01.txt','expt6/testRegret02.txt','expt6/testRegretMOSS01.txt','expt6/testRegretUCB01.txt','expt6/testRegretUCBR.txt')
-    #obj.regretWeightsGraph('expt3/testRegretclUCB01_1.txt','expt3/testRegretclUCB01_3.txt','expt3/testRegretclUCB01_5.txt','expt3/testRegretclUCB01_10.txt','expt3/testRegretclUCB01_15.txt','expt3/testRegretclUCB01_25.txt')
-    obj.regretWeightsGraph('NewExpt/expt5/testRegretGLBUCB0RR1.txt')
-
-
-    #regretWeightsGraph('testFinal2/testRegret06.txt','testFinal2/testRegret07.txt','testFinal2/testRegret08.txt','testFinal2/testRegret09.txt','testFinal2/testRegret010.txt','testFinal2/testRegret011.txt','testFinal2/testRegretMOSS020.txt')
-    #regretWeightsGraph('testFinal3/testRegret01.txt','testFinal3/testRegret02.txt','testFinal3/testRegret03.txt','testFinal3/testRegret04.txt','testFinal3/testRegret05.txt','testFinal3/testRegret06.txt','testFinal3/testRegretMOSS01.txt')
-    #regretWeightsGraph('testFinal3/testRegret01.txt','testFinal3/testRegret02.txt','testFinal3/testRegret03.txt','testFinal3/testRegretMOSS02.txt','testFinal3/testRegret04.txt','testFinal3/testRegret05.txt')
-    #regretWeightsGraph('testFinal3/testRegret01.txt','testFinal3/testRegret02.txt','testFinal3/testRegret03.txt','testFinal3/testRegretMOSS02.txt','testFinal3/testRegret04.txt','testFinal3/testRegretUCB01.txt')
-
-
-    #regretWeightsGraph('testExp/clusUCB2_4.txt','testExp/testMOSS1.txt','testExp/testUCB_11_15_1.txt','testExp/testEps_11_15.txt','testExp/testEpsn_11_15.txt','testExp/testUCBD_11_15.txt', "Regret of UCB\n10 actions, 1 million rounds")
-
-    #regretWeightsGraph('test1/testCLUCB2_final_10_1.txt','test1/testEXP_10_1.txt','test1/testUCB_10_14_1.txt','test1/testEps_1.txt', "Regret of UCB\n10 actions, 1 million rounds")
+    obj.regretWeightsGraph('NewExpt/expt11/testRegretCustomEXP30RR1.txt')
