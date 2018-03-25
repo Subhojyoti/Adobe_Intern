@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  22 MAR 2018 20:00
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  24 MAR 2018 21:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1381,18 +1381,18 @@ LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
 
 {/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}])
 (./related.tex) (./contributions.tex) [2] [3] (./expt.tex
-PGFPlots: reading {results/NewExpt/Expt10/comp_subsampled_CustomUCB0RR1.txt}
-PGFPlots: reading {results/NewExpt/Expt10/comp_subsampled_GLBUCB0RR1.txt}
-PGFPlots: reading {results/NewExpt/Expt10/comp_subsampled_CustomTS0RR1.txt}
-PGFPlots: reading {results/NewExpt/Expt10/comp_subsampled_CustomMOSS0RR1.txt}
-PGFPlots: reading {results/NewExpt/Expt10/comp_subsampled_CustomOCUCB0RR1.txt}
-PGFPlots: reading {results/NewExpt/Expt10/comp_subsampled_CustomEXP30RR1.txt}
-PGFPlots: reading {results/NewExpt/Expt11/comp_subsampled_CustomUCB0RR1.txt}
-PGFPlots: reading {results/NewExpt/Expt11/comp_subsampled_GLBUCB0RR1.txt}
-PGFPlots: reading {results/NewExpt/Expt11/comp_subsampled_CustomTS0RR1.txt}
-PGFPlots: reading {results/NewExpt/Expt11/comp_subsampled_CustomMOSS0RR1.txt}
-PGFPlots: reading {results/NewExpt/Expt11/comp_subsampled_CustomOCUCB0RR1.txt}
-PGFPlots: reading {results/NewExpt/Expt11/comp_subsampled_CustomEXP30RR1.txt}
+PGFPlots: reading {results/NewExpt/Expt12/comp_subsampled_CustomUCB0RR1.txt}
+PGFPlots: reading {results/NewExpt/Expt12/comp_subsampled_GLBUCB0RR1.txt}
+PGFPlots: reading {results/NewExpt/Expt12/comp_subsampled_CustomTS0RR1.txt}
+PGFPlots: reading {results/NewExpt/Expt12/comp_subsampled_CustomMOSS0RR1.txt}
+PGFPlots: reading {results/NewExpt/Expt12/comp_subsampled_CustomOCUCB0RR1.txt}
+PGFPlots: reading {results/NewExpt/Expt12/comp_subsampled_CustomEXP30RR1.txt}
+PGFPlots: reading {results/NewExpt/Expt13/comp_subsampled_CustomUCB0RR1.txt}
+PGFPlots: reading {results/NewExpt/Expt13/comp_subsampled_GLBUCB0RR1.txt}
+PGFPlots: reading {results/NewExpt/Expt13/comp_subsampled_CustomTS0RR1.txt}
+PGFPlots: reading {results/NewExpt/Expt13/comp_subsampled_CustomMOSS0RR1.txt}
+PGFPlots: reading {results/NewExpt/Expt13/comp_subsampled_CustomOCUCB0RR1.txt}
+PGFPlots: reading {results/NewExpt/Expt13/comp_subsampled_CustomEXP30RR1.txt}
 ) (./conclusions.tex)
 [4] (./report.bbl) [5
 
@@ -1407,10 +1407,10 @@ Package rerunfilecheck Info: File `report.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 198.
  ) 
 Here is how much of TeX's memory you used:
- 33554 strings out of 492995
- 790942 string characters out of 6132704
- 1018936 words of memory out of 5000000
- 36455 multiletter control sequences out of 15000+600000
+ 33552 strings out of 492995
+ 790890 string characters out of 6132704
+ 1017271 words of memory out of 5000000
+ 36453 multiletter control sequences out of 15000+600000
  51219 words of font info for 83 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  69i,27n,107p,1172b,2510s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1432,7 +1432,7 @@ ist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2017/tex
 mf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2017/texmf-dist/fo
 nts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/
 urw/times/utmri8a.pfb>
-Output written on report.pdf (5 pages, 180287 bytes).
+Output written on report.pdf (5 pages, 179639 bytes).
 PDF statistics:
  145 PDF objects out of 1000 (max. 8388607)
  119 compressed objects within 2 object streams

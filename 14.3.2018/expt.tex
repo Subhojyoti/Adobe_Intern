@@ -2,7 +2,7 @@
     \centering
     \begin{tabular}{cc}
     \setlength{\tabcolsep}{0.1pt}
-    \subfigure[0.25\textwidth][Expt-$1$: $64$ Users, $16$ Bernoulli-distributed arms, Round-Robin, Noisy Setting]
+    \subfigure[0.25\textwidth][Expt-$1$: $1024$ Users, $16$ Bernoulli-distributed arms, Round-Robin, Noisy Setting, Rank $2$]
     %with $r_{i_{{i}\neq {*}}}=0.07$ and $r^{*}=0.1$
     {
     		\pgfplotsset{
@@ -22,19 +22,19 @@
         %clip mode=individual,grid,grid style={gray!30},
   		legend style={at={(0.5,1.4)},anchor=north, legend columns=3} ]
       	% UCB
-		\addplot table{results/NewExpt/Expt10/comp_subsampled_CustomUCB0RR1.txt};
-		\addplot table{results/NewExpt/Expt10/comp_subsampled_GLBUCB0RR1.txt};
-		\addplot table{results/NewExpt/Expt10/comp_subsampled_CustomTS0RR1.txt};
-		\addplot table{results/NewExpt/Expt10/comp_subsampled_CustomMOSS0RR1.txt};
-		\addplot table{results/NewExpt/Expt10/comp_subsampled_CustomOCUCB0RR1.txt};
-		\addplot table{results/NewExpt/Expt10/comp_subsampled_CustomEXP30RR1.txt};
+		\addplot table{results/NewExpt/Expt12/comp_subsampled_CustomUCB0RR1.txt};
+		\addplot table{results/NewExpt/Expt12/comp_subsampled_GLBUCB0RR1.txt};
+		\addplot table{results/NewExpt/Expt12/comp_subsampled_CustomTS0RR1.txt};
+		\addplot table{results/NewExpt/Expt12/comp_subsampled_CustomMOSS0RR1.txt};
+		\addplot table{results/NewExpt/Expt12/comp_subsampled_CustomOCUCB0RR1.txt};
+		\addplot table{results/NewExpt/Expt12/comp_subsampled_CustomEXP30RR1.txt};
       	\legend{UCB1,GLBUCB,TS,MOSS,OCUCB, EXP3} 
       	\end{axis}
       	\end{tikzpicture}
   		\label{fig:1}
     }
     &
-    \subfigure[0.25\textwidth][Expt-$2$: $512$ Users, $16$ Bernoulli-distributed arms, Round-Robin, Noisy Setting]
+    \subfigure[0.25\textwidth][Expt-$2$: $1024$ Users, $128$ Bernoulli-distributed arms, Round-Robin, Noisy Setting, Rank $3$]
     %with $r_{i_{{i}\neq {*}}}=0.07$ and $r^{*}=0.1$
     {
     		\pgfplotsset{
@@ -54,12 +54,12 @@
         %clip mode=individual,grid,grid style={gray!30},
   		legend style={at={(0.5,1.4)},anchor=north, legend columns=3} ]
       	% UCB
-		\addplot table{results/NewExpt/Expt11/comp_subsampled_CustomUCB0RR1.txt};
-		\addplot table{results/NewExpt/Expt11/comp_subsampled_GLBUCB0RR1.txt};
-		\addplot table{results/NewExpt/Expt11/comp_subsampled_CustomTS0RR1.txt};
-		\addplot table{results/NewExpt/Expt11/comp_subsampled_CustomMOSS0RR1.txt};
-		\addplot table{results/NewExpt/Expt11/comp_subsampled_CustomOCUCB0RR1.txt};
-		\addplot table{results/NewExpt/Expt11/comp_subsampled_CustomEXP30RR1.txt};
+		\addplot table{results/NewExpt/Expt13/comp_subsampled_CustomUCB0RR1.txt};
+		\addplot table{results/NewExpt/Expt13/comp_subsampled_GLBUCB0RR1.txt};
+		\addplot table{results/NewExpt/Expt13/comp_subsampled_CustomTS0RR1.txt};
+		\addplot table{results/NewExpt/Expt13/comp_subsampled_CustomMOSS0RR1.txt};
+		\addplot table{results/NewExpt/Expt13/comp_subsampled_CustomOCUCB0RR1.txt};
+		\addplot table{results/NewExpt/Expt13/comp_subsampled_CustomEXP30RR1.txt};
       	\legend{UCB1,GLBUCB,TS,MOSS,OCUCB, EXP3} 
       	\end{axis}
       	\end{tikzpicture}
