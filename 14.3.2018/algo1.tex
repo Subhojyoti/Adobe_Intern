@@ -119,7 +119,7 @@ Finally, if the algorithm has eliminated $L-d$ columns, for the user $i_t$ revea
 \EndFor
 \EndColElim
 \ResParam
-\ForEach{$i \in [K]$}
+\ForEach{$i \in [K]$} \Comment{Find best $d$ arms}
 \State $\D_{i,m} \leftarrow \argmax_d\left\lbrace \hat{R}(i,j)  + U_m(\epsilon_m, n_{i,j})\right\rbrace, \forall j\in \B_m\cap\Z_{\G_b,m}, i\in\G_b$
 \EndFor
 \ForEach{$\G_b\in\C$} 
