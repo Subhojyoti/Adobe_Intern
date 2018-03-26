@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  26 MAR 2018 03:26
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  26 MAR 2018 15:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1404,7 +1404,41 @@ Overfull \hbox (13.32848pt too wide) in paragraph at lines 115--116
 2 B[][][]$
  []
 
-) [3] (./expt.tex
+) (./results.tex) (./proofs.tex [3]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [4]
+
+LaTeX Warning: Reference `eq:arm-pull-opt' on page 5 undefined on input line 75
+.
+
+
+Overfull \hbox (1.55656pt too wide) in paragraph at lines 91--91
+[] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [5]
+Overfull \hbox (3.05563pt too wide) in paragraph at lines 99--99
+[] 
+ []
+
+
+Overfull \hbox (25.87445pt too wide) in paragraph at lines 128--128
+[] 
+ []
+
+
+Underfull \vbox (badness 1097) has occurred while \output is active []
+
+ [6]
+Overfull \hbox (26.47267pt too wide) in paragraph at lines 138--138
+[] 
+ []
+
+[7]) [8] (./expt.tex
 PGFPlots: reading {results/NewExpt/Expt12/comp_subsampled_CustomUCB0RR1.txt}
 PGFPlots: reading {results/NewExpt/Expt12/comp_subsampled_GLBUCB0RR1.txt}
 PGFPlots: reading {results/NewExpt/Expt12/comp_subsampled_CustomTS0RR1.txt}
@@ -1417,7 +1451,7 @@ PGFPlots: reading {results/NewExpt/Expt13/comp_subsampled_CustomTS0RR1.txt}
 PGFPlots: reading {results/NewExpt/Expt13/comp_subsampled_CustomMOSS0RR1.txt}
 PGFPlots: reading {results/NewExpt/Expt13/comp_subsampled_CustomOCUCB0RR1.txt}
 PGFPlots: reading {results/NewExpt/Expt13/comp_subsampled_CustomEXP30RR1.txt}
-) (./conclusions.tex) [4] [5] (./report.bbl) [6
+) (./conclusions.tex) [9] (./report.bbl) [10
 
 ]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 198.
@@ -1426,14 +1460,18 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 198.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 198.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 198.
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: CED960F6EAD77E66C319F77CADF47820;419.
+(rerunfilecheck)             Checksum: E5D8FF48AD25915DB82308628CC7F521;579.
+
+
+LaTeX Warning: There were undefined references.
+
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 198.
  ) 
 Here is how much of TeX's memory you used:
- 33803 strings out of 492995
- 795021 string characters out of 6132704
- 1028423 words of memory out of 5000000
- 36663 multiletter control sequences out of 15000+600000
+ 33831 strings out of 492995
+ 795366 string characters out of 6132704
+ 1018733 words of memory out of 5000000
+ 36676 multiletter control sequences out of 15000+600000
  53987 words of font info for 85 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  69i,27n,107p,1172b,2510s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1445,21 +1483,22 @@ ive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texliv
 e/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/
 2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/20
 17/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2017
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2017/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2017/texmf
--dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2017/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2017/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2017/texmf-dist
-/fonts/type1/public/amsfonts/symbols/msam7.pfb></usr/local/texlive/2017/texmf-d
-ist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2017/tex
-mf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2017/texmf-dist/fo
-nts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1
-/urw/times/utmr8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/times
-/utmri8a.pfb>
-Output written on report.pdf (6 pages, 207942 bytes).
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2017/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2017/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2017/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2017/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2017/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2017/texmf-dist/fo
+nts/type1/public/amsfonts/symbols/msam7.pfb></usr/local/texlive/2017/texmf-dist
+/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2017/texmf-
+dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2017/texmf-dist/fonts
+/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/ur
+w/times/utmr8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/times/ut
+mri8a.pfb>
+Output written on report.pdf (10 pages, 239475 bytes).
 PDF statistics:
- 196 PDF objects out of 1000 (max. 8388607)
- 168 compressed objects within 2 object streams
- 53 named destinations out of 1000 (max. 500000)
- 69 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 242 PDF objects out of 1000 (max. 8388607)
+ 208 compressed objects within 3 object streams
+ 62 named destinations out of 1000 (max. 500000)
+ 93 words of extra memory for PDF output out of 10000 (max. 10000000)
 

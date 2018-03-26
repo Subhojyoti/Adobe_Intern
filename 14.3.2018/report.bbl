@@ -1,5 +1,10 @@
 \begin{thebibliography}{}
 
+\bibitem[Auer et~al., 2002]{auer2002finite}
+Auer, P., Cesa-Bianchi, N., and Fischer, P. (2002).
+\newblock Finite-time analysis of the multiarmed bandit problem.
+\newblock {\em Machine learning}, 47(2-3):235--256.
+
 \bibitem[Auer and Ortner, 2010]{auer2010ucb}
 Auer, P. and Ortner, R. (2010).
 \newblock Ucb revisited: Improved regret bounds for the stochastic multi-armed

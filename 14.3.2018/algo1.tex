@@ -120,10 +120,10 @@ Finally, if the algorithm has eliminated $L-d$ columns, for the user $i_t$ revea
 \EndColElim
 \ResParam
 \ForEach{$i \in [K]$} \Comment{Find best $d$ arms}
-\State $\D_{i,m} \leftarrow \argmax_d\left\lbrace \hat{R}(i,j)  + U_m(\epsilon_m, n_{i,j})\right\rbrace, \forall j\in \B_m\cap\Z_{\G_b,m}, i\in\G_b$
+\State $\D_{m}(i,j) \leftarrow \argmax_d\left\lbrace \hat{R}(i,j)  + U_m(\epsilon_m, n_{i,j})\right\rbrace, \forall j\in \B_m$
 \EndFor
 \ForEach{$\G_b\in\C$} 
-\State $\Z_{\G_b,m+1}\leftarrow \argmax_d\lbrace \D_i,m\rbrace, \forall i\in [K]$ and select $\gamma - d$ different columns uniform randomly from $\B_m\cap\Z_{\G_b,m}$.
+\State $\Z_{\G_b,m+1}\leftarrow \argmax_d\lbrace \D_m(i,j)\rbrace, \forall i\in [K], \forall j\in\B_m$ and select $\gamma - d$ different columns uniform randomly from $\B_m\cap\Z_{\G_b,m}$.
 \EndFor
 \State $\epsilon_{m+1} \leftarrow \dfrac{\epsilon_m}{2}$ and $\ell_{m+1} \leftarrow \dfrac{2\log(\psi T\epsilon_{m+1}^2)}{\epsilon_{m+1}}$
 \State $N_{m+1}\leftarrow t + K \gamma \ell_{m+1} $ and $m \leftarrow m + 1$.
