@@ -37,19 +37,26 @@
 
 \begin{proof}
 
-\textbf{Step 0. (Outline):} 
+\textbf{Step 0. (Outline):} We separate the proof into two larger sub-modules. In the first sub-module, we show that there exist a phase $m_{i,j}$ for a user $i\in\G_b$ such that the $d$-best items are in $\Z_{\G_b, m_{i,j}}$ with a very high probability. In the second sub-module, we show that in such a phase $m_{i,j}$, there exist a $\G_{b}$ such that $J^*\in\G_b$ and for all $i\in\G_b$ a sub-optimal item $j$ is eliminated with a very high probability.
 
-\textbf{Step 1.(Define some notations):} In this proof,  we define the confidence interval for the $(i,j)$-th user-item pair as $S_{i,j}=\sqrt{\dfrac{\alpha\log(\psi T\epsilon_m^2)}{n_{i,j}}}$. The phase numbers are denoted by $m=0,1,\ldots,M$ where $M=\frac{1}{2}\log_{2}\frac{T}{e}$. We also define $\A'=\big\lbrace j\in\A: \Delta_{j}\geq \sqrt{\frac{e}{T}} \big\rbrace$.
+\textbf{Step 1.(Define some notations):} In this proof,  we define the confidence interval for the $(i,j)$-th user-item pair as $S_{i,j}=\sqrt{\dfrac{\alpha\log(\psi T\epsilon_m^2)}{n_{i,j}}}$. Let $J^*$ denote the set of $d$-best items. The phase numbers are denoted by $m=0,1,\ldots,M$ where $M=\frac{1}{2}\log_{2}\frac{T}{e}$. We also define $\A'=\big\lbrace i\in[K], j\in\A: \Delta_{i,j}\geq \sqrt{\frac{e}{T}} \big\rbrace$.
 
-\textbf{Step 2.(Define a stopping phase for item $j$ and $i\in\G_b$ as  $m_{i,j}$):} We define a stopping phase $m_{i,j}$ for a sub-optimal item $j\in\A'$ as the first phase after which the item $j$ is eliminated,
+\textbf{Step 2.(Define a phase $p_{J^*}$):} We define a phase $p_{J^*}$ such that all $\Z_{\G_b,m}, \forall b\in\left[ 1,\frac{K}{d}\right]$ contains $J^*$.
 
-\begin{align*}
+\textbf{Step 3.(Regret for selecting sub-optimal item $j$ after  $p_{J^*}$-th phase):} Note, that by construction of GLBUCB, for any phase $m$, $\bigcup\limits_{b=1}^{\frac{K}{d}}Z_{\G_b,m+1} = \lbrace B_m\rbrace$. For all $\Z_{\G_b}$ to contain $J^*$, $\D_{p_{J^*}}(i)$ must contain $j^*,\forall i\in[K]$. So, if the following three conditions hold, then 
+
+%$j_0\in \argmax_{j\in\Z_{\G_b,m}}\left\lbrace \hat{R}(i,j)  + U_m(\epsilon_m, n_{i,j})\right\rbrace$
+
+
+\textbf{Step 3.(Define a stopping phase for item $j$ and $i\in\G_b$ as  $m_{i,j}$):} We define a stopping phase $m_{i,j}$ for a sub-optimal item $j\in\A'$ as the first phase after which the item $j$ is eliminated,
+
+\begin{align*}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
 m_{i,j} = \min\left\lbrace m: \sqrt{\alpha\epsilon_{m}} < \dfrac{\Delta_{i,j}}{4} \right\rbrace
 \end{align*} 
 
 Note, that this item $j$ is no longer selected for any user $i\in[K]$.
 
-\textbf{Step 3.(Regret for sub-optimal item $j$ being selected after $m_{j}$-th phase):} Note, that on or after the $m_{i,g}$-th phase a sub-optimal arm $j\in\A'$ is eliminated if these four conditions hold for all $i\in\G_b$,
+\textbf{Step 4.(Regret for sub-optimal item $j$ being selected after $m_{j}$-th phase):} Note, that on or after the $m_{i,g}$-th phase a sub-optimal arm $j\in\A'$ is eliminated if these four conditions hold for all $i\in\G_b$,
 
 \begin{eqnarray}
 \hat{R}(i,j) < \bar{R}(i,j) + S_{i,j}, \hspace*{2em}  \hat{R}(i,j^*) > \bar{R}(i,j^*) - S_{i,j^*}, \hspace*{2em} S_{i,j} > S_{i,j^*}, \hspace*{2em} n_{i,j} \geq \ell_{m_{i,j}} \label{eq:arm-pull}
@@ -67,7 +74,7 @@ If the four conditions in equation \ref{eq:arm-pull} hold for all $i\in\G_b$ the
 %%%%%%%%%%%%%
 &\leq \bar{R}(i,j) + \Delta_{i,j} - 2S_{i,j}\\
 %%%%%%%%%%%%%
-& \leq \bar{R}_{i,j^*} - 2S_{i,j^*} \\
+& \leq \bar{R}(i,j^*) - 2S_{i,j^*} \\
 %%%%%%%%%%%%%
 &\leq \hat{R}(i,j^*) - S_{i , j^*}
 \end{align*}
@@ -155,7 +162,7 @@ Here, in $(a)$ we use the standard geometric progression formula and  in $(b)$ w
 \end{align*}
 
 
-\textbf{Step 5.(Regret for pulling the sub-optimal item $j$ on or before $m_{i,j}$-th phase):} Either a sub-optimal item $j$ gets pulled $\ell_{m_{i,j}}$ number of times till the $m_{i,j}$-th phase or after that the probability of it getting pulled is exponentially low (as shown in \textbf{step 4}). Hence, the number of times a sub-optimal item $j$ is pulled till the $m_{i,j}$-th phase is given by,
+\textbf{Step 6.(Regret for pulling the sub-optimal item $j$ on or before $m_{i,j}$-th phase):} Either a sub-optimal item $j$ gets pulled $\ell_{m_{i,j}}$ number of times till the $m_{i,j}$-th phase or after that the probability of it getting pulled is exponentially low (as shown in \textbf{step 4}). Hence, the number of times a sub-optimal item $j$ is pulled till the $m_{i,j}$-th phase is given by,
 
 \begin{align*}
 n_{i,j} < \ell_{m_{i,j}} = \left\lceil \dfrac{\log(\psi T\epsilon_{m_{i,j}}^2)}{2\epsilon_{m_{i,j}}} \right\rceil
