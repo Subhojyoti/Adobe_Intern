@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  27 MAR 2018 03:28
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  27 MAR 2018 12:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1409,24 +1409,21 @@ Underfull \vbox (badness 2261) has occurred while \output is active []
 
  [4]
 
-LaTeX Warning: Reference `eq:arm-pull-opt' on page 5 undefined on input line 82
+LaTeX Warning: Reference `eq:arm-pull-opt' on page 5 undefined on input line 84
 .
 
 
-Overfull \hbox (1.55656pt too wide) in paragraph at lines 98--98
+Overfull \hbox (1.55656pt too wide) in paragraph at lines 100--100
+[] 
+ []
+
+[5]
+Overfull \hbox (3.05563pt too wide) in paragraph at lines 108--108
 [] 
  []
 
 
-Underfull \vbox (badness 6708) has occurred while \output is active []
-
- [5]
-Overfull \hbox (3.05563pt too wide) in paragraph at lines 106--106
-[] 
- []
-
-
-Overfull \hbox (25.87445pt too wide) in paragraph at lines 135--135
+Overfull \hbox (25.87445pt too wide) in paragraph at lines 137--137
 [] 
  []
 
@@ -1434,7 +1431,7 @@ Overfull \hbox (25.87445pt too wide) in paragraph at lines 135--135
 Underfull \vbox (badness 1097) has occurred while \output is active []
 
  [6]
-Overfull \hbox (26.47267pt too wide) in paragraph at lines 145--145
+Overfull \hbox (26.47267pt too wide) in paragraph at lines 147--147
 [] 
  []
 
@@ -1470,7 +1467,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 198.
 Here is how much of TeX's memory you used:
  33831 strings out of 492995
  795366 string characters out of 6132704
- 1018735 words of memory out of 5000000
+ 1018736 words of memory out of 5000000
  36676 multiletter control sequences out of 15000+600000
  53987 words of font info for 85 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1495,7 +1492,7 @@ dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2017/texmf-dist/fonts
 /type1/urw/times/utmbi8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/ur
 w/times/utmr8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/times/ut
 mri8a.pfb>
-Output written on report.pdf (10 pages, 242741 bytes).
+Output written on report.pdf (10 pages, 243719 bytes).
 PDF statistics:
  242 PDF objects out of 1000 (max. 8388607)
  208 compressed objects within 3 object streams
