@@ -1,0 +1,125 @@
+%\subsection{Noise-Free Setting}
+
+
+%\begin{assumption}
+%\label{assm:d-indep}
+%We assume that any $d$ sets of rows or columns are independent in $\bar{R}$.
+%\end{assumption}
+
+\algblock{ArmElim}{EndArmElim}
+\algnewcommand\algorithmicArmElim{\textbf{\em Arm Elimination}}
+ \algnewcommand\algorithmicendArmElim{}
+\algrenewtext{ArmElim}[1]{\algorithmicArmElim\ #1}
+\algrenewtext{EndArmElim}{\algorithmicendArmElim}
+
+\algblock{ResParam}{EndResParam}
+\algnewcommand\algorithmicResParam{\textbf{\em Reset Parameters}}
+ \algnewcommand\algorithmicendResParam{}
+\algrenewtext{ResParam}[1]{\algorithmicResParam\ #1}
+\algrenewtext{EndResParam}{\algorithmicendResParam}
+
+\algblock{ColRec}{EndColRec}
+\algnewcommand\algorithmicColRec{\textbf{\em Column Reconstruction}}
+ \algnewcommand\algorithmicendColRec{}
+\algrenewtext{ColRec}[1]{\algorithmicColRec\ #1}
+\algrenewtext{EndColRec}{\algorithmicendColRec}
+
+\algblock{ColElim}{EndColElim}
+\algnewcommand\algorithmicColElim{\textbf{\em Structured Column Elimination}}
+ \algnewcommand\algorithmicendColElim{}
+\algrenewtext{ColElim}[1]{\algorithmicColElim\ #1}
+\algrenewtext{EndColElim}{\algorithmicendColElim}
+
+\algblock{ColElimU}{EndColElimU}
+\algnewcommand\algorithmicColElimU{\textbf{\em User Column Elimination}}
+ \algnewcommand\algorithmicendColElimU{}
+\algrenewtext{ColElimU}[1]{\algorithmicColElimU\ #1}
+\algrenewtext{EndColElimU}{\algorithmicendColElimU}
+
+\algblock{Explore}{EndExplore}
+\algnewcommand\algorithmicExplore{\textbf{\em Explore}}
+ \algnewcommand\algorithmicendExplore{}
+\algrenewtext{Explore}[1]{\algorithmicExplore\ #1}
+\algrenewtext{EndExplore}{\algorithmicendExplore}
+
+
+\algblock{Exploit}{EndExploit}
+\algnewcommand\algorithmicExploit{\textbf{\em Exploit}}
+ \algnewcommand\algorithmicendExploit{}
+\algrenewtext{Exploit}[1]{\algorithmicExploit\ #1}
+\algrenewtext{EndExploit}{\algorithmicendExploit}
+
+\algnewcommand\algorithmicforeach{\textbf{for each}}
+\algdef{S}[FOR]{ForEach}[1]{\algorithmicforeach\ #1\ \algorithmicdo}
+
+
+
+%We propose the GLBUCB algorithm based on UCB-Improved, which is an arm elimination algorithm from \citet{auer2010ucb} and is suitable for the stochastic bandit setting. Both these algorithms are phase based column (arm) elimination algorithms where in each phase we select the surviving columns some number of times  and then eliminate some sub-optimal columns based on an elimination criteria. 
+%
+%\textbf{Initialization:} The algorithm is initialized with the estimate $\hat{R}_{i,j}=0, \forall i\in[K], j\in[L]$. In the $m$-th phase, it denotes  the set of surviving columns as $\B_m$. The rows (users) are divided into equivalence classes which are contained in $\C$.  $N_m$ denotes the phase length for the $m$-th phase and each phase length consist of $\gamma |B_m| \ell_m $ timesteps, where $ \gamma = f(d) \geq d^2 $ is the exploration parameter which is a function of the rank $d$ and $\ell_m $ is the number of pulls GLBUCB allocates for each of the $\gamma$ columns. 
+%
+%\textbf{Equivalence class and initialization:} Each equivalence class is denoted as $\G_b = \left\lbrace i\in \left[1+(b-1)d, bd\right]\right\rbrace$, where $b$ is indexed from $1,2,\ldots , \frac{K}{d}$ and these classes are contained in $\C$. At the start of the algorithm $\gamma$ random columns are chosen for all users in each $\G_b,  \forall b\in \left[ 1, \frac{K}{d}\right]$ and these are contained in $\Z_{\G_b,m}$.
+%
+%\textbf{Optimistic greedy sampling:} Unlike UCB-Improved, GLBUCB does not pull all surviving columns in the equivalence class for each given user an equal number of times as this wastes a large number of pulls in exploration. Rather, for the entire phase length $N_m$, it behaves greedily (like UCB1) and selects the column $j_0 \in \argmax_{j\in_{\B_m\cap \Z_{\G_b,m}}}\big\lbrace \hat{R}(i_t,j)  + U_m(\epsilon_m, n_{i_t,j})\big\rbrace $, where $i_t$ is the user revealed by nature and $i_t\in \G_b$. The confidence interval $ U_m(\epsilon_m, n_{i_t,j})$ makes sure that sufficient exploration is conducted amongst the columns in $\Z_{\G_b,m}$. 
+%
+%\textbf{Structured Column Elimination:} In the column elimination sub-module GLBUCB eliminates a sub-optimal column by making sure that it is not one of the $d$-best columns. Moreover, in the column elimination sub-module, the confidence interval $U_m(\epsilon_m, n_m)$  helps in eliminating a sub-optimal column with high probability in the noisy setting. 
+%
+%\textbf{Reset Parameters:} The reset parameters sub-module, can be divided into two parts: 
+%\begin{itemize}
+%\item\textbf{Information share:} GLBUCB reconstructs the equivalence classes such that the each $\G_b,\forall b\in\left[ 1, \frac{K}{d}\right]$ contains the $d$ best performing  columns amongst all the users $i\in[K]$. This is achieved by first selecting the  column $j_0\in \argmax_{j\in\Z_{\G_b,m}}\big\lbrace \hat{R}(i,j)  + U_m(\epsilon_m, n_{i,j})\big\rbrace, \forall i\in[K], i\in\G_b$ and then selecting the $d$ most frequent such columns. These $d$-best columns are included in $\Z_{\G_b,m+1}, \forall b\in\left[1,\frac{K}{d}\right]$ and then for each $\G_b$ the remaining $\gamma - d$ columns are selected uniform randomly from $\B_m \cap \Z_{\G_b,m}$.
+%
+%\item\textbf{Increase exploration: } GLBUCB increases the exploration bonus for the next phase so that more exploration is conducted for the surviving columns. 
+%
+%\end{itemize}
+%
+%Finally, if the algorithm has eliminated $L-d$ columns, for the user $i_t$ revealed by the nature, it always selects the column $j^*_t$, where $j_t^* \leftarrow \argmax_{j\in[\B_m]} {\hat{R}(i_t,j)}$. The pseudo-code of this is shown in Algorithm \ref{alg:NGLB}. 
+
+
+
+\begin{algorithm}[!th]
+\caption{MetaLRB}
+\label{alg:mLRB}
+\begin{algorithmic}[1]
+\State {\bf Input:} Time horizon $T$, $Rank(\bar{R}) = d$.
+\State {\bf Explore Parameters:} $\gamma \in (0,1]$.
+\State {\bf Initialization:} $M_{i}\left( j\right) \leftarrow 0, \forall i\in [K], \forall j\in [L]$,  $MetaEXP3_{z}(\gamma),\forall z\in[d]$, $\B_d\leftarrow \emptyset$ and $c\leftarrow 0$.
+\State Receive $\B_d$ from $MetaEXP3_z(\gamma),\forall z\in[d]$ by sampling rule.
+\For{$t=1,..,T$}	
+\State Nature reveals $i_t$.  \Comment{Nature chooses user uniform randomly}
+\State Select $j_t$ suggested by $M_{i_t}\left( \B_d \right)$, observe $r_{i_t,j_t}$ and update $M_{i_t}\left( \B_d \right)$. \Comment{ Run User Expert $M_{i_t}$ on $\B_d$ columns}
+\State Add $j_t$ to $\A_t$ and $c\leftarrow c + 1$
+\If{$c == d$} \Comment{Update $MetaEXP3_{z}(\gamma),\forall z\in[d]$}
+\State Update independent $MetaEXP3_{z}(\gamma),\forall z\in[d]$ by update rule.
+\State $\B_d\leftarrow \emptyset$ and $\A_t\leftarrow\emptyset$
+\State Receive updated $\B_d$ from $MetaEXP3_z(\gamma),\forall z\in[d]$ by sampling rule.
+\State $c\leftarrow 0$
+\EndIf
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+
+
+\begin{algorithm}[!th]
+\caption{$MetaEXP3_{z}(\gamma)$}
+\label{alg:mEXP3}
+\begin{algorithmic}[1]
+\State {\bf Initialization:} Set $w_{z,j} = 1, \forall j\in [L]$.
+\State {\bf Sampling Rule:} 
+\ForEach{$j\in [L]$}
+\State $p_{z,j}(t) = \left( 1 - \gamma \right)\dfrac{w_{z,j}(t)}{\sum_{j'=1}^{L}w_{z,j'}(t)} + \dfrac{\gamma}{K}$.
+\EndFor
+\State Suggest $j_{z,t} \notin \B_d$ by sampling according to the probabilities $p_{z,j}(t)$.
+\State {\bf Update Rule:}
+\ForEach{$j\in [L]$}
+\State \begin{equation}
+  \hat{x}_j(t)=\left\{
+  \begin{array}{@{}ll@{}}
+    \max\lbrace r_{i_{z,t},j_{z,t}}\rbrace - \max\lbrace r_{i_{z,t},j_{z-1,t}}\rbrace, & \text{if}\ j_{z_t} = \A_t \\
+    0, & \text{otherwise}
+  \end{array}\right.
+\end{equation} 
+\State $w_{z,j}(t+1) = w_{z,j}(t)\exp\left( \gamma \hat{x}_j(t)\right)$
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+
