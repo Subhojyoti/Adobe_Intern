@@ -1,53 +1,16 @@
-%\subsection{Noise-Free Setting}
 
+\algblock{SampleRule}{EndSampleRule}
+\algnewcommand\algorithmicSampleRule{\textbf{\em Sampling Rule}}
+ \algnewcommand\algorithmicendSampleRule{}
+\algrenewtext{SampleRule}[1]{\algorithmicSampleRule\ #1}
+\algrenewtext{EndSampleRule}{\algorithmicendSampleRule}
 
-%\begin{assumption}
-%\label{assm:d-indep}
-%We assume that any $d$ sets of rows or columns are independent in $\bar{R}$.
-%\end{assumption}
+\algblock{UpdateRule}{EndUpdateRule}
+\algnewcommand\algorithmicUpdateRule{\textbf{\em Update Rule}}
+ \algnewcommand\algorithmicendUpdateRule{}
+\algrenewtext{UpdateRule}[1]{\algorithmicUpdateRule\ #1}
+\algrenewtext{EndUpdateRule}{\algorithmicendUpdateRule}
 
-\algblock{ArmElim}{EndArmElim}
-\algnewcommand\algorithmicArmElim{\textbf{\em Arm Elimination}}
- \algnewcommand\algorithmicendArmElim{}
-\algrenewtext{ArmElim}[1]{\algorithmicArmElim\ #1}
-\algrenewtext{EndArmElim}{\algorithmicendArmElim}
-
-\algblock{ResParam}{EndResParam}
-\algnewcommand\algorithmicResParam{\textbf{\em Reset Parameters}}
- \algnewcommand\algorithmicendResParam{}
-\algrenewtext{ResParam}[1]{\algorithmicResParam\ #1}
-\algrenewtext{EndResParam}{\algorithmicendResParam}
-
-\algblock{ColRec}{EndColRec}
-\algnewcommand\algorithmicColRec{\textbf{\em Column Reconstruction}}
- \algnewcommand\algorithmicendColRec{}
-\algrenewtext{ColRec}[1]{\algorithmicColRec\ #1}
-\algrenewtext{EndColRec}{\algorithmicendColRec}
-
-\algblock{ColElim}{EndColElim}
-\algnewcommand\algorithmicColElim{\textbf{\em Structured Column Elimination}}
- \algnewcommand\algorithmicendColElim{}
-\algrenewtext{ColElim}[1]{\algorithmicColElim\ #1}
-\algrenewtext{EndColElim}{\algorithmicendColElim}
-
-\algblock{ColElimU}{EndColElimU}
-\algnewcommand\algorithmicColElimU{\textbf{\em User Column Elimination}}
- \algnewcommand\algorithmicendColElimU{}
-\algrenewtext{ColElimU}[1]{\algorithmicColElimU\ #1}
-\algrenewtext{EndColElimU}{\algorithmicendColElimU}
-
-\algblock{Explore}{EndExplore}
-\algnewcommand\algorithmicExplore{\textbf{\em Explore}}
- \algnewcommand\algorithmicendExplore{}
-\algrenewtext{Explore}[1]{\algorithmicExplore\ #1}
-\algrenewtext{EndExplore}{\algorithmicendExplore}
-
-
-\algblock{Exploit}{EndExploit}
-\algnewcommand\algorithmicExploit{\textbf{\em Exploit}}
- \algnewcommand\algorithmicendExploit{}
-\algrenewtext{Exploit}[1]{\algorithmicExploit\ #1}
-\algrenewtext{EndExploit}{\algorithmicendExploit}
 
 \algnewcommand\algorithmicforeach{\textbf{for each}}
 \algdef{S}[FOR]{ForEach}[1]{\algorithmicforeach\ #1\ \algorithmicdo}
@@ -77,22 +40,21 @@
 
 
 \begin{algorithm}[!th]
-\caption{MetaLRB}
+\caption{Meta Low Rank Bandit (MetaLRB)}
 \label{alg:mLRB}
 \begin{algorithmic}[1]
 \State {\bf Input:} Time horizon $T$, $Rank(\bar{R}) = d$.
 \State {\bf Explore Parameters:} $\gamma \in (0,1]$.
-\State {\bf Initialization:} $M_{i}\left( j\right) \leftarrow 0, \forall i\in [K], \forall j\in [L]$,  $MetaEXP3_{z}(\gamma),\forall z\in[d]$, $\B_d\leftarrow \emptyset$ and $c\leftarrow 0$.
-\State Receive $\B_d$ from $MetaEXP3_z(\gamma),\forall z\in[d]$ by sampling rule.
+\State {\bf Initialization:} Initialize all user experts $M_{i}\left( j\right), \forall i\in [K], \forall j\in [L]$,  $MetaEXP_{z}(\gamma, 0),\forall z\in[d]$, $\A_0 \leftarrow \emptyset, \X_0\leftarrow  \emptyset$ and $\B_0\leftarrow \emptyset$.
+\State Receive $\B_1$ from $MetaEXP_z(\gamma, 0),\forall z\in[d]$ by sampling rule.
 \For{$t=1,..,T$}	
-\State Nature reveals $i_t$.  \Comment{Nature chooses user uniform randomly}
-\State Select $j_t$ suggested by $M_{i_t}\left( \B_d \right)$, observe $r_{i_t,j_t}$ and update $M_{i_t}\left( \B_d \right)$. \Comment{ Run User Expert $M_{i_t}$ on $\B_d$ columns}
-\State Add $j_t$ to $\A_t$ and $c\leftarrow c + 1$
-\If{$c == d$} \Comment{Update $MetaEXP3_{z}(\gamma),\forall z\in[d]$}
-\State Update independent $MetaEXP3_{z}(\gamma),\forall z\in[d]$ by update rule.
-\State $\B_d\leftarrow \emptyset$ and $\A_t\leftarrow\emptyset$
-\State Receive updated $\B_d$ from $MetaEXP3_z(\gamma),\forall z\in[d]$ by sampling rule.
-\State $c\leftarrow 0$
+\State Nature reveals $i_t$.  \Comment{Nature chooses user}
+\State Select $j_t$ suggested by $M_{i_t}\left( \B_t \right)$, observe $r_{i_t,j_t}$ and update $M_{i_t}\left( \B_t \right)$. \Comment{ Run User Expert $M_{i_t}$ on $\B_t$ columns}
+\State Add $j_t$ to $\A_t$ and $r_{i_t,j_t}$ to $\X_t$.
+\If{ each arm in $\B_t$ pulled atleast once} \Comment{Update $MetaEXP_{z}(\gamma, t),\forall z\in[d]$}
+\State Update $MetaEXP_{z}(\gamma, t),\forall z\in[d]$ by \textit{update rule} and set $\B_{t+1}\leftarrow\emptyset$.
+\State Receive updated $\B_{t+1}$ from $MetaEXP_z(\gamma, t),\forall z\in[d]$ by \textit{sampling rule}.
+\State $\A_{t+1}\leftarrow\emptyset$ and $\X_{t+1}\leftarrow\emptyset$.
 \EndIf
 \EndFor
 \end{algorithmic}
@@ -100,26 +62,34 @@
 
 
 \begin{algorithm}[!th]
-\caption{$MetaEXP3_{z}(\gamma)$}
+\caption{$MetaEXP_{z}(\gamma, t)$}
 \label{alg:mEXP3}
 \begin{algorithmic}[1]
-\State {\bf Initialization:} Set $w_{z,j} = 1, \forall j\in [L]$.
-\State {\bf Sampling Rule:} 
+\State {\bf Initialization:} Set $w_{z,j}(t=0) = 1, \forall j\in [L]$.
+\State {\bf Sampling Rule:}
+%\SampleRule
 \ForEach{$j\in [L]$}
 \State $p_{z,j}(t) = \left( 1 - \gamma \right)\dfrac{w_{z,j}(t)}{\sum_{j'=1}^{L}w_{z,j'}(t)} + \dfrac{\gamma}{K}$.
 \EndFor
-\State Suggest $j_{z,t} \notin \B_d$ by sampling according to the probabilities $p_{z,j}(t)$.
+\State Suggest $j_{z,t} \notin \B_{t+1}$ by sampling according to the probabilities $p_{z,1}(t), p_{z,2}(t), \ldots, p_{z,L}(t)$.
+\State Set $w_{z',j}(t) \leftarrow 0$, in $MetaEXP_{z'}(\gamma, t),  \forall z' \in[d]$ and $z\neq z'$. Re-normalize the weights $w_{z',j},\forall j\in [L]$.
+%\EndSampleRule
+%\UpdateRule
 \State {\bf Update Rule:}
 \ForEach{$j\in [L]$}
-\State \begin{equation}
-  \hat{x}_j(t)=\left\{
+\State Sample one reward $r_j(t)$ uniform randomly from $\X_t$ when $j = \A_t$
+\State \begin{align*}
+  \hat{r}_j(t)=\left\{
   \begin{array}{@{}ll@{}}
-    \max\lbrace r_{i_{z,t},j_{z,t}}\rbrace - \max\lbrace r_{i_{z,t},j_{z-1,t}}\rbrace, & \text{if}\ j_{z_t} = \A_t \\
+   \dfrac{r_{j}(t)}{p_{z,j}(t)}, & \text{if  } j = \ j_{z,t}  \in \A_t \\
     0, & \text{otherwise}
-  \end{array}\right.
-\end{equation} 
-\State $w_{z,j}(t+1) = w_{z,j}(t)\exp\left( \gamma \hat{x}_j(t)\right)$
+  \end{array}\right.\\
+ w_{z,j}(t+1) = w_{z,j}(t)\exp\left( \gamma \hat{r}_j(t)\right)
+\end{align*} 
 \EndFor
+%\EndUpdateRule
 \end{algorithmic}
 \end{algorithm}
+
+%\max\lbrace r_{i_{z,t},j_{z,t}}\rbrace - \max\lbrace r_{i_{z,t},j_{z-1,t}}\rbrace, & \text{if}\ j_{z_t} \in \A
 

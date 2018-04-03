@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  3 APR 2018 11:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  3 APR 2018 16:13
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1382,7 +1382,7 @@ LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
 {/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}])
 (./related.tex) (./contributions.tex) [2] (./algo1.tex
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 80.
+put line 43.
 ) [3pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.
 1}) has been already used, duplicate ignored
 
@@ -1437,6 +1437,12 @@ l.182 \newpage
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
 l.182 \newpage
+              pdfTeX warning (ext4): destination with the same identifier (name
+{ALG@line.10}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.182 \newpage
               ] (./expt.tex
 PGFPlots: reading {results/NewExpt/Expt15/comp_subsampled_CustomUCB0RR1.txt}
 PGFPlots: reading {results/NewExpt/Expt15/comp_subsampled_MetaEXP0RR2.txt}
@@ -1474,13 +1480,11 @@ PGFPlots: reading {results/NewExpt/Expt16/comp_subsampled_CustomTS0RR1.txt}
 PGFPlots: reading {results/NewExpt/Expt16/comp_subsampled_CustomMOSS0RR1.txt}
 PGFPlots: reading {results/NewExpt/Expt16/comp_subsampled_CustomOCUCB0RR1.txt}
 PGFPlots: reading {results/NewExpt/Expt16/comp_subsampled_CustomEXP30RR1.txt}
-) (./conclusions.tex) [4] [5] (./report.bbl)
-[6
-
-]
+) (./conclusions.tex) (./report.bbl [4]) [5]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 198.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 198.
- (./report.aux)
+
+(./report.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 198.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 198.
 Package rerunfilecheck Info: File `report.out' has not changed.
@@ -1488,10 +1492,10 @@ Package rerunfilecheck Info: File `report.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 198.
  ) 
 Here is how much of TeX's memory you used:
- 33812 strings out of 492995
- 795511 string characters out of 6132704
- 1119618 words of memory out of 5000000
- 36684 multiletter control sequences out of 15000+600000
+ 33724 strings out of 492995
+ 794012 string characters out of 6132704
+ 1118908 words of memory out of 5000000
+ 36599 multiletter control sequences out of 15000+600000
  51219 words of font info for 83 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  69i,27n,107p,1172b,2510s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1503,21 +1507,20 @@ ive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texliv
 e/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/
 2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/20
 17/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2017
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2017/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2017/texmf
--dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2017/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2017/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2017/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2017/texmf-dist/fo
-nts/type1/public/amsfonts/symbols/msam7.pfb></usr/local/texlive/2017/texmf-dist
-/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2017/texmf-
-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2017/texmf-dist/fonts
-/type1/urw/times/utmr8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw
-/times/utmri8a.pfb>
-Output written on report.pdf (6 pages, 214198 bytes).
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2017/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2017/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2017/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2017/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2017/texmf-dist
+/fonts/type1/public/amsfonts/symbols/msam7.pfb></usr/local/texlive/2017/texmf-d
+ist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2017/tex
+mf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2017/texmf-dist/fo
+nts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/
+urw/times/utmri8a.pfb>
+Output written on report.pdf (5 pages, 207113 bytes).
 PDF statistics:
- 179 PDF objects out of 1000 (max. 8388607)
- 151 compressed objects within 2 object streams
- 42 named destinations out of 1000 (max. 500000)
+ 169 PDF objects out of 1000 (max. 8388607)
+ 143 compressed objects within 2 object streams
+ 39 named destinations out of 1000 (max. 500000)
  69 words of extra memory for PDF output out of 10000 (max. 10000000)
 
