@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  16 APR 2018 02:37
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  16 APR 2018 15:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1380,14 +1380,9 @@ LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
  (./probdef.tex [1
 
 {/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}])
-(./related.tex
-
-Package natbib Warning: Citation `maillard2014latent' on page 2 undefined on in
-put line 1.
-
-) (./contributions.tex) [2] (./algo1.tex
+(./related.tex) (./contributions.tex) [2] (./algo1.tex
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 52.
+put line 58.
 ) [3pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.
 1}) has been already used, duplicate ignored
 
@@ -1703,41 +1698,23 @@ PGFPlots: reading {results/NewExpt1/Expt5/comp_subsampled_CustomTS0RR1.txt}
 PGFPlots: reading {results/NewExpt1/Expt5/comp_subsampled_CustomMOSS0RR1.txt}
 PGFPlots: reading {results/NewExpt1/Expt5/comp_subsampled_CustomOCUCB0RR1.txt}
 PGFPlots: reading {results/NewExpt1/Expt5/comp_subsampled_CustomEXP30RR1.txt}
-) (./conclusions.tex) (./report.bbl)
-
-Package natbib Warning: There were undefined citations.
-
-[5]
+) (./conclusions.tex) (./report.bbl) [5]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 198.
  [6]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 198.
- (./report.aux
 
-Package natbib Warning: Citation(s) may have changed.
-(natbib)                Rerun to get citations correct.
-
-)
+(./report.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 198.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 198.
-
-
-Package rerunfilecheck Warning: File `report.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `report.out':
-(rerunfilecheck)             Before: 69950F495C70FF226B569F40795CEB34;306
-(rerunfilecheck)             After:  CED960F6EAD77E66C319F77CADF47820;419.
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
+Package rerunfilecheck Info: File `report.out' has not changed.
+(rerunfilecheck)             Checksum: CED960F6EAD77E66C319F77CADF47820;419.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 198.
  ) 
 Here is how much of TeX's memory you used:
- 33759 strings out of 492995
- 795170 string characters out of 6132704
- 1170165 words of memory out of 5000000
- 36628 multiletter control sequences out of 15000+600000
+ 33763 strings out of 492995
+ 795220 string characters out of 6132704
+ 1172039 words of memory out of 5000000
+ 36631 multiletter control sequences out of 15000+600000
  51219 words of font info for 83 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  69i,27n,107p,1067b,2506s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1758,10 +1735,10 @@ dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2017/te
 xmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2017/texmf-dist/f
 onts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1
 /urw/times/utmri8a.pfb>
-Output written on report.pdf (6 pages, 221924 bytes).
+Output written on report.pdf (6 pages, 222469 bytes).
 PDF statistics:
- 166 PDF objects out of 1000 (max. 8388607)
- 140 compressed objects within 2 object streams
- 44 named destinations out of 1000 (max. 500000)
- 53 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 175 PDF objects out of 1000 (max. 8388607)
+ 149 compressed objects within 2 object streams
+ 45 named destinations out of 1000 (max. 500000)
+ 69 words of extra memory for PDF output out of 10000 (max. 10000000)
 

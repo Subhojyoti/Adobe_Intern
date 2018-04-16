@@ -23,6 +23,12 @@
 \algnewcommand\algorithmicOrWith{\textbf{Or With}}
 \algdef{S}[FOR]{OrWith}[1]{\algorithmicOrWith\ #1\ \algorithmicdo}
 
+Without loss of generality, in the noiseless setting we can consider the first $[d] \subseteq [L]$ as the best set of columns. Then the $j$-th best column in $[d]$ is given by the estimation:-
+\begin{align}
+\hat{R}_j = \dfrac{1}{K}\max_{j\in[d]}\lbrace \bar{R}(:, j)\rbrace -  \dfrac{1}{K}\max_{j\in[d]}\lbrace\bar{R}(:, j-1) \rbrace
+\end{align}
+
+and $\bar{R}(i, 0) = 0, \forall i\in [K]$.
 
 %$\epsilon$-greedy policy
 
