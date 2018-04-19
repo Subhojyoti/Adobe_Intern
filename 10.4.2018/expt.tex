@@ -1,3 +1,16 @@
+
+
+
+
+%\definecolor{blueaccent}{RGB}{0,150,214}
+%\definecolor{greenaccent}{RGB}{0,139,43}
+%\definecolor{purpleaccent}{RGB}{130,41,128}
+%\definecolor{orangeaccent}{RGB}{240,83,50}
+%
+%\addplot+[greenaccent,mark=*,mark options={fill=greenaccent}] table{results/NewExpt1/Expt3/comp_subsampled_CustomMOSS0RR1.txt};
+%		\addplot+[purpleaccent,mark=*,mark options={fill=purpleaccent}] table{results/NewExpt1/Expt3/comp_subsampled_CustomOCUCB0RR1.txt};
+%		\addplot+[orangeaccent,mark=*,mark options={fill=orangeaccent}] table{results/NewExpt1/Expt3/comp_subsampled_CustomEXP30RR1.txt};
+
 \begin{figure}[!th]
 \centering
 \begin{tabular}{c}
@@ -23,10 +36,10 @@
   		legend style={at={(0.5,1.4)},anchor=north, legend columns=3} ]
       	% UCB
 		
-		\addplot table{results/NewExpt1/Expt0/comp_subsampled_MetaEXP0RR1.txt};
+		
 		\addplot table{results/NewExpt1/Expt0/comp_subsampled_MetaEXP0RR2.txt};
-
-      	\legend{MLRUCB,MLRG} 
+		\addplot table{results/NewExpt1/Expt0/comp_subsampled_MetaEXP0RR1.txt};
+      	\legend{LRG, LRUCB} 
       	\end{axis}
       	\end{tikzpicture}
   		\label{fig:0}
@@ -59,16 +72,18 @@
         %clip mode=individual,grid,grid style={gray!30},
         clip=true,
         %clip mode=individual,grid,grid style={gray!30},
+        cycle list name=exotic,
   		legend style={at={(0.5,1.4)},anchor=north, legend columns=3} ]
       	% UCB
 		\addplot table{results/NewExpt1/Expt2/comp_subsampled_CustomUCB0RR1.txt};
-		\addplot table{results/NewExpt1/Expt2/comp_subsampled_MetaEXP0RR1.txt};
+		\addplot table{results/NewExpt1/Expt2/comp_subsampled_CustomOCUCB0RR1.txt};
 		\addplot table{results/NewExpt1/Expt2/comp_subsampled_MetaEXP0RR2.txt};
 		\addplot table{results/NewExpt1/Expt2/comp_subsampled_CustomTS0RR1.txt};
 		\addplot table{results/NewExpt1/Expt2/comp_subsampled_CustomMOSS0RR1.txt};
-		\addplot table{results/NewExpt1/Expt2/comp_subsampled_CustomOCUCB0RR1.txt};
+		\addplot table{results/NewExpt1/Expt2/comp_subsampled_MetaEXP0RR1.txt};
 		\addplot table{results/NewExpt1/Expt2/comp_subsampled_CustomEXP30RR1.txt};
-      	\legend{UCB1,MLRUCB,MLRG,TS,MOSS,OCUCB, EXP3} 
+		\addplot table{results/NewExpt1/Expt2/comp_subsampled_CustomKLUCB0RR1.txt};
+      	\legend{UCB1,OCUCB,LRG,TS,MOSS,LRUCB, EXP3,KLUCB} 
       	\end{axis}
       	\end{tikzpicture}
   		\label{fig:1}
@@ -92,16 +107,18 @@
         %clip mode=individual,grid,grid style={gray!30},
         clip=true,
         %clip mode=individual,grid,grid style={gray!30},
+        cycle list name=exotic,
   		legend style={at={(0.5,1.4)},anchor=north, legend columns=3} ]
       	% UCB
 		\addplot table{results/NewExpt1/Expt3/comp_subsampled_CustomUCB0RR1.txt};
-		\addplot table{results/NewExpt1/Expt3/comp_subsampled_MetaEXP0RR1.txt};
+		\addplot table{results/NewExpt1/Expt3/comp_subsampled_CustomOCUCB0RR1.txt};
 		\addplot table{results/NewExpt1/Expt3/comp_subsampled_MetaEXP0RR2.txt};
 		\addplot table{results/NewExpt1/Expt3/comp_subsampled_CustomTS0RR1.txt};
 		\addplot table{results/NewExpt1/Expt3/comp_subsampled_CustomMOSS0RR1.txt};
-		\addplot table{results/NewExpt1/Expt3/comp_subsampled_CustomOCUCB0RR1.txt};
+		\addplot table{results/NewExpt1/Expt3/comp_subsampled_MetaEXP0RR1.txt};
 		\addplot table{results/NewExpt1/Expt3/comp_subsampled_CustomEXP30RR1.txt};
-      	\legend{UCB1,MLRUCB,MLRG,TS,MOSS,OCUCB, EXP3} 
+		\addplot table{results/NewExpt1/Expt3/comp_subsampled_CustomKLUCB0RR1.txt};
+      	\legend{UCB1,OCUCB,LRG,TS,MOSS,LRUCB, EXP3,KLUCB} 
       	\end{axis}
       	\end{tikzpicture}
   		\label{fig:2}
@@ -125,16 +142,18 @@
         %clip mode=individual,grid,grid style={gray!30},
         clip=true,
         %clip mode=individual,grid,grid style={gray!30},
+        cycle list name=exotic,
   		legend style={at={(0.5,1.4)},anchor=north, legend columns=3} ]
       	% UCB
 		\addplot table{results/NewExpt1/Expt4/comp_subsampled_CustomUCB0RR1.txt};
-		\addplot table{results/NewExpt1/Expt4/comp_subsampled_MetaEXP0RR1.txt};
+		\addplot table{results/NewExpt1/Expt4/comp_subsampled_CustomOCUCB0RR1.txt};
 		\addplot table{results/NewExpt1/Expt4/comp_subsampled_MetaEXP0RR2.txt};
 		\addplot table{results/NewExpt1/Expt4/comp_subsampled_CustomTS0RR1.txt};
 		\addplot table{results/NewExpt1/Expt4/comp_subsampled_CustomMOSS0RR1.txt};
-		\addplot table{results/NewExpt1/Expt4/comp_subsampled_CustomOCUCB0RR1.txt};
+		\addplot table{results/NewExpt1/Expt4/comp_subsampled_MetaEXP0RR1.txt};
 		\addplot table{results/NewExpt1/Expt4/comp_subsampled_CustomEXP30RR1.txt};
-      	\legend{UCB1,MLRUCB,MLRG,TS,MOSS,OCUCB, EXP3} 
+      	\addplot table{results/NewExpt1/Expt4/comp_subsampled_CustomKLUCB0RR1.txt};
+      	\legend{UCB1,OCUCB,LRG,TS,MOSS,LRUCB, EXP3,KLUCB} 
       	\end{axis}
       	\end{tikzpicture}
   		\label{fig:3}
@@ -158,16 +177,18 @@
         %clip mode=individual,grid,grid style={gray!30},
         clip=true,
         %clip mode=individual,grid,grid style={gray!30},
+        cycle list name=exotic,
   		legend style={at={(0.5,1.4)},anchor=north, legend columns=3} ]
       	% UCB
 		\addplot table{results/NewExpt1/Expt5/comp_subsampled_CustomUCB0RR1.txt};
-		\addplot table{results/NewExpt1/Expt5/comp_subsampled_MetaEXP0RR1.txt};
+		\addplot table{results/NewExpt1/Expt5/comp_subsampled_CustomOCUCB0RR1.txt};
 		\addplot table{results/NewExpt1/Expt5/comp_subsampled_MetaEXP0RR2.txt};
 		\addplot table{results/NewExpt1/Expt5/comp_subsampled_CustomTS0RR1.txt};
 		\addplot table{results/NewExpt1/Expt5/comp_subsampled_CustomMOSS0RR1.txt};
-		\addplot table{results/NewExpt1/Expt5/comp_subsampled_CustomOCUCB0RR1.txt};
+		\addplot table{results/NewExpt1/Expt5/comp_subsampled_MetaEXP0RR1.txt};
 		\addplot table{results/NewExpt1/Expt5/comp_subsampled_CustomEXP30RR1.txt};
-      	\legend{UCB1,MLRUCB,MLRG,TS,MOSS,OCUCB, EXP3}
+      	\addplot table{results/NewExpt1/Expt5/comp_subsampled_CustomKLUCB0RR1.txt};
+      	\legend{UCB1,OCUCB,LRG,TS,MOSS,LRUCB, EXP3,KLUCB} 
       	\end{axis}
       	\end{tikzpicture}
   		\label{fig:4}

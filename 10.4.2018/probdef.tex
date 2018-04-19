@@ -37,10 +37,10 @@ The above assumption \ref{assm:d-items} can be conceptualized in this real-world
 The main goal of the learning agent is to minimize the cumulative regret until the end of horizon $n$. We define the cumulative regret, denoted by $\mathcal{R}_n$ as,
 
 \begin{align*}
-\mathcal{R}_n = \sum_{t=1}^{n}\bigg\lbrace \sum_{z=1}^{d} \bigg( r_{z,t}\left(i_{t}, j^*_{z,t} \right) - r_{z, t}\left( i_{t}, j_{z,t}\right)\bigg)\bigg\rbrace
+\mathcal{R}_n = \sum_{t=1}^{n}\bigg\lbrace \sum_{z=1}^{d} \bigg( r_{t}\left(i_{t}, j^*_{t,z} \right) - r_{t}\left( i_{t}, j_{t,z}\right)\bigg)\bigg\rbrace
 \end{align*}
 
-where, $j^*_{z,t} = \argmax_{j\in [L]}\lbrace \bar{R}(i_t,j)\rbrace$ and $j_{z,t}$ be the suggestion of the learner for the $i_t$ -th user for  $z=1,2,\ldots, d$. Note that $r_{t}\left(i_t, j^*_{z,t} \right)\sim \mathcal{N}(\bar{R}\left(i_t, j^*_{z,t} \right),\sigma^2)$ and $r_{t}\left(i_t, j_{z,t} \right)\sim \mathcal{N}(\bar{R}\left(i_t, j_{z,t} \right), \sigma^2)$. Taking expectation over both sides, we can show that,
+where, $j^*_{t,z} = \argmax_{j\in [L]}\lbrace \bar{R}(i_t,j)\rbrace$ and $j_{t,z}$ be the suggestion of the learner for the $i_t$ -th user for  $z=1,2,\ldots, d$. Note that $r_{t}\left(i_t, j^*_{z,t} \right)\sim Ber(\bar{R}\left(i_t, j^*_{z,t} \right))$ and $r_{t}\left(i_t, j_{z,t} \right)\sim Ber(\bar{R}\left(i_t, j_{z,t} \right))$. Taking expectation over both sides, we can show that,
 
 \begin{align*}
 \E[\mathcal{R}_n] = \E\left [ \sum_{t=1}^{n}\bigg\lbrace\sum_{z=1}^{d} \bigg( r_{z,t}\left(i_t, j^*_{z,t} \right) - r_{z, t}\left( i_t, j_{z, t}\right)\bigg)\bigg\rbrace\right] = \E\left [ \sum_{t=1}^{T} \sum_{z=1}^{d} \bigg( N_{i_t,j_{z,t}}\bigg) \right ]\Delta_{i_t,j_{z,t}}
