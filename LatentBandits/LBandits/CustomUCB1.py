@@ -267,7 +267,7 @@ if __name__ == "__main__":
     wrong = 0
     users = 64
     actions = 64
-    readfile = "env/env1/AP13.txt"
+    readfile = "env/env1/AP14.txt"
     
     for turn in range(0,100):
         obj = CustomUCB()

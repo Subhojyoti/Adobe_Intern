@@ -1,5 +1,0 @@
-arms: 16	 bArms: 1	 timestep: 40000	 regret: 4826 	 cumulativeReward: 15926.00 	 bestCumulativeReward: 20752.00 
-arms: 16	 bArms: 1	 timestep: 40000	 regret: 4906 	 cumulativeReward: 15602.00 	 bestCumulativeReward: 20508.00 
-arms: 16	 bArms: 1	 timestep: 400000	 regret: 12440 	 cumulativeReward: 194047.00 	 bestCumulativeReward: 206487.00 
-arms: 16	 bArms: 1	 timestep: 400000	 regret: 33054 	 cumulativeReward: 173164.00 	 bestCumulativeReward: 206218.00 
-arms: 16	 bArms: 1	 timestep: 4000000	 regret: 106114 	 cumulativeReward: 1897613.00 	 bestCumulativeReward: 2003727.00 

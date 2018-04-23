@@ -1,1 +1,0 @@
-arms: 16 	 bArms: 11 	 timestep: 4000000	 regret: 696957 	 cumulativeReward: 1307554.00 	 bestCumulativeReward: 2004511.00 

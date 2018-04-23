@@ -10,6 +10,8 @@ import random
 import numpy
 import fileinput
 from _ast import Num
+import sets
+from numpy.matlib import rand
 
 class CreateEnvironment(object):
     '''
@@ -43,7 +45,54 @@ class CreateEnvironment(object):
         #print data
         self.means=(data[0])
         self.variance=(data[1])
-
+    
+    def permute_col(self):
+        
+        
+        #Permute best col
+        choose_index = []
+        while True:
+            index = random.randint(0,self.numActions-1)
+            if index not in choose_index and index not in self.bestCol:
+                choose_index.append(index)
+            
+            if len(choose_index) >= self.rank:
+                break
+        
+        print choose_index
+        m=0
+        for col in choose_index:
+            temp = []
+            for user in range(0,self.users):
+                temp.append(self.means[user][m])
+                self.means[user][m] = self.means[user][col]
+                self.means[user][col] = temp[user]
+            m = m + 1
+    
+    def permute_col1(self):
+        
+        
+        #Permute best col
+        choose_index = []
+        while True:
+            index = random.randint(0,self.numActions-1)
+            if index not in choose_index and index not in self.bestCol:
+                choose_index.append(index)
+            
+            if len(choose_index) >= self.rank:
+                break
+        
+        print choose_index
+        m=0
+        for col in choose_index:
+            #temp = []
+            for user in range(0,self.users):
+                temp = self.means[user][m]
+                self.means[user][m] = self.means[user][col]
+                self.means[user][col] = temp
+            m = m + 1
+        
+    
     def create(self, rank, users, numActions, gap):
     
         #Set the environment
@@ -74,14 +123,18 @@ class CreateEnvironment(object):
         #self.V = [[1,0],[0,1],[0.5,0.0],[0.0,0.5]]
         #self.U = [[1,0],[0,1],[0.5,0.0],[0.0,0.5]]
         take = [0.0,0.5,1.0]
-        
+        '''
         self.U[0] = [1,0]
         self.U[1] = [0,1]
         
         self.V[0] = [1,0]
         self.V[1] = [0,1]
+        '''
+        for i in range(0,rank):
+            self.U[i][i] = 1
+            self.V[i][i] = 1
         
-        for i in range(2,self.users):
+        for i in range(rank,self.users):
             
             ##index = random.randint(0,rank - 1)
             #X = [0.0 for j in range(0,self.users)]
@@ -103,35 +156,29 @@ class CreateEnvironment(object):
             #self.V[i]= numpy.ndarray.tolist(numpy.dot(val,X))
            
             #index = random.randint(0,self.rank - 1)
-            if i%2 == 0:
-                self.U[i] = [0.5,0.0]
-                #self.V[i] = [0.5,0.0]
+            #val = random.randint(0,self.rank-1)
+            #val = i%rank
+            
+            take = random.uniform(0,1)
+            if take > 0.5:
+                val = 1
             else:
-                self.U[i] = [0.0,0.5]
-                #self.V[i] = [0.0,0.5]
+                val = 0
                 
-        for i in range(2,self.numActions):
+            self.U[i][val] = gap
             
-            if i%2 == 0:
-                self.V[i] = [0.5,0.0]
+        
+        for i in range(rank,self.numActions):
+            
+            #val = i%rank
+            take = random.uniform(0,1)
+            if take > 0.5:
+                val = 1
             else:
-                self.V[i] = [0.0,0.5]
-            
-            
-        '''
-        for i in range(0,self.numActions):
-            
-            index = random.randint(0,rank - 1)
-            X = [0.0 for j in range(0,self.numActions)]
-            X[index] = 1.0
-            #val = random.uniform(0.0, 1.0)
-            val = 1.0
-            self.V[i]= numpy.ndarray.tolist(numpy.dot(val,X))
-            
-            #index = random.randint(0,rank - 1)
-            #val = random.uniform(0.0, 1.0)   
-            #self.V[i][index] = val
-        '''
+                val = 0
+            self.V[i][val] = gap
+        
+        
         print self.U
         print self.V
         
@@ -140,15 +187,9 @@ class CreateEnvironment(object):
         for i in range(0,self.users):
             for j in range(0,self.numActions):
                 self.means[i][j] = self.R[i][j]    
-            
-        f = open(self.filename, 'w')
-        for j in range(0,self.users):
-            #print sum(self.means[j])
-            f.writelines("%s\n" % (', '.join(["%.5f" % i for i in self.means[j]])))
-            #f.writelines("%s\n" % (', '.join(["%.3f" % i for i in self.variance])))
-        f.close()
-
-
+        
+        
+        
         print self.means
         #print self.variance
         
@@ -161,14 +202,47 @@ class CreateEnvironment(object):
         
         print self.bestCol
         
+        self.permute_col1()
+          
+        self.bestCol = []
+        for user in range(0,self.users):
+             
+            index = max(range(0,self.numActions), key=lambda col: self.means[user][col])
+            self.bestCol.append(index) 
+        
+        print self.bestCol
+        
+        take =sets.Set(self.bestCol)
+        sum1 = []
+        for col in take:
+            count = 0
+            for col1 in range(0,len(self.bestCol)):
+                if col == self.bestCol[col1]:
+                    count = count + 1
+        
+            
+            sum1.append(count)
+        
+        print take, sum1
+        
+        f = open(self.filename, 'w')
+        for j in range(0,self.users):
+            #print sum(self.means[j])
+            f.writelines("%s\n" % (', '.join(["%.5f" % i for i in self.means[j]])))
+            #f.writelines("%s\n" % (', '.join(["%.3f" % i for i in self.variance])))
+        f.close()
+        
+        
 
 if __name__ == "__main__":
-
+        
+        users = 16
         numActions = 16
-        users = 1024
         rank = 2
         gap = 0.5
-        filename = 'env/env1/AP18.txt'
+        filename = 'env/env1/AP27.txt'
+        
+        random.seed(numActions+users+rank+3)
         
         obj=CreateEnvironment(filename)
         obj.create(rank, users, numActions, gap)

@@ -9,6 +9,7 @@ import math
 import random
 import numpy
 import fileinput
+import sets
 
 
 # from random import betavariate
@@ -108,6 +109,19 @@ class CustomUCB(object):
         # print self.means
         # print self.variance
         print self.bestAction
+        
+        take =sets.Set(self.bestAction)
+        sum1 = []
+        for col in take:
+            count = 0
+            for col1 in range(0,len(self.bestAction)):
+                if col == self.bestAction[col1]:
+                    count = count + 1
+        
+            
+            sum1.append(count)
+        
+        print take, sum1
     
     #Calculate Upper Bound
     def upperBound(self, numPlays):
@@ -159,7 +173,7 @@ class CustomUCB(object):
         f.close()
     
     
-    def CustomUCB(self, users, numActions, readfile):
+    def CustomUCB(self, users, numActions, readfile, writefile):
 
         # Set the environment
 
@@ -253,7 +267,7 @@ class CustomUCB(object):
             if self.t== self.users*self.numActions:
                 self.write_file(self.t,self.estR,'_R_')
 
-            if self.t % 1000 == 0:
+            if self.t % 5000 == 0:
                 print "At time: " + str(self.t), ", action: " +str(self.action), ", best: " + str(self.bestAction[user]) , ", regret:", str(regret)
 
             if self.t >= self.numRounds:
@@ -267,7 +281,7 @@ class CustomUCB(object):
         for user in range(0,self.users):
             self.bestSet[user] = max(range(0,self.numActions), key=lambda i: self.numPlays[user][i])
 
-        f = open('NewExpt/expt12/testRegretCustomUCB0RR1.txt', 'a')
+        f = open(writefile + 'testRegretCustomUCB0RR1.txt', 'a')
         for r in range(len(self.actionRegret)):
             f.write(str(self.actionRegret[r]) + "\n")
         f.close()
@@ -279,19 +293,19 @@ if __name__ == "__main__":
 
     wrong = 0
     users = 1024
-    actions = 16
-    readfile = "env/env1/AP18.txt"
-
+    actions = 64
+    readfile = "env/env1/AP23.txt"
+    writefile = "NewExpt/expt16/"
     
     for turn in range(0,1):
         obj = CustomUCB()
         random.seed(turn + actions)
-        cumulativeReward, bestActionCumulativeReward, regret, arm, timestep, bestSet = obj.CustomUCB(users,actions,readfile)
+        cumulativeReward, bestActionCumulativeReward, regret, arm, timestep, bestSet = obj.CustomUCB(users,actions,readfile,writefile)
         if obj.check(bestSet) == False:
             # print bestSet
             wrong = wrong + 1
         print "turn: " + str(turn + 1) + "\t wrong: " + str(wrong) + "\t arms: " + str(actions) + "\t barm: " + str(arm) + "\t Reward: " + str(cumulativeReward) + "\t bestCumReward: " + str(bestActionCumulativeReward) + "\t regret: " + str(regret)
-        f = open('NewExpt/expt12/testCustomUCB0RR1.txt', 'a')
+        f = open(writefile + 'testCustomUCB0RR1.txt', 'a')
         f.writelines("arms: %d \t bArms: %d \t timestep: %d\t regret: %d \t cumulativeReward: %.2f \t bestCumulativeReward: %.2f \n" % (actions, arm, timestep, regret, cumulativeReward, bestActionCumulativeReward))
         f.close()
 

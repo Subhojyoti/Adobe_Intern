@@ -161,7 +161,7 @@ class CustomMOSS(object):
         f.close()
     
     
-    def CustomMOSS(self, users, numActions, readfile):
+    def CustomMOSS(self, users, numActions, readfile, writefile):
 
         # Set the environment
 
@@ -252,11 +252,12 @@ class CustomMOSS(object):
             self.t = self.t + 1
 
             # print t
+            '''
             if self.t== self.users*self.numActions:
                 self.write_file(self.t,self.estR,'_R_')
-
-            if self.t % 1000 == 0:
-                print "At time: " + str(self.t), ", action: " +str(self.action), ", regret:", str(regret)
+            '''
+            if self.t % 5000 == 0:
+                print "At time: " + str(self.t), ", action: " +str(self.action), ", best: " +str(self.bestAction[user]) ,", regret:", str(regret)
 
             if self.t >= self.numRounds:
                 break
@@ -269,7 +270,7 @@ class CustomMOSS(object):
         for user in range(0,self.users):
             self.bestSet[user] = max(range(0,self.numActions), key=lambda i: self.numPlays[user][i])
 
-        f = open('NewExpt/expt12/testRegretCustomMOSS0RR1.txt', 'a')
+        f = open(writefile+'testRegretCustomMOSS0RR1.txt', 'a')
         for r in range(len(self.actionRegret)):
             f.write(str(self.actionRegret[r]) + "\n")
         f.close()
@@ -281,19 +282,20 @@ if __name__ == "__main__":
 
     wrong = 0
     users = 1024
-    actions = 16
-    readfile = "env/env1/AP18.txt"
-
+    actions = 64
+    readfile = "env/env1/AP23.txt"
+    writefile = "NewExpt/expt16/"
+    
     
     for turn in range(0,1):
         obj = CustomMOSS()
         random.seed(turn + actions)
-        cumulativeReward, bestActionCumulativeReward, regret, arm, timestep, bestSet = obj.CustomMOSS(users,actions,readfile)
+        cumulativeReward, bestActionCumulativeReward, regret, arm, timestep, bestSet = obj.CustomMOSS(users,actions,readfile,writefile)
         if obj.check(bestSet) == False:
             # print bestSet
             wrong = wrong + 1
         print "turn: " + str(turn + 1) + "\t wrong: " + str(wrong) + "\t arms: " + str(actions) + "\t barm: " + str(arm) + "\t Reward: " + str(cumulativeReward) + "\t bestCumReward: " + str(bestActionCumulativeReward) + "\t regret: " + str(regret)
-        f = open('NewExpt/expt12/testCustomMOSS0RR1.txt', 'a')
+        f = open(writefile+'testCustomMOSS0RR1.txt', 'a')
         f.writelines("arms: %d \t bArms: %d \t timestep: %d\t regret: %d \t cumulativeReward: %.2f \t bestCumulativeReward: %.2f \n" % (actions, arm, timestep, regret, cumulativeReward, bestActionCumulativeReward))
         f.close()
 

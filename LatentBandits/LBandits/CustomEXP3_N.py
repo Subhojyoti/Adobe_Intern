@@ -8,6 +8,7 @@ import math
 import random
 import numpy
 import fileinput
+import sets
 
 
 class CustomEXP3(object):
@@ -76,9 +77,22 @@ class CustomEXP3(object):
         # print self.means
         # print self.variance
         print self.bestAction
+        
+        take =sets.Set(self.bestAction)
+        sum1 = []
+        for col in take:
+            count = 0
+            for col1 in range(0,len(self.bestAction)):
+                if col == self.bestAction[col1]:
+                    count = count + 1
+        
+            
+            sum1.append(count)
+        
+        print take, sum1
             
     
-    def CustomEXP3(self, users, numActions, readfile):
+    def CustomEXP3(self, users, numActions, readfile, writefile):
 
         # Set the environment
         self.MAX = 99999.0
@@ -196,7 +210,7 @@ class CustomEXP3(object):
         for user in range(0,self.users):
             self.bestSet[user] = max(range(0,self.numActions), key=lambda i: self.numPlays[user][i])
 
-        f = open('NewExpt/expt12/testRegretCustomEXP30RR1.txt', 'a')
+        f = open(writefile + 'testRegretCustomEXP30RR1.txt', 'a')
         for r in range(len(self.actionRegret)):
             f.write(str(self.actionRegret[r]) + "\n")
         f.close()
@@ -208,19 +222,20 @@ if __name__ == "__main__":
 
     wrong = 0
     users = 1024
-    actions = 16
-    readfile = "env/env1/AP18.txt"
-
+    actions = 64
+    readfile = "env/env1/AP23.txt"
+    writefile = "NewExpt/expt16/"
+    
     # turn = 0
     for turn in range(0,1):
         obj = CustomEXP3()
         random.seed(turn + actions)
-        cumulativeReward, bestActionCumulativeReward, regret, arm, timestep, bestSet = obj.CustomEXP3(users,actions,readfile)
+        cumulativeReward, bestActionCumulativeReward, regret, arm, timestep, bestSet = obj.CustomEXP3(users,actions,readfile,writefile)
         if obj.check(bestSet) == False:
             # print bestSet
             wrong = wrong + 1
         print "turn: " + str(turn + 1) + "\t wrong: " + str(wrong) + "\t arms: " + str(actions) + "\t barm: " + str(arm) + "\t Reward: " + str(cumulativeReward) + "\t bestCumReward: " + str(bestActionCumulativeReward) + "\t regret: " + str(regret)
-        f = open('NewExpt/expt12/testCustomEXP30RR1.txt', 'a')
+        f = open(writefile + 'testCustomEXP30RR1.txt', 'a')
         f.writelines("arms: %d \t bArms: %d \t timestep: %d\t regret: %d \t cumulativeReward: %.2f \t bestCumulativeReward: %.2f \n" % (actions, arm, timestep, regret, cumulativeReward, bestActionCumulativeReward))
         f.close()
 

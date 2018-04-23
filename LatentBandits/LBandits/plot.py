@@ -23,7 +23,7 @@ class plot4(object):
         Constructor
         '''
 
-    out_file='NewExpt/expt11/'
+    #self.outfile='NewExpt1/expt2/'
 
     def column(self,A, j):
         return [A[i][j] for i in range(len(A))]
@@ -84,23 +84,26 @@ class plot4(object):
                 print  str(filename)+ " Error:" +str(e) +": Count: " +str(count)+ " t: "+str(t)
         #print self.actionRegret
         print  str(filename)+" done"
-
-        f = open(str(self.out_file+'plotFinal')+str(name)+".txt", 'w')
+        
+        f = open(str(self.outfile+'plotFinal')+str(name)+".txt", 'w')
         for r in range(len(actionRegret)):
             f.write(str(r+1)+"\t"+str((actionRegret[r]/self.limit))+"\n")
         f.close()
         
-        f1 = open(str(self.out_file)+str("comp_subsampled_"+name)+".txt", 'w')
+        f1 = open(str(self.outfile)+str("comp_subsampled_"+name)+".txt", 'w')
         
-        divid = int(timestep/10)
+        self.subsampled = []
+        divid = int(timestep/20)
         for r in range(len(actionRegret)):
             if (r+1)%divid == 0:
+                self.subsampled.append(actionRegret[r]/self.limit)
                 f1.write(str(r+1)+"\t"+str((actionRegret[r]/self.limit))+"\n")
         f1.close()
+        
 
     def fileRead(self,id,name,filename):
     #def regretWeightsGraph(filename,filename1,filename2):
-        with open(str(self.out_file+'plotFinal')+str(name)+".txt", 'r') as infile:
+        with open(str(self.outfile+'plotFinal')+str(name)+".txt", 'r') as infile:
             lines = infile.readlines()
             #print lines
 
@@ -112,7 +115,25 @@ class plot4(object):
 
         scale = [eval(line.split("\t")[0]) for line in lines]
 
-        print  str(self.out_file)+str(name)+".txt"+" done"
+        print  str(self.outfile)+str(name)+".txt"+" done"
+
+        return regret,scale
+    
+    def fileRead1(self,id,name,filename):
+    #def regretWeightsGraph(filename,filename1,filename2):
+        with open(str(self.outfile+'comp_subsampled_')+str(name)+".txt", 'r') as infile:
+            lines = infile.readlines()
+            #print lines
+
+        regret =  [eval(line.split("\t")[1]) for line in lines]
+        #print "lines: " + str(lines)
+        #data = transpose(lines)
+
+
+
+        scale = [eval(line.split("\t")[0]) for line in lines]
+
+        print  str(self.outfile)+str(name)+".txt"+" done"
 
         return regret,scale
 
@@ -160,16 +181,21 @@ class plot4(object):
     #def regretWeightsGraph(filename,filename1,filename2,filename3):
     #def regretWeightsGraph(self,filename,filename1,filename2,filename3,filename4):
     #def regretWeightsGraph(self,filename,filename1,filename2,filename3,filename4,filename5):
-    def regretWeightsGraph(self,filename):
+    def regretWeightsGraph(self, limit, timestep, outfile, filename, takeName, algoname):
 
-        self.limit=1
-        self.timestep=3000000
+        self.limit = limit
+        self.timestep = timestep
         #self.timestep=300000
 
         #print self.actionRegret1
         #print self.actionRegret
-
-        takeName="CustomEXP30RR1"
+        
+        
+        self.outfile = outfile
+        
+        #takeName = "CustomEXP0RR2"
+        self.takeName = takeName
+        self.filename = filename
 
         self.actionRegret=[0.0 for i in range(self.timestep)]
         '''
@@ -180,12 +206,9 @@ class plot4(object):
         self.actionRegret5=[0.0 for i in range(self.timestep)]
         '''
 
-
-
         jobs=[]
-
-
-        process=multiprocessing.Process(target=self.fileReadWrite,args=(0,takeName,filename, self.actionRegret,self.timestep))
+        
+        process=multiprocessing.Process(target=self.fileReadWrite,args=(0,self.takeName,self.filename, self.actionRegret,self.timestep))
         jobs.append(process)
         '''
         process1=multiprocessing.Process(target=self.fileReadWrite,args=(1,'clUCB_3',filename1, self.actionRegret1))
@@ -213,31 +236,26 @@ class plot4(object):
 
 
 
-        self.actionRegret,scale=self.fileRead(0,takeName,self.actionRegret)
-        '''
-        self.actionRegret1,scale=self.fileRead(1,'clUCB_3',self.actionRegret1)
-        self.actionRegret2,scale=self.fileRead(2,'clUCB_5',self.actionRegret2)
-        self.actionRegret3,scale=self.fileRead(3,'clUCB_10',self.actionRegret3)
-        self.actionRegret4,scale=self.fileRead(4,'clUCB_15',self.actionRegret4)
-        self.actionRegret5,scale=self.fileRead(5,'clUCB_25',self.actionRegret5)
-        '''
+        plotRegret,scale=self.fileRead(0,self.takeName,self.actionRegret)
+        plotRegret1,scale1=self.fileRead1(0,self.takeName,self.actionRegret)
+        
+        
+        
         #print self.actionRegret,self.actionRegret1,self.actionRegret2,self.actionRegret3
 
 
         #print self.actionRegret
         #plot1,=plt.plot(episode,actionRegret,'r--',color='red',label='ClusUCB');
         #plot2,=plt.plot(episode,actionRegret1,color='green',label='MOSS');
-        ax1 = plt.subplot(111)
+        ax1 = plt.subplot(211)
         plt.ylabel('Cumulative Regret',fontsize=18)
         plt.xlabel('timesteps',fontsize=18)
-        ax1.plot(scale, self.actionRegret,'r+',label="Algorithm")
-        '''
-        ax1.plot(scale, self.actionRegret1,'r.',label="ClusUCB(Clustering,p=3)")
-        ax1.plot(scale, self.actionRegret2,'b--',label="ClusUCB(Clustering,p=5)")
-        ax1.plot(scale, self.actionRegret3,'k:',label="ClusUCB(Clustering,p=10)")
-        ax1.plot(scale, self.actionRegret4,'y-',label="ClusUCB(Clustering,p=15)")
-        ax1.plot(scale, self.actionRegret5,'m',label="ClusUCB(Clustering,p=25)")
-        '''
+        ax1.plot(scale, plotRegret,'r+',label=algoname)
+        
+        ax2 = plt.subplot(212)
+        plt.ylabel('Cumulative Regret',fontsize=18)
+        plt.xlabel('timesteps',fontsize=18)
+        ax2.plot(scale1, plotRegret1,'r+',label=algoname)
         
 
         plt.legend(bbox_to_anchor=(0., 1.02, 1., .102), loc=2,
@@ -251,5 +269,13 @@ class plot4(object):
 
 if __name__ == "__main__":
 
-    obj=plot4()
-    obj.regretWeightsGraph('NewExpt/expt11/testRegretCustomEXP30RR1.txt')
+    obj = plot4()
+    
+    limit = 1
+    timestep = 4000000
+    outfile = "NewExpt1/expt6/"
+    takeName = "NewMetaEXP0RR1"
+    filename = str(outfile)+"testRegret"+str(takeName)+".txt"
+    algoname = takeName
+    
+    obj.regretWeightsGraph(limit, timestep, outfile, filename, takeName, algoname)

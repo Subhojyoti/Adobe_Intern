@@ -4,11 +4,6 @@ Created on Mar 21, 2018
 @author: subhomuk
 '''
 
-'''
-Created on Mar 20, 2018
-
-@author: subhomuk
-'''
 
 import math
 import random
@@ -164,7 +159,7 @@ class GLBUCB(object):
             #if self.B[col] != -1 and self.expl[user][col] < 1 and col in self.bestCol[user]:
             if self.B[col] != -1 and col in self.bestCol[user] and len(self.bestCol[user]) > 0:
             
-                if self.numPlays[user][col] >= self.n1:
+                if self.numPlaysPhase[user][col] >= self.n0:
                     self.bestCol[user].remove(col)
                 return col
                     
@@ -317,8 +312,9 @@ class GLBUCB(object):
         theReward = self.rewards(self.user_nature, self.action)
         self.arm_reward[self.user_nature][self.action] = self.arm_reward[self.user_nature][self.action] + theReward
         self.numPlays[self.user_nature][self.action] += 1
+        self.numPlaysPhase[self.user_nature][self.action] += 1
         self.payoffSums[self.user_nature][self.action] = self.payoffSums[self.user_nature][self.action] + theReward
-            
+         
         self.estR[self.user_nature][self.action] = self.payoffSums[self.user_nature][self.action]/self.numPlays[self.user_nature][self.action]
         self.ucbs[self.user_nature][self.action] = self.estR[self.user_nature][self.action] + self.upperBound(self.user_nature, self.action)
                         
@@ -346,6 +342,7 @@ class GLBUCB(object):
 
         self.payoffSums = [[0.0 for i in range(0, self.numActions)] for j in range (0,self.users)]
         self.numPlays = [[0.0 for i in range(0, self.numActions)] for j in range (0,self.users)]
+        self.numPlaysPhase = [[0.0 for i in range(0, self.numActions)] for j in range (0,self.users)]
         #self.ucbs = [[self.MAX for i in range(0, self.numActions)] for j in range (0,self.users)]
 
         self.estR = [[-0.0 for i in range(0, self.numActions)] for j in range (0,self.users)]
@@ -455,6 +452,7 @@ class GLBUCB(object):
                     if self.remArms() > self.rank:
                         self.colElim()
                         self.find_best_cols2()
+                    self.numPlaysPhase = [[0.0 for i in range(0, self.numActions)] for j in range (0,self.users)]
                     #self.colElim2()
                     #self.action = self.choose_Col_RR1(self.user_nature)
                     #self.select_Col()
